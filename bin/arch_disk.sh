@@ -41,7 +41,7 @@ echo "This is a ${SYS} system."
 if [ $SYS == "BIOS" ]; then
         parted --script /dev/sda \
             mklabel gpt \
-            mkpart EF02 1MiB 512MiB \
+            mkpart primary 1MiB 512MiB \
             mkpart primary 512MiB 100% \
             set 1 boot on
 else
