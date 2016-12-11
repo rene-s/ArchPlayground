@@ -42,8 +42,7 @@ if [ $SYS == "BIOS" ]; then
         parted --script /dev/sda \
             mklabel gpt \
             mkpart primary 1MiB 512MiB \
-            mkpart primary 512MiB 100% \
-            set 1 boot on
+            mkpart primary 512MiB 100%
 else
         # UEFI boot should have boot flag
         parted --script /dev/sda \
