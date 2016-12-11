@@ -43,7 +43,7 @@ if [ $SYS == "BIOS" ]; then
             mklabel gpt \
             mkpart EF02 1MiB 512MiB \
             mkpart primary 512MiB 100% \
-            set 1 bios_grub on
+            set 1 boot on
 else
         # UEFI boot should have boot flag
         parted --script /dev/sda \
