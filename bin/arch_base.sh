@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # vars
-DISK=/dev/sda
-DISK_BOOT=${DISK}1
-DISK_SYSTEM=${DISK}2
+DISK="/dev/sda"
+DISK_BOOT="${DISK}1"
+DISK_SYSTEM="${DISK}2"
 
 echo "DO NOT USE, THIS IS WORK IN PROGRESS AND WILL DESTROY ALL YOUR DATA"
 
