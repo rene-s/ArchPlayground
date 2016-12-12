@@ -17,6 +17,7 @@ echo "Please wait..."
 loadkeys de-latin1-nodeadkeys
 
 # Check if there are partitions set up. If so, bail out and prompt the user to wipe them first.
+echo "Checking for existing partitions..."
 parted --script ${DISK} print
 
 if [ $? -eq 0 ]; then
@@ -42,7 +43,7 @@ echo "This is a ${SYS} system."
 ## Prepare disks
 
 # create 512 MiB boot partition, rest is system
-
+echo "Creating partitions..."
 if [ $SYS == "BIOS" ]; then
         parted --script ${DISK} \
             mkpart primary 1MiB 512MiB \
@@ -58,42 +59,48 @@ else
 fi
 
 # Create the LUKS encrypted container at the "system" partition.
+echo "Create the LUKS encrypted container on ${DISK_SYSTEM} partition."
 keyfile=/tmp/insecure-password.key
 echo "insecure-password" > $keyfile
 cryptsetup luksFormat ${DISK_SYSTEM}  $keyfile
 
 # Open the container. After that the decrypted container will be available at /dev/mapper/lvmdisk.
+echo "Open the container. After that the decrypted container will be available at /dev/mapper/lvmdisk."
 cryptsetup open --type luks ${DISK_SYSTEM}  lvmdisk --key-file $keyfile
 
 ## Prepare LVs
 
 # Create a physical volume on top of the opened LUKS container:
+echo "Create a physical volume on top of the opened LUKS container:"
 pvcreate /dev/mapper/lvmdisk
 
 # Create the volume group named ${VG}, adding the previously created physical volume to it:
+echo "Create the volume group named ${VG}, adding the previously created physical volume to it..."
 VG="SDOVG"
 vgcreate ${VG} /dev/mapper/lvmdisk
 
 # Create all your logical volumes on the volume group:
+echo "Create all your logical volumes on the volume group..."
 lvcreate -L 500MiB ${VG} -n swaplv
 lvcreate -l 25%VG ${VG} -n rootlv
 lvcreate -l 100%FREE ${VG} -n homelv
 
 # Format your filesystems on each logical volume:
+echo "Format your filesystems on each logical volume..."
 mkfs.ext4 /dev/mapper/${VG}-rootlv
 mkfs.ext4 /dev/mapper/${VG}-homelv
 mkswap /dev/mapper/${VG}-swaplv
 
 # Mount your filesystems:
+echo "Mount your filesystems..."
 mount /dev/mapper/${VG}-rootlv /mnt
 mkdir /mnt/home
 mount /dev/mapper/${VG}-homelv /mnt/home
 swapon /dev/mapper/${VG}-swaplv
 
 ## Prepare boot partition
-
+echo "Creating file systems and mounting..."
 mkdir /mnt/boot
-
 if [ $SYS == "BIOS" ]; then
         mkfs.ext2 ${DISK_BOOT} 
         mount ${DISK_BOOT}  /mnt/boot
