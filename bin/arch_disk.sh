@@ -47,17 +47,16 @@ echo "Creating partitions..."
 if [ $SYS == "BIOS" ]; then
         parted --script ${DISK} \
             mklabel msdos \
-            mkpart primary 1MiB 512MiB \
+            mkpart primary ext2 1MiB 512MiB \
             set 1 boot on \
-            mkpart primary 512MiB 100%
+            mkpart primary ext4 512MiB 100%
 else
         # UEFI boot should have boot flag
         parted --script ${DISK} \
             mklabel gpt \
-            mkpart EF00 1MiB 512MiB \
-            mkpart primary 512MiB 100% \
-            set 1 boot on
-
+            mkpart EF00 ext2 1MiB 512MiB \
+            set 1 boot on \
+            mkpart primary ext4 512MiB 100% \
 fi
 
 # Create the LUKS encrypted container at the "system" partition.
