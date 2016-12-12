@@ -56,7 +56,7 @@ else
             mklabel gpt \
             mkpart EF00 ext2 1MiB 512MiB \
             set 1 boot on \
-            mkpart primary ext4 512MiB 100% \
+            mkpart primary ext4 512MiB 100%
 fi
 
 # Create the LUKS encrypted container at the "system" partition.
