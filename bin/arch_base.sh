@@ -68,7 +68,8 @@ echo "127.0.1.1 ${HOSTNAME}.localdomain ${HOSTNAME}" >> /etc/hosts
 echo "Install boot loader..."
 mkdir /boot/syslinux
 extlinux --install /boot/syslinux
-cat /usr/lib/syslinux/bios/mbr.bin > ${DISK}
+cat /usr/lib/syslinux/bios/mbr.bin > "${DISK}"
+cp /usr/lib/syslinux/bios/libcom32.c32 /usr/lib/syslinux/bios/menu.c32 /usr/lib/syslinux/bios/libutil.c32 /boot/syslinux/
 #grub-install --target=i386-pc ${DISK}
 #grub-mkconfig -o /boot/grub/grub.cfg
 
