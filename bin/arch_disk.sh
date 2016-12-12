@@ -46,6 +46,7 @@ echo "This is a ${SYS} system."
 echo "Creating partitions..."
 if [ $SYS == "BIOS" ]; then
         parted --script ${DISK} \
+            mklabel msdos \
             mkpart primary 1MiB 512MiB \
             mkpart primary 512MiB 100%
 else
