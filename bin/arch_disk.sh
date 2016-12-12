@@ -48,6 +48,7 @@ if [ $SYS == "BIOS" ]; then
         parted --script ${DISK} \
             mklabel msdos \
             mkpart primary 1MiB 512MiB \
+            set 1 boot on \
             mkpart primary 512MiB 100%
 else
         # UEFI boot should have boot flag
