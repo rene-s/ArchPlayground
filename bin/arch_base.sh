@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# vars
+DISK=/dev/sda
+DISK_BOOT=${DISK}1
+DISK_SYSTEM=${DISK}2
+
 echo "DO NOT USE, THIS IS WORK IN PROGRESS AND WILL DESTROY ALL YOUR DATA"
 
 echo ""
@@ -52,8 +57,11 @@ echo "::1 localhost.localdomain localhost" >> /etc/hosts
 echo "127.0.1.1 ${HOSTNAME}.localdomain ${HOSTNAME}" >> /etc/hosts
 
 # Install boot loader
-grub-install --target=i386-pc /dev/sda
-grub-mkconfig -o /boot/grub/grub.cfg
+mkdir /boot/syslinux
+extlinux --install /boot/syslinux
+cat /usr/lib/syslinux/bios/mbr.bin > ${DISK}
+#grub-install --target=i386-pc ${DISK}
+#grub-mkconfig -o /boot/grub/grub.cfg
 
 # Finish
 echo "Done."

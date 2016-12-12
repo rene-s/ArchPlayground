@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# vars
+DISK=/dev/sda
+DISK_BOOT=${DISK}1
+DISK_SYSTEM=${DISK}2
+
 echo "DO NOT USE, THIS IS WORK IN PROGRESS AND WILL DESTROY ALL YOUR DATA"
 
 echo "This script creates a simple 'LVM on LUKS' disk setup with a"
@@ -12,11 +17,11 @@ echo "Please wait..."
 loadkeys de-latin1-nodeadkeys
 
 # Check if there are partitions set up. If so, bail out and prompt the user to wipe them first.
-parted --script /dev/sda print
+parted --script ${DISK} print
 
 if [ $? -eq 0 ]; then
-        echo "ERROR: Existing partitions on /dev/sda found."
-        echo "Wipe them first with 'sgdisk -z /dev/sda && reboot' and try again."
+        echo "ERROR: Existing partitions on ${DISK} found."
+        echo "Wipe them first with 'sgdisk -z ${DISK} && reboot' and try again."
         exit 1
 fi
 
@@ -39,13 +44,12 @@ echo "This is a ${SYS} system."
 # create 512 MiB boot partition, rest is system
 
 if [ $SYS == "BIOS" ]; then
-        parted --script /dev/sda \
-            mklabel gpt \
+        parted --script ${DISK} \
             mkpart primary 1MiB 512MiB \
             mkpart primary 512MiB 100%
 else
         # UEFI boot should have boot flag
-        parted --script /dev/sda \
+        parted --script ${DISK} \
             mklabel gpt \
             mkpart EF00 1MiB 512MiB \
             mkpart primary 512MiB 100% \
@@ -56,10 +60,10 @@ fi
 # Create the LUKS encrypted container at the "system" partition.
 keyfile=/tmp/insecure-password.key
 echo "insecure-password" > $keyfile
-cryptsetup luksFormat /dev/sda2 $keyfile
+cryptsetup luksFormat ${DISK_SYSTEM}  $keyfile
 
 # Open the container. After that the decrypted container will be available at /dev/mapper/lvmdisk.
-cryptsetup open --type luks /dev/sda2 lvmdisk --key-file $keyfile
+cryptsetup open --type luks ${DISK_SYSTEM}  lvmdisk --key-file $keyfile
 
 ## Prepare LVs
 
@@ -91,10 +95,10 @@ swapon /dev/mapper/${VG}-swaplv
 mkdir /mnt/boot
 
 if [ $SYS == "BIOS" ]; then
-        mkfs.ext2 /dev/sda1
-        mount /dev/sda1 /mnt/boot
+        mkfs.ext2 ${DISK_BOOT} 
+        mount ${DISK_BOOT}  /mnt/boot
 else
-        mkfs.fat -F 32 -n EFIBOOT /dev/sda1
+        mkfs.fat -F 32 -n EFIBOOT ${DISK_BOOT} 
         mount -L EFIBOOT /mnt/boot
 fi
 
