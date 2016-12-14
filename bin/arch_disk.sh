@@ -110,17 +110,6 @@ else
         mount -L EFIBOOT /mnt/boot
 fi
 
-# Setup /etc/mkinitcpio.conf; add "encrypt" and "lvm" hooks
-sed -i -- "s/^HOOKS=/#HOOKS=/g" /mnt/etc/mkinitcpio.conf
-echo 'HOOKS="base udev autodetect modconf block encrypt lvm filesystems keyboard fsck"' >> /mnt/etc/mkinitcpio.conf
-SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
-
-
-#If you use encryption LUKS change the APPEND line to use your encrypted volume:
-echo "#APPEND root=/dev/mapper/SDOVG cryptdevice=UUID=${SYSTEM_UUID}:lvm rw" >> /mnt/boot/syslinux/syslinux.cfg
-
-
-
 echo "Done."
 
 
