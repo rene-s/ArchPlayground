@@ -113,5 +113,5 @@ fi
 echo "Done."
 
 
-# wget -q -O - https://raw.githubusercontent.com/rene-s/ArchPlayground/master/bin/arch_disk.sh | bash
+# wget -q -O - "https://raw.githubusercontent.com/rene-s/ArchPlayground/master/bin/arch_disk.sh?1" | bash
 

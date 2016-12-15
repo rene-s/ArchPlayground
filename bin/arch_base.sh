@@ -78,8 +78,10 @@ sed -i -- "s/^HOOKS=/#HOOKS=/g" /etc/mkinitcpio.conf
 echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"' >> /etc/mkinitcpio.conf
 SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
 
+echo "Found UUID ${SYSTEM_UUID}!"
+
 #If you use encryption LUKS change the APPEND line to use your encrypted volume:
-echo "#APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID=${SYSTEM_UUID}:lvm rw" >> /boot/syslinux/syslinux.cfg
+echo "#APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID="${SYSTEM_UUID}":lvm rw" >> /boot/syslinux/syslinux.cfg
 mkinitcpio -p linux
 
 # Finish
