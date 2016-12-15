@@ -75,11 +75,12 @@ cp /usr/lib/syslinux/bios/libcom32.c32 /usr/lib/syslinux/bios/menu.c32 /usr/lib/
 
 # Setup /etc/mkinitcpio.conf; add "encrypt" and "lvm" hooks
 sed -i -- "s/^HOOKS=/#HOOKS=/g" /etc/mkinitcpio.conf
-echo 'HOOKS="base udev autodetect modconf block encrypt lvm filesystems keyboard fsck"' >> /etc/mkinitcpio.conf
+echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"' >> /etc/mkinitcpio.conf
 SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
 
 #If you use encryption LUKS change the APPEND line to use your encrypted volume:
-echo "#APPEND root=/dev/mapper/SDOVG cryptdevice=UUID=${SYSTEM_UUID}:lvm rw" >> /boot/syslinux/syslinux.cfg
+echo "#APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID=${SYSTEM_UUID}:lvm rw" >> /boot/syslinux/syslinux.cfg
+mkinitcpio -p linux
 
 # Finish
 echo "Done."
