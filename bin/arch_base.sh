@@ -66,22 +66,26 @@ echo "127.0.1.1 ${HOSTNAME}.localdomain ${HOSTNAME}" >> /etc/hosts
 
 # Install boot loader
 echo "Install boot loader..."
-mkdir /boot/syslinux
-extlinux --install /boot/syslinux
-cat /usr/lib/syslinux/bios/mbr.bin > "${DISK}"
-cp /usr/lib/syslinux/bios/libcom32.c32 /usr/lib/syslinux/bios/menu.c32 /usr/lib/syslinux/bios/libutil.c32 /boot/syslinux/
-#grub-install --target=i386-pc ${DISK}
-#grub-mkconfig -o /boot/grub/grub.cfg
+#mkdir /boot/syslinux
+#extlinux --install /boot/syslinux
+#cat /usr/lib/syslinux/bios/mbr.bin > "${DISK}"
+#cp /usr/lib/syslinux/bios/libcom32.c32 /usr/lib/syslinux/bios/menu.c32 /usr/lib/syslinux/bios/libutil.c32 /boot/syslinux/
+
+pacstrap / grub os-prober
+
+if [ $SYS == "UEFI" ]; then
+    pacstrap / efibootmgr dosfstools
+fi
 
 # Setup /etc/mkinitcpio.conf; add "encrypt" and "lvm" hooks
 sed -i -- "s/^HOOKS=/#HOOKS=/g" /etc/mkinitcpio.conf
 echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"' >> /etc/mkinitcpio.conf
-SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
-
-echo "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
 
 #If you use encryption LUKS change the APPEND line to use your encrypted volume:
-echo "#APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID="${SYSTEM_UUID}":lvm rw" >> /boot/syslinux/syslinux.cfg
+#SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
+#echo "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
+#echo "#APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID="${SYSTEM_UUID}":lvm rw" >> /boot/syslinux/syslinux.cfg
+
 mkinitcpio -p linux
 
 # Finish
