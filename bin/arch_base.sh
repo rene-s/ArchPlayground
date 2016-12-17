@@ -86,7 +86,15 @@ echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboar
 #If you use encryption LUKS change the APPEND line to use your encrypted volume:
 SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
 echo "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
-echo "#APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID="${SYSTEM_UUID}":lvm rw" >> /mnt/boot/syslinux/syslinux.cfg
+
+CFG_SYSLINUX=/mnt/boot/syslinux/syslinux.cfg
+
+echo "" >> $CFG_SYSLINUX
+echo "LABEL myArch" >> $CFG_SYSLINUX
+echo "    MENU LABEL myArch" >> $CFG_SYSLINUX
+echo "    LINUX ../vmlinuz-linux" >> $CFG_SYSLINUX
+echo "    APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID="${SYSTEM_UUID}":lvm rw" >> $CFG_SYSLINUX
+echo "    INITRD ../initramfs-linux.img" >> $CFG_SYSLINUX
 
 arch_chroot "mkinitcpio -p linux"
 
