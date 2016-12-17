@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
+. ./sharedfuncs.sh
+
 # vars
+MOUNTPOINT="/mnt"
 DISK="/dev/sda"
 DISK_BOOT="${DISK}1"
 DISK_SYSTEM="${DISK}2"
