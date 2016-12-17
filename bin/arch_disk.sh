@@ -64,7 +64,7 @@ fi
 
 # Create the LUKS encrypted container at the "system" partition.
 echo "Create the LUKS encrypted container on ${DISK_SYSTEM} partition."
-cryptsetup luksFormat --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 5000 --use-random --verify-passphrase luksFormat ${DISK_SYSTEM}
+cryptsetup --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 5000 --use-random --verify-passphrase luksFormat ${DISK_SYSTEM}
 
 # Open the container. After that the decrypted container will be available at /dev/mapper/lvmdisk.
 echo "Open the container. After that the decrypted container will be available at /dev/mapper/lvmdisk."
