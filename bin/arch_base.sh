@@ -40,7 +40,7 @@ arch-chroot /mnt
 
 # Install Intel microcode
 echo "Install Intel microcode..."
-pacman -S --noconfirm intel-ucode syslinux # grub
+pacman -S --noconfirm intel-ucode syslinux grub
 
 # Update timezone and system time
 echo "Setting time and time zones..."
