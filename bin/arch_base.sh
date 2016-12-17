@@ -68,7 +68,7 @@ echo "127.0.1.1 ${HOSTNAME}.localdomain ${HOSTNAME}" >>/mnt/etc/hosts
 
 # Install boot loader
 echo "Install boot loader..."
-mkdir /mnt/boot/syslinux
+mkdir -p /mnt/boot/syslinux
 arch_chroot "extlinux --install /mnt/boot/syslinux"
 cat /mnt/usr/lib/syslinux/bios/mbr.bin > "${DISK}"
 cp /mnt/usr/lib/syslinux/bios/libcom32.c32 /mnt/usr/lib/syslinux/bios/menu.c32 /mnt/usr/lib/syslinux/bios/libutil.c32 /mnt/boot/syslinux/
