@@ -12,15 +12,6 @@ DISK="/dev/sda"
 DISK_BOOT="${DISK}1"
 DISK_SYSTEM="${DISK}2"
 
-print_line "DO NOT USE, THIS IS WORK IN PROGRESS AND WILL DESTROY ALL YOUR DATA"
-
-print_line "This script creates a simple 'LVM on LUKS' disk setup with a"
-print_line "- /boot partition (ext2 on BIOS, fat32 on UEFI), a"
-print_line "- /root volume spanning 25% of the available disk space, and a"
-print_line "- /home volume spanning the rest of the disk."
-print_line ""
-print_line "Please wait..."
-
 loadkeys de-latin1-nodeadkeys
 
 # Check if there are partitions set up. If so, bail out and prompt the user to wipe them first.
