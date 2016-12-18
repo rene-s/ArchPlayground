@@ -24,13 +24,13 @@ fi
 
 print_line "This is a ${SYS} system."
 
+# Bootstrap Arch
+print_line "Bootstrapping"
+pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp
+
 # Update time
 print_line "Update time";
 timedatectl set-ntp true
-
-# Bootstrap Arch
-print_line "Bootstrapping"
-pacstrap /mnt base
 
 # Generate fstab
 print_line "Generating fstab"
