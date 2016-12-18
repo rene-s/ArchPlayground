@@ -110,6 +110,7 @@ wget $URL_ZSHRC -O /mnt/root/.zshrc
 # Set up /etc/issue
 arch_chroot "pacman -S --noconfirm zsh"
 arch_chroot "chsh -s /usr/bin/zsh root"
+
 echo "Schmidt DevOps \r (\l) -- setup run on: "`date` > /mnt/etc/issue
 
 # Setup network
