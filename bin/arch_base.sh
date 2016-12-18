@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+cd $DIR
+
 . ./sharedfuncs.sh
 
 # vars
@@ -87,16 +91,26 @@ echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboar
 SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
 echo "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
 
+# Create SysLinux config
 CFG_SYSLINUX=/mnt/boot/syslinux/syslinux.cfg
 
 echo "" >> $CFG_SYSLINUX
-echo "LABEL myArch" >> $CFG_SYSLINUX
+echo "LABEL SdoArch" >> $CFG_SYSLINUX
 echo "    MENU LABEL myArch" >> $CFG_SYSLINUX
 echo "    LINUX ../vmlinuz-linux" >> $CFG_SYSLINUX
 echo "    APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID="${SYSTEM_UUID}":lvm rw" >> $CFG_SYSLINUX
 echo "    INITRD ../initramfs-linux.img" >> $CFG_SYSLINUX
 
+sed -i -- "s/^DEFAULT arch/DEFAULT SdoArch/g" $CFG_SYSLINUX
+
 arch_chroot "mkinitcpio -p linux"
+
+# Set up root password
+echo "Set up root password:"
+arch_chroot "passwd"
+
+# Set up /etc/issue
+echo "Schmidt DevOps \\\r (\\\l) -- setup run on: "`date` > /mnt/etc/issue
 
 # Finish
 echo "Done."
