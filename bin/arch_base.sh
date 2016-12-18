@@ -110,11 +110,8 @@ echo "Set up root password:"
 arch_chroot "passwd"
 
 # Set up /etc/issue
-echo "Schmidt DevOps \\\r (\\\l) -- setup run on: "`date` > /mnt/etc/issue
+echo "Schmidt DevOps \r (\l) -- setup run on: "`date` > /mnt/etc/issue
 
 # Finish
 echo "Done."
-echo "Set a password with 'passwd',"
-echo "then exit chroot and reboot with 'umount -R /mnt && reboot'"
-echo "Do not forget to remove installation media!"
 
