@@ -100,11 +100,16 @@ sed -i -- "s/^DEFAULT arch/DEFAULT Schmidt_DevOps_Arch/g" $CFG_SYSLINUX
 
 arch_chroot "mkinitcpio -p linux"
 
-# Set up root password
+# Set up root user
 print_line "Set up root password:"
 arch_chroot "passwd"
 
+URL_ZSHRC="https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/cfg/_zshrc"
+wget $URL_ZSHRC -O /mnt/root/.zshrc
+
 # Set up /etc/issue
+arch_chroot "pacman -S --noconfirm zsh"
+arch_chroot "chsh -s /usr/bin/zsh root"
 echo "Schmidt DevOps \r (\l) -- setup run on: "`date` > /mnt/etc/issue
 
 # Setup network
