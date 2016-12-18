@@ -95,13 +95,13 @@ echo "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
 CFG_SYSLINUX=/mnt/boot/syslinux/syslinux.cfg
 
 echo "" >> $CFG_SYSLINUX
-echo "LABEL SdoArch" >> $CFG_SYSLINUX
-echo "    MENU LABEL myArch" >> $CFG_SYSLINUX
+echo "LABEL Schmidt_DevOps_Arch" >> $CFG_SYSLINUX
+echo "    MENU LABEL Schmidt_DevOps_Arch" >> $CFG_SYSLINUX
 echo "    LINUX ../vmlinuz-linux" >> $CFG_SYSLINUX
 echo "    APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID="${SYSTEM_UUID}":lvm rw" >> $CFG_SYSLINUX
 echo "    INITRD ../initramfs-linux.img" >> $CFG_SYSLINUX
 
-sed -i -- "s/^DEFAULT arch/DEFAULT SdoArch/g" $CFG_SYSLINUX
+sed -i -- "s/^DEFAULT arch/DEFAULT Schmidt_DevOps_Arch/g" $CFG_SYSLINUX
 
 arch_chroot "mkinitcpio -p linux"
 
