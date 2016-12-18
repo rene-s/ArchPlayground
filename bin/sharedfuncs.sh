@@ -646,3 +646,14 @@
     done
   } #}}}
 #}}}
+
+setup_network() {
+  WIRELESS_DEV=`ip link | grep wlp | awk '{print $2}'| sed 's/://' | sed '1!d'`
+  if [[ -n $WIRELESS_DEV ]]; then
+    pacstrap ${MOUNTPOINT} iw wireless_tools wpa_actiond wpa_supplicant dialog
+  fi
+  WIRED_DEV=`ip link | grep "ens\|eno\|enp" | awk '{print $2}'| sed 's/://' | sed '1!d'`
+  if [[ -n $WIRED_DEV ]]; then
+    arch_chroot "systemctl enable dhcpcd@${WIRED_DEV}.service"
+  fi
+}

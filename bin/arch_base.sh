@@ -107,6 +107,10 @@ arch_chroot "passwd"
 # Set up /etc/issue
 echo "Schmidt DevOps \r (\l) -- setup run on: "`date` > /mnt/etc/issue
 
+# Setup network
+print_line "Setup network..."
+setup_network
+
 # Finish
 print_line "Done."
 
