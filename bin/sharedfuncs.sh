@@ -647,7 +647,7 @@
   } #}}}
 #}}}
 
-setup_network() {
+configure_network() {
   WIRELESS_DEV=`ip link | grep wlp | awk '{print $2}'| sed 's/://' | sed '1!d'`
   if [[ -n $WIRELESS_DEV ]]; then
     pacstrap ${MOUNTPOINT} iw wireless_tools wpa_actiond wpa_supplicant dialog
@@ -656,4 +656,22 @@ setup_network() {
   if [[ -n $WIRED_DEV ]]; then
     arch_chroot "systemctl enable dhcpcd@${WIRED_DEV}.service"
   fi
+}
+
+configure_existing_user() {
+    print_line "Enter password for user $1:"
+    arch_chroot "passwd $1"
+
+    URL_ZSHRC="https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/cfg/_zshrc"
+
+    if [ $1 == "root" ]; then
+        wget -q $URL_ZSHRC -O /mnt/root/.zshrc
+        arch_chroot "chown $1:$1 /mnt/$1/.zshrc"
+    else
+        wget -q $URL_ZSHRC -O /mnt/home/$1/.zshrc
+        arch_chroot "chown $1:$1 /mnt/home/$1/.zshrc"
+    fi
+
+    arch_chroot "chown $1:$1 /mnt/home/$1/.zshrc"
+    arch_chroot "chsh -s /usr/bin/zsh $1"
 }
