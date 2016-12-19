@@ -12,7 +12,7 @@ DISK="/dev/sda"
 DISK_BOOT="${DISK}1"
 DISK_SYSTEM="${DISK}2"
 
-loadkeys de-latin1-nodeadkeys
+loadkeys de-latin1
 
 # Check if there are partitions set up. If so, bail out and prompt the user to wipe them first.
 print_line "Checking for existing partitions..."

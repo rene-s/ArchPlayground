@@ -13,7 +13,7 @@ DISK_BOOT="${DISK}1"
 DISK_SYSTEM="${DISK}2"
 
 set -e
-loadkeys de-latin1-nodeadkeys
+loadkeys de-latin1
 
 # Set vars
 SYS="BIOS"
@@ -55,7 +55,7 @@ echo "de_DE@euro ISO-8859-15" >> /mnt/etc/locale.gen
 echo "de_DE.UTF-8 UTF-8" >> /mnt/etc/locale.gen
 
 echo "LANG=de_DE.UTF-8" > /mnt/etc/locale.conf
-echo "KEYMAP=de-latin1-nodeadkeys" > /mnt/etc/vconsole.conf
+echo "KEYMAP=de-latin1" > /mnt/etc/vconsole.conf
 
 # Basic network setup
 print_line "Basic network setup..."
