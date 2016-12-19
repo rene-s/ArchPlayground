@@ -57,6 +57,8 @@ echo "de_DE.UTF-8 UTF-8" >> /mnt/etc/locale.gen
 echo "LANG=de_DE.UTF-8" > /mnt/etc/locale.conf
 echo "KEYMAP=de-latin1" > /mnt/etc/vconsole.conf
 
+arch_chroot "locale-gen"
+
 # Basic network setup
 print_info "Basic network setup..."
 HOSTNAME="sdotestsystem"
