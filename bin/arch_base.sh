@@ -111,7 +111,7 @@ wget $URL_ZSHRC -O /mnt/root/.zshrc
 arch_chroot "pacman -S --noconfirm zsh"
 arch_chroot "chsh -s /usr/bin/zsh root"
 
-echo "Schmidt DevOps \r (\l) -- setup run on: "`date` > /mnt/etc/issue
+echo "Schmidt DevOps \r (\l) -- setup on: "`date` > /mnt/etc/issue
 
 # Setup network
 print_line "Setup network..."
