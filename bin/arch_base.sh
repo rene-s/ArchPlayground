@@ -123,5 +123,4 @@ configure_network
 # Finish
 print_info "Done."
 
-# @todo: add user (steffi|rene)
 # @todo: install desktop
