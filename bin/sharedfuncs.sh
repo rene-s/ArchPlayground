@@ -659,12 +659,12 @@ configure_network() {
 }
 
 configure_existing_user() {
-    print_line "Enter password for user $1:"
+    print_info "Enter password for user $1:"
     arch_chroot "passwd $1"
 
     URL_ZSHRC="https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/cfg/_zshrc"
 
-    if [ $1 == "root" ]; then
+    if [ "$1" == "root" ]; then
         wget -q $URL_ZSHRC -O /mnt/root/.zshrc
         arch_chroot "chown $1:$1 /$1/.zshrc"
     else
@@ -672,6 +672,5 @@ configure_existing_user() {
         arch_chroot "chown $1:$1 /home/$1/.zshrc"
     fi
 
-    arch_chroot "chown $1:$1 /home/$1/.zshrc"
     arch_chroot "chsh -s /usr/bin/zsh $1"
 }

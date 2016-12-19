@@ -22,34 +22,34 @@ if [ -d /sys/firmware/efi ]; then
         SYS="UEFI"
 fi
 
-print_line "This is a ${SYS} system."
+print_info "This is a ${SYS} system."
 
 # Bootstrap Arch
-print_line "Bootstrapping"
+print_info "Bootstrapping"
 pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp
 
 # Update time
-print_line "Update time";
+print_info "Update time";
 timedatectl set-ntp true
 
 # Generate fstab
-print_line "Generating fstab"
+print_info "Generating fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Chroot into new env
-print_line "Chrooting..."
+print_info "Chrooting..."
 
 # Install Intel microcode
-print_line "Install Intel microcode..."
+print_info "Install Intel microcode..."
 arch_chroot "pacman -S --noconfirm intel-ucode syslinux grub"
 
 # Update timezone and system time
-print_line "Setting time and time zones..."
+print_info "Setting time and time zones..."
 ln -sf /mnt/usr/share/zoneinfo/Europe/Berlin /mnt/etc/localtime
 hwclock --systohc
 
 # Setup locales and keymap
-print_line "Setup locales and keymap..."
+print_info "Setup locales and keymap..."
 echo "en_US.UTF-8 UTF-8" > /mnt/etc/locale.gen
 echo "de_DE@euro ISO-8859-15" >> /mnt/etc/locale.gen
 echo "de_DE.UTF-8 UTF-8" >> /mnt/etc/locale.gen
@@ -58,7 +58,7 @@ echo "LANG=de_DE.UTF-8" > /mnt/etc/locale.conf
 echo "KEYMAP=de-latin1" > /mnt/etc/vconsole.conf
 
 # Basic network setup
-print_line "Basic network setup..."
+print_info "Basic network setup..."
 HOSTNAME="sdotestsystem"
 echo "${HOSTNAME}" >/mnt/etc/hostname
 echo "127.0.0.1 localhost.localdomain localhost" >/mnt/etc/hosts
@@ -66,7 +66,7 @@ echo "::1 localhost.localdomain localhost" >>/mnt/etc/hosts
 echo "127.0.1.1 ${HOSTNAME}.localdomain ${HOSTNAME}" >>/mnt/etc/hosts
 
 # Install boot loader
-print_line "Install boot loader..."
+print_info "Install boot loader..."
 mkdir -p /mnt/boot/syslinux
 arch_chroot "extlinux --install /boot/syslinux"
 cat /mnt/usr/lib/syslinux/bios/mbr.bin > "${DISK}"
@@ -84,7 +84,7 @@ echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboar
 
 #If you use encryption LUKS change the APPEND line to use your encrypted volume:
 SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
-print_line "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
+print_info "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
 
 # Create SysLinux config
 CFG_SYSLINUX=/mnt/boot/syslinux/syslinux.cfg
@@ -101,7 +101,7 @@ sed -i -- "s/^DEFAULT arch/DEFAULT Schmidt_DevOps_Arch/g" $CFG_SYSLINUX
 arch_chroot "mkinitcpio -p linux"
 
 # Set up root user
-print_line "Set up users:"
+print_info "Set up users:"
 
 arch_chroot "pacman -S --noconfirm zsh"
 arch_chroot "useradd -m re"
@@ -115,11 +115,11 @@ configure_existing_user 'st'
 echo "Schmidt DevOps \r (\l) -- setup on: "`date` > /mnt/etc/issue
 
 # Setup network
-print_line "Setup network..."
+print_info "Setup network..."
 configure_network
 
 # Finish
-print_line "Done."
+print_info "Done."
 
 # @todo: add user (steffi|rene)
 # @todo: install desktop
