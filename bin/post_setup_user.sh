@@ -22,11 +22,11 @@ wget https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Asse
 sudo mkdir /var/lib/AccountsService/users
 USER_FILE=/var/lib/AccountsService/users/${USER}
 
-echo "[User]" > $USER_FILE
-echo "Language=de_DE.UTF-8" >> $USER_FILE
-echo "XSession=" >> $USER_FILE
-echo "Icon=/home/${USER}/Bilder/${AVATAR}" >> $USER_FILE
-echo "SystemAccount=false" >> $USER_FILE
+sudo echo "[User]" > $USER_FILE
+sudo echo "Language=de_DE.UTF-8" >> $USER_FILE
+sudo echo "XSession=" >> $USER_FILE
+sudo echo "Icon=/home/${USER}/Bilder/${AVATAR}" >> $USER_FILE
+sudo echo "SystemAccount=false" >> $USER_FILE
 
 # Configure git
 read -p "Enter your email address: " email
