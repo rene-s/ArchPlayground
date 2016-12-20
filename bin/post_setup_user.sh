@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+cd $DIR
+
+. ./sharedfuncs.sh
+
 # Set X11 keymap
 localectl --no-convert set-x11-keymap de pc105 nodeadkeys
 
