@@ -669,7 +669,7 @@ configure_existing_user() {
         arch_chroot "chown $1:$1 /$1/.zshrc"
     else
         wget -q $URL_ZSHRC -O /mnt/home/$1/.zshrc
-        arch_chroot "chown $1:$1 /home/$1/.zshrc"
+        arch_chroot "chown $1:users /home/$1/.zshrc"
     fi
 
     arch_chroot "chsh -s /usr/bin/zsh $1"
