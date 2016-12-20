@@ -112,8 +112,8 @@ arch_chroot "mkinitcpio -p linux"
 print_info "Set up users:"
 
 arch_chroot "pacman -S --noconfirm zsh"
-arch_chroot "useradd -m re"
-arch_chroot "useradd -m st"
+arch_chroot "useradd -m -g users -G wheel re"
+arch_chroot "useradd -m -g users -G wheel st"
 
 configure_existing_user 'root'
 configure_existing_user 're'
