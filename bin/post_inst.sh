@@ -2,6 +2,6 @@
 
 # first minimalistic approach
 
-pacman -S gnome gnome-extra gdm virtualbox-guest-modules-arch
+pacman -S --noconfirm gnome gnome-extra gdm virtualbox-guest-modules-arch
 systemctl enable gdm.service
-pacman -S gnome-tweak-tool
+pacman -S --noconfirm gnome-tweak-tool
