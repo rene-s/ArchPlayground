@@ -26,7 +26,7 @@ print_info "This is a ${SYS} system."
 
 # Bootstrap Arch
 print_info "Bootstrapping"
-pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget
+pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git
 
 # Update time
 print_info "Update time";
