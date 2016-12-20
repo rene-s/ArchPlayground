@@ -26,7 +26,7 @@ print_info "This is a ${SYS} system."
 
 # Bootstrap Arch
 print_info "Bootstrapping"
-pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp
+pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget
 
 # Update time
 print_info "Update time";
@@ -73,6 +73,12 @@ mkdir -p /mnt/boot/syslinux
 arch_chroot "extlinux --install /boot/syslinux"
 cat /mnt/usr/lib/syslinux/bios/mbr.bin > "${DISK}"
 cp /mnt/usr/lib/syslinux/bios/libcom32.c32 /mnt/usr/lib/syslinux/bios/menu.c32 /mnt/usr/lib/syslinux/bios/libutil.c32 /mnt/boot/syslinux/
+
+# Set up mirror list
+echo "Server = https://ftp.fau.de/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
+echo "Server = https://mirror.vfn-nrw.de/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
+echo "Server = https://mirror.netcologne.de/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
 #pacstrap / grub os-prober
 
