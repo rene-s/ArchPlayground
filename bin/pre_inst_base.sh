@@ -111,6 +111,8 @@ arch_chroot "mkinitcpio -p linux"
 # Set up root user
 print_info "Set up users:"
 
+echo "%wheel ALL=(ALL) ALL" >> /mnt/etc/sudoers
+
 arch_chroot "pacman -S --noconfirm zsh"
 arch_chroot "useradd -m -g users -G wheel re"
 arch_chroot "useradd -m -g users -G wheel st"
