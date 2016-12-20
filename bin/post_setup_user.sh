@@ -19,7 +19,7 @@ gsettings set org.gnome.desktop.background picture-uri file:///home/${USER}/Bild
 AVATAR="${USER}.svg"
 wget https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/img/avatar/${AVATAR} -O /home/${USER}/Bilder/${AVATAR}
 
-sudo mkdir /var/lib/AccountsService/users
+sudo mkdir -p /var/lib/AccountsService/users
 USER_FILE=/var/lib/AccountsService/users/${USER}
 
 sudo echo "[User]" > $USER_FILE
