@@ -110,6 +110,7 @@ echo "    APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID="${SYSTEM_UUID}"
 echo "    INITRD ../initramfs-linux.img" >> $CFG_SYSLINUX
 
 sed -i -- "s/^DEFAULT arch/DEFAULT Schmidt_DevOps_Arch/g" $CFG_SYSLINUX
+sed -i -- "s/^TIMEOUT \d+/TIMEOUT 10/g" $CFG_SYSLINUX
 
 arch_chroot "mkinitcpio -p linux"
 

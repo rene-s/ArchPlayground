@@ -17,6 +17,7 @@ pacman -S --noconfirm \
 chromium \
 firefox \
 gdm \
+gimp \
 git \
 gnome \
 gnome-extra \
