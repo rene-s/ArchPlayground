@@ -20,7 +20,9 @@ Bear in mind though there is no proper way of customisation as the default Schmi
 
 ## Installation
 
-After booting the Arch Linux live CD, run
+### First stage
+
+After booting the Arch Linux live image, run
 
 ```
 wget "sdo.sh/l/?arch_inst" -O - | tar xz
@@ -29,9 +31,35 @@ wget "sdo.sh/l/?arch_inst" -O - | tar xz
 Then cd into the newly created directory and run
 
 ```
-sh ./bin/arch_disk.sh
-sh ./bin/arch_base.sh
+sh ./bin/pre_inst_disk.sh
+sh ./bin/pre_inst_base.sh
 ```
+
+After that, reboot and remove the Arch live image.
+
+### Second stage
+
+Log in as root, then:
+
+```
+mkdir /usr/share/tmp
+cd /usr/share/tmp
+git clone https://github.com/rene-s/ArchPlayground.git
+cd ./ArchPlayground
+sh ./bin/post_inst_desktop.sh
+reboot
+```
+
+### Third stage
+
+Log in as user, then:
+
+```
+cd /usr/share/tmp/ArchPlayground
+sh ./bin/post_setup_user.sh
+```
+
+Log out, repeat for all other users that require setup.
 
 ## Useful links
 
