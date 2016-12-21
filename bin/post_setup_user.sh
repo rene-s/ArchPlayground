@@ -27,7 +27,7 @@ AVATAR="${USER}"
 wget https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/img/avatar/${AVATAR}.svg -O /home/${USER}/Bilder/${AVATAR}.svg
 
 cd ~/Bilder/
-convert "${USER}.svg ${USER}.png"
+convert "${USER}.svg" "${USER}.png"
 
 sudo mkdir -p /var/lib/AccountsService/users
 USER_FILE=/var/lib/AccountsService/users/${USER}
