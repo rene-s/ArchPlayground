@@ -34,7 +34,7 @@ cd ~/Bilder/
 convert "${USER}.svg" "${USER}.png"
 
 # Scale avatar to 96px width, then crop 96x96px with 5px offset from the top. Save to non-home dir because GDM does not seem to like those.
-convert "${USER}.png" -resize 96x -crop 96x96+0+5 "/usr/local/share/pixmaps/faces/${USER}.png"
+sudo convert "${USER}.png" -resize 96x -crop 96x96+0+5 "/usr/local/share/pixmaps/faces/${USER}.png"
 
 USER_FILE=/var/lib/AccountsService/users/${USER}
 
