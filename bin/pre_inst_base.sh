@@ -72,19 +72,11 @@ echo "127.0.0.1 localhost.localdomain localhost" >/mnt/etc/hosts
 echo "::1 localhost.localdomain localhost" >>/mnt/etc/hosts
 echo "127.0.1.1 ${HOSTNAME}.localdomain ${HOSTNAME}" >>/mnt/etc/hosts
 
-# Install boot loader
-print_info "Install boot loader..."
-mkdir -p /mnt/boot/syslinux
-arch_chroot "extlinux --install /boot/syslinux"
-cat /mnt/usr/lib/syslinux/bios/mbr.bin > "${DISK}"
-cp /mnt/usr/lib/syslinux/bios/libcom32.c32 /mnt/usr/lib/syslinux/bios/menu.c32 /mnt/usr/lib/syslinux/bios/libutil.c32 /mnt/boot/syslinux/
-
 # Set up mirror list
 echo "Server = https://ftp.fau.de/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
 echo "Server = https://mirror.vfn-nrw.de/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
 echo "Server = https://mirror.netcologne.de/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
-
 
 if [ $SYS == "UEFI" ]; then
     pacman -S efibootmgr dosfstools gptfdisk
@@ -95,6 +87,13 @@ if [ $SYS == "UEFI" ]; then
 
     # Hinweis: Falls grub-install den Bootmenüeintrag nicht erstellen kann und eine Fehlermeldung ausgegeben wurde, folgenden Befehl ausführen um den UEFI-Bootmenüeintrag manuell zu erstellen:
     #efibootmgr -q -c -d /dev/sda -p 1 -w -L "GRUB: Arch-Linux" -l '\EFI\arch_grub\grubx64.efi'
+else
+    # Install boot loader
+    print_info "Install boot loader..."
+    mkdir -p /mnt/boot/syslinux
+    arch_chroot "extlinux --install /boot/syslinux"
+    cat /mnt/usr/lib/syslinux/bios/mbr.bin > "${DISK}"
+    cp /mnt/usr/lib/syslinux/bios/libcom32.c32 /mnt/usr/lib/syslinux/bios/menu.c32 /mnt/usr/lib/syslinux/bios/libutil.c32 /mnt/boot/syslinux/
 fi
 
 # Setup/mnt/etc/mkinitcpio.conf; add "encrypt" and "lvm" hooks
