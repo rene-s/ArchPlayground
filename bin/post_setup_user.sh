@@ -15,6 +15,7 @@ mkdir -p ~/Bilder
 
 # Set X11 keymap
 localectl --no-convert set-x11-keymap de pc105 nodeadkeys
+gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'de')]"
 
 # Set wallpaper
 WALLPAPER=1366x768_debian-greyish-wallpaper-widescreen.png
