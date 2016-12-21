@@ -73,13 +73,13 @@ echo "::1 localhost.localdomain localhost" >>/mnt/etc/hosts
 echo "127.0.1.1 ${HOSTNAME}.localdomain ${HOSTNAME}" >>/mnt/etc/hosts
 
 # Set up mirror list
-echo "Server = https://ftp.fau.de/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
-echo "Server = https://mirror.vfn-nrw.de/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
-echo "Server = https://mirror.netcologne.de/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
-cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+echo "Server = https://ftp.fau.de/archlinux/\$repo/os/\$arch" > /mnt/etc/pacman.d/mirrorlist
+echo "Server = https://mirror.vfn-nrw.de/archlinux/\$repo/os/\$arch" >> /mnt/etc/pacman.d/mirrorlist
+echo "Server = https://mirror.netcologne.de/archlinux/\$repo/os/\$arch" >> /mnt/etc/pacman.d/mirrorlist
 
 if [ $SYS == "UEFI" ]; then
-    pacman -S efibootmgr dosfstools gptfdisk
+    print_info "UEFI setup..."
+    pacman -S --noconfirm efibootmgr dosfstools gptfdisk
     arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck --debug"
     mkdir -p /mnt/boot/grub/locale
     cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /mnt/boot/grub/locale/en.mo
@@ -89,7 +89,7 @@ if [ $SYS == "UEFI" ]; then
     #efibootmgr -q -c -d /dev/sda -p 1 -w -L "GRUB: Arch-Linux" -l '\EFI\arch_grub\grubx64.efi'
 else
     # Install boot loader
-    print_info "Install boot loader..."
+    print_info "Install BIOS boot loader..."
     mkdir -p /mnt/boot/syslinux
     arch_chroot "extlinux --install /boot/syslinux"
     cat /mnt/usr/lib/syslinux/bios/mbr.bin > "${DISK}"
