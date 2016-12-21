@@ -109,8 +109,8 @@ echo "    LINUX ../vmlinuz-linux" >> $CFG_SYSLINUX
 echo "    APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID="${SYSTEM_UUID}":lvm rw" >> $CFG_SYSLINUX
 echo "    INITRD ../initramfs-linux.img" >> $CFG_SYSLINUX
 
-sed -i -- "s/^DEFAULT arch/DEFAULT Schmidt_DevOps_Arch/g" $CFG_SYSLINUX
-sed -i -- "s/^TIMEOUT \d+/TIMEOUT 10/g" $CFG_SYSLINUX
+sed -i -- "s/^DEFAULT arch/DEFAULT Schmidt_DevOps_Arch/g" $CFG_SYSLINUX # Make SDO/Arch flavour the default
+sed -i -- "s/^TIMEOUT [0-9]*/TIMEOUT 10/g" $CFG_SYSLINUX # do not wait for user input so long
 
 arch_chroot "mkinitcpio -p linux"
 
@@ -134,7 +134,10 @@ echo "Schmidt DevOps \r (\l) -- setup on: "`date` > /mnt/etc/issue
 print_info "Setup network..."
 configure_network
 
+# Move /opt because on /home is more space available
+rmdir /mnt/opt
+mkdir /mnt/home/.opt
+arch_chroot "ln -s /home/.opt /opt"
+
 # Finish
 print_info "Done."
-
-# @todo: install desktop

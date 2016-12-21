@@ -26,16 +26,21 @@ gsettings set org.gnome.desktop.background picture-uri file:///home/${USER}/Bild
 AVATAR="${USER}"
 wget https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/img/avatar/${AVATAR}.svg -O /home/${USER}/Bilder/${AVATAR}.svg
 
+sudo mkdir -p /var/lib/AccountsService/users
+sudo mkdir -p /usr/local/share/pixmaps/faces
+
 cd ~/Bilder/
 convert "${USER}.svg" "${USER}.png"
 
-sudo mkdir -p /var/lib/AccountsService/users
+# Scale avatar to 96px width, then crop 96x96px with 5px offset from the top. Save to non-home dir because GDM does not seem to like those.
+convert "${USER}.png" -resize 96x -crop 96x96+0+5 "/usr/local/share/pixmaps/faces/${USER}.png"
+
 USER_FILE=/var/lib/AccountsService/users/${USER}
 
 echo "[User]" | sudo tee $USER_FILE
 echo "Language=de_DE.UTF-8" | sudo tee --append $USER_FILE
 echo "XSession=" | sudo tee --append $USER_FILE
-echo "Icon=/home/${USER}/Bilder/${AVATAR}" | sudo tee --append $USER_FILE
+echo "Icon=/usr/local/share/pixmaps/faces/${USER}.png" | sudo tee --append $USER_FILE
 echo "SystemAccount=false" | sudo tee --append $USER_FILE
 
 # Configure git
@@ -45,6 +50,7 @@ read -p "Enter your name: " nameofuser
 git config --global user.email "${email}"
 git config --global user.name "${nameofuser}"
 
-sudo chfn -f "${nameofuser}" $USER
+# Misc stuff
+sudo chfn -f "${nameofuser}" $USER # Set name of user
 
 
