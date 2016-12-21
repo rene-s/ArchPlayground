@@ -87,19 +87,26 @@ cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
 
 if [ $SYS == "UEFI" ]; then
-    pacstrap /mnt efibootmgr dosfstools
+    pacman -S efibootmgr dosfstools gptfdisk
+    arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck --debug"
+    mkdir -p /mnt/boot/grub/locale
+    cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /mnt/boot/grub/locale/en.mo
+    arch_chroot "grub-mkconfig -o /boot/grub/grub.cfg"
+
+    # Hinweis: Falls grub-install den Bootmenüeintrag nicht erstellen kann und eine Fehlermeldung ausgegeben wurde, folgenden Befehl ausführen um den UEFI-Bootmenüeintrag manuell zu erstellen:
+    #efibootmgr -q -c -d /dev/sda -p 1 -w -L "GRUB: Arch-Linux" -l '\EFI\arch_grub\grubx64.efi'
 fi
 
 # Setup/mnt/etc/mkinitcpio.conf; add "encrypt" and "lvm" hooks
 sed -i -- "s/^HOOKS=/#HOOKS=/g" /mnt/etc/mkinitcpio.conf
 echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"' >>/mnt/etc/mkinitcpio.conf
 
-#If you use encryption LUKS change the APPEND line to use your encrypted volume:
-SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
-print_info "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
-
 # Create SysLinux config
 if [ $SYS == "BIOS" ]; then
+    #If you use encryption LUKS change the APPEND line to use your encrypted volume:
+    SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
+    print_info "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
+
     CFG_SYSLINUX=/mnt/boot/syslinux/syslinux.cfg
 
     echo "" >> $CFG_SYSLINUX
