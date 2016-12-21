@@ -27,7 +27,11 @@ intellij-idea-community-edition \
 keepassx \
 libreoffice-still \
 jdk8-openjdk \
-mc
+mc \
+modemmanager \
+networkmanager \
+networkmanager-openvpn \
+network-manager-applet \
 
 VM=`dmidecode -s system-product-name`
 if [[ $VM == "VirtualBox" ]]; then
@@ -35,3 +39,4 @@ if [[ $VM == "VirtualBox" ]]; then
 fi
 
 systemctl enable gdm.service
+systemctl enable NetworkManager.service
