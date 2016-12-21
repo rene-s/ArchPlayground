@@ -6,6 +6,11 @@ cd $DIR
 
 . ./sharedfuncs.sh
 
+if [ "${USER}" != "root" ]; then
+    print_danger "This script is supposed to be run as root, not as user."
+    exit 1
+fi
+
 # first minimalistic approach
 
 pacman -S --noconfirm \
@@ -16,6 +21,7 @@ git \
 gnome \
 gnome-extra \
 gnome-tweak-tool \
+imagemagick \
 keepassx \
 libreoffice-still \
 jdk8-openjdk \

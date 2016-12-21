@@ -6,6 +6,11 @@ cd $DIR
 
 . ./sharedfuncs.sh
 
+if [ "${USER}" != "root" ]; then
+    print_danger "This script is supposed to be run as root, not as user."
+    exit 1
+fi
+
 # vars
 MOUNTPOINT="/mnt"
 DISK="/dev/sda"
