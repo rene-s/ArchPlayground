@@ -94,14 +94,8 @@ else
     arch_chroot "extlinux --install /boot/syslinux"
     cat /mnt/usr/lib/syslinux/bios/mbr.bin > "${DISK}"
     cp /mnt/usr/lib/syslinux/bios/libcom32.c32 /mnt/usr/lib/syslinux/bios/menu.c32 /mnt/usr/lib/syslinux/bios/libutil.c32 /mnt/boot/syslinux/
-fi
 
-# Setup/mnt/etc/mkinitcpio.conf; add "encrypt" and "lvm" hooks
-sed -i -- "s/^HOOKS=/#HOOKS=/g" /mnt/etc/mkinitcpio.conf
-echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"' >>/mnt/etc/mkinitcpio.conf
-
-# Create SysLinux config
-if [ $SYS == "BIOS" ]; then
+    # Create SysLinux config
     #If you use encryption LUKS change the APPEND line to use your encrypted volume:
     SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
     print_info "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
@@ -118,6 +112,10 @@ if [ $SYS == "BIOS" ]; then
     sed -i -- "s/^DEFAULT arch/DEFAULT Schmidt_DevOps_Arch/g" $CFG_SYSLINUX # Make SDO/Arch flavour the default
     sed -i -- "s/^TIMEOUT [0-9]*/TIMEOUT 10/g" $CFG_SYSLINUX # do not wait for user input so long
 fi
+
+# Setup/mnt/etc/mkinitcpio.conf; add "encrypt" and "lvm" hooks
+sed -i -- "s/^HOOKS=/#HOOKS=/g" /mnt/etc/mkinitcpio.conf
+echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"' >>/mnt/etc/mkinitcpio.conf
 
 arch_chroot "mkinitcpio -p linux"
 
