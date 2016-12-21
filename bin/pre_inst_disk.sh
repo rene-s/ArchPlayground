@@ -84,7 +84,7 @@ vgcreate ${VG} /dev/mapper/lvmdisk
 # Create all your logical volumes on the volume group:
 print_info "Create all your logical volumes on the volume group..."
 lvcreate -L 500MiB ${VG} -n swaplv
-lvcreate -l 25%VG ${VG} -n rootlv
+lvcreate -l 40%VG ${VG} -n rootlv
 lvcreate -l 100%FREE ${VG} -n homelv
 
 # Format your filesystems on each logical volume:
