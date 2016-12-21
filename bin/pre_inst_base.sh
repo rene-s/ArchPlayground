@@ -85,11 +85,10 @@ echo "Server = https://mirror.vfn-nrw.de/archlinux/\$repo/os/\$arch" >> /etc/pac
 echo "Server = https://mirror.netcologne.de/archlinux/\$repo/os/\$arch" >> /etc/pacman.d/mirrorlist
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
-#pacstrap / grub os-prober
 
-#if [ $SYS == "UEFI" ]; then
-#    pacstrap / efibootmgr dosfstools
-#fi
+if [ $SYS == "UEFI" ]; then
+    pacstrap /mnt efibootmgr dosfstools
+fi
 
 # Setup/mnt/etc/mkinitcpio.conf; add "encrypt" and "lvm" hooks
 sed -i -- "s/^HOOKS=/#HOOKS=/g" /mnt/etc/mkinitcpio.conf
@@ -100,17 +99,19 @@ SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
 print_info "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
 
 # Create SysLinux config
-CFG_SYSLINUX=/mnt/boot/syslinux/syslinux.cfg
+if [ $SYS == "BIOS" ]; then
+    CFG_SYSLINUX=/mnt/boot/syslinux/syslinux.cfg
 
-echo "" >> $CFG_SYSLINUX
-echo "LABEL Schmidt_DevOps_Arch" >> $CFG_SYSLINUX
-echo "    MENU LABEL Schmidt_DevOps_Arch" >> $CFG_SYSLINUX
-echo "    LINUX ../vmlinuz-linux" >> $CFG_SYSLINUX
-echo "    APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID="${SYSTEM_UUID}":lvm rw" >> $CFG_SYSLINUX
-echo "    INITRD ../initramfs-linux.img" >> $CFG_SYSLINUX
+    echo "" >> $CFG_SYSLINUX
+    echo "LABEL Schmidt_DevOps_Arch" >> $CFG_SYSLINUX
+    echo "    MENU LABEL Schmidt_DevOps_Arch" >> $CFG_SYSLINUX
+    echo "    LINUX ../vmlinuz-linux" >> $CFG_SYSLINUX
+    echo "    APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID="${SYSTEM_UUID}":lvm rw" >> $CFG_SYSLINUX
+    echo "    INITRD ../initramfs-linux.img" >> $CFG_SYSLINUX
 
-sed -i -- "s/^DEFAULT arch/DEFAULT Schmidt_DevOps_Arch/g" $CFG_SYSLINUX # Make SDO/Arch flavour the default
-sed -i -- "s/^TIMEOUT [0-9]*/TIMEOUT 10/g" $CFG_SYSLINUX # do not wait for user input so long
+    sed -i -- "s/^DEFAULT arch/DEFAULT Schmidt_DevOps_Arch/g" $CFG_SYSLINUX # Make SDO/Arch flavour the default
+    sed -i -- "s/^TIMEOUT [0-9]*/TIMEOUT 10/g" $CFG_SYSLINUX # do not wait for user input so long
+fi
 
 arch_chroot "mkinitcpio -p linux"
 
