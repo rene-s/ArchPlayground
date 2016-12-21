@@ -29,8 +29,8 @@ libreoffice-still \
 jdk8-openjdk \
 mc
 
-read_input_text "Install VirtualBox Guest Modules?"
-if [[ $OPTION == y ]]; then
+VM=`dmidecode -s system-product-name`
+if [[ $VM == "VirtualBox" ]]; then
     pacman -S --noconfirm virtualbox-guest-modules-arch
 fi
 
