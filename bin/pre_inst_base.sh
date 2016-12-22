@@ -93,7 +93,7 @@ if [ $SYS == "UEFI" ]; then
     # Hinweis: Falls grub-install den Bootmenüeintrag nicht erstellen kann und eine Fehlermeldung ausgegeben wurde, folgenden Befehl ausführen um den UEFI-Bootmenüeintrag manuell zu erstellen:
     efibootmgr -q -c -d /dev/sda -p 1 -w -L "GRUB: Arch-Linux" -l '\EFI\arch_grub\grubx64.efi'
 
-    sed -i -- "s/^GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=${SYSTEM_UUID}:lvm\"/g" /mnt/etc/default/grub
+    sed -i -- "s/^GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"cryptdevice=UUID=${SYSTEM_UUID}:lvm\"/g" /mnt/etc/default/grub
 else
     # Install boot loader
     print_info "Install BIOS boot loader..."
