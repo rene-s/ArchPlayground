@@ -77,6 +77,10 @@ echo "Server = https://ftp.fau.de/archlinux/\$repo/os/\$arch" > /mnt/etc/pacman.
 echo "Server = https://mirror.vfn-nrw.de/archlinux/\$repo/os/\$arch" >> /mnt/etc/pacman.d/mirrorlist
 echo "Server = https://mirror.netcologne.de/archlinux/\$repo/os/\$arch" >> /mnt/etc/pacman.d/mirrorlist
 
+#If you use encryption LUKS change the APPEND line to use your encrypted volume:
+SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
+print_info "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
+
 if [ $SYS == "UEFI" ]; then
     print_info "UEFI setup..."
     arch_chroot "pacman -Ssy"
@@ -88,6 +92,8 @@ if [ $SYS == "UEFI" ]; then
 
     # Hinweis: Falls grub-install den Bootmenüeintrag nicht erstellen kann und eine Fehlermeldung ausgegeben wurde, folgenden Befehl ausführen um den UEFI-Bootmenüeintrag manuell zu erstellen:
     efibootmgr -q -c -d /dev/sda -p 1 -w -L "GRUB: Arch-Linux" -l '\EFI\arch_grub\grubx64.efi'
+
+    sed -i -- "s/^GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=${SYSTEM_UUID}:lvm\"/g" /mnt/etc/default/grub
 else
     # Install boot loader
     print_info "Install BIOS boot loader..."
@@ -97,10 +103,6 @@ else
     cp /mnt/usr/lib/syslinux/bios/libcom32.c32 /mnt/usr/lib/syslinux/bios/menu.c32 /mnt/usr/lib/syslinux/bios/libutil.c32 /mnt/boot/syslinux/
 
     # Create SysLinux config
-    #If you use encryption LUKS change the APPEND line to use your encrypted volume:
-    SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
-    print_info "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
-
     CFG_SYSLINUX=/mnt/boot/syslinux/syslinux.cfg
 
     echo "" >> $CFG_SYSLINUX
