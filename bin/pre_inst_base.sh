@@ -81,8 +81,17 @@ echo "Server = https://mirror.netcologne.de/archlinux/\$repo/os/\$arch" >> /mnt/
 SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
 print_info "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
 
+# Setup/mnt/etc/mkinitcpio.conf; add "encrypt" and "lvm" hooks
+sed -i -- "s/^HOOKS=/#HOOKS=/g" /mnt/etc/mkinitcpio.conf
+echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"' >>/mnt/etc/mkinitcpio.conf
+
+arch_chroot "mkinitcpio -p linux"
+
 if [ $SYS == "UEFI" ]; then
     print_info "UEFI setup..."
+
+    sed -i -- "s/^GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"cryptdevice=UUID=${SYSTEM_UUID}:lvm\"/g" /mnt/etc/default/grub
+
     arch_chroot "pacman -Ssy"
     arch_chroot "pacman -S --noconfirm efibootmgr dosfstools gptfdisk"
     arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck --debug"
@@ -92,8 +101,6 @@ if [ $SYS == "UEFI" ]; then
 
     # Hinweis: Falls grub-install den Bootmenüeintrag nicht erstellen kann und eine Fehlermeldung ausgegeben wurde, folgenden Befehl ausführen um den UEFI-Bootmenüeintrag manuell zu erstellen:
     #efibootmgr -q -c -d /dev/sda -p 1 -w -L "GRUB: Arch-Linux" -l '\EFI\arch_grub\grubx64.efi'
-
-    sed -i -- "s/^GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"cryptdevice=UUID=${SYSTEM_UUID}:lvm\"/g" /mnt/etc/default/grub
 else
     # Install boot loader
     print_info "Install BIOS boot loader..."
@@ -115,12 +122,6 @@ else
     sed -i -- "s/^DEFAULT arch/DEFAULT Schmidt_DevOps_Arch/g" $CFG_SYSLINUX # Make SDO/Arch flavour the default
     sed -i -- "s/^TIMEOUT [0-9]*/TIMEOUT 10/g" $CFG_SYSLINUX # do not wait for user input so long
 fi
-
-# Setup/mnt/etc/mkinitcpio.conf; add "encrypt" and "lvm" hooks
-sed -i -- "s/^HOOKS=/#HOOKS=/g" /mnt/etc/mkinitcpio.conf
-echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"' >>/mnt/etc/mkinitcpio.conf
-
-arch_chroot "mkinitcpio -p linux"
 
 # Set up root user
 print_info "Set up users:"
