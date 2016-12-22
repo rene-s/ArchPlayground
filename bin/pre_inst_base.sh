@@ -79,8 +79,8 @@ echo "Server = https://mirror.netcologne.de/archlinux/\$repo/os/\$arch" >> /mnt/
 
 if [ $SYS == "UEFI" ]; then
     print_info "UEFI setup..."
-    pacman -Ssy
-    pacman -S --noconfirm efibootmgr dosfstools gptfdisk
+    arch_chroot "pacman -Ssy"
+    arch_chroot "pacman -S --noconfirm efibootmgr dosfstools gptfdisk"
     arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck --debug"
     mkdir -p /mnt/boot/grub/locale
     cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /mnt/boot/grub/locale/en.mo
