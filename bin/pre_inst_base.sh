@@ -30,6 +30,14 @@ else
     DISK_SYSTEM="${DISK}2"
 fi
 
+# check for nvme devices
+lsblk | grep nvme
+[[ $? -eq 0 ]] && HAS_NVME=1 || HAS_NVME=0
+
+# check for nvidia graphics
+lspci | grep -i -e "VGA.*NVIDIA"
+[[ $? -eq 0 ]] && HAS_NVIDIA=1 || HAS_NVIDIA=0
+
 set -e
 loadkeys de-latin1
 
@@ -101,16 +109,13 @@ echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboar
 
 MODULES=""
 
-lsblk | grep nvme
-
-if [ $? -eq 0 ]; then
+if [ $HAS_NVME -eq 1 ]; then
     MODULES="nvme"
 fi
 
 arch_chroot "pacman -Ssy"
-lspci | grep -i -e "VGA.*NVIDIA"
 
-if [ $? -eq 0 ]; then
+if [ $HAS_NVIDIA? -eq 1 ]; then
     MODULES="${MODULES} nouveau"
     arch_chroot "pacman -S --noconfirm xf86-video-nouveau nvidia nvidia-settings nvidia-utils"
 fi
