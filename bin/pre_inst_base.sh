@@ -72,7 +72,7 @@ arch_chroot "pacman -S --noconfirm intel-ucode syslinux grub"
 
 # Update timezone and system time
 print_info "Setting time and time zones..."
-ln -sf /mnt/usr/share/zoneinfo/Europe/Berlin /mnt/etc/localtime
+arch_chroot "ln -sf /usr/share/zoneinfo/Europe/Berlin /mnt/etc/localtime"
 hwclock --systohc
 
 # Setup locales and keymap
@@ -88,7 +88,7 @@ arch_chroot "locale-gen"
 
 # Basic network setup
 print_info "Basic network setup..."
-HOSTNAME="sdotestsystem"
+HOSTNAME="newschmidtdevopsworkstationchangeme"
 echo "${HOSTNAME}" >/mnt/etc/hostname
 echo "127.0.0.1 localhost.localdomain localhost" >/mnt/etc/hosts
 echo "::1 localhost.localdomain localhost" >>/mnt/etc/hosts

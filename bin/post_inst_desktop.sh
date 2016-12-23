@@ -24,7 +24,7 @@ gnome-extra \
 gnome-tweak-tool \
 imagemagick \
 intellij-idea-community-edition \
-keepassx \
+keepass \
 libreoffice-still \
 jdk8-openjdk \
 mc \
