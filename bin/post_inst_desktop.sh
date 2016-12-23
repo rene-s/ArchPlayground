@@ -32,6 +32,9 @@ modemmanager \
 networkmanager \
 networkmanager-openvpn \
 network-manager-applet \
+openssh \
+seahorse \
+xorg-xrandr
 
 VM=`dmidecode -s system-product-name`
 if [[ $VM == "VirtualBox" ]]; then

@@ -18,7 +18,7 @@ After running the scripts, the workstation should look like this:
 
 Bear in mind though there is no proper way of customisation as the default Schmidt DevOps workstation specified by the company, not by individual employees. Please direct your suggestions to the management.
 
-## Installation
+## Usage
 
 ### First stage
 
@@ -42,8 +42,9 @@ After that, reboot and remove the Arch live image.
 Log in as root, then:
 
 ```
-mkdir /usr/share/tmp
-cd /usr/share/tmp
+mkdir /usr/local/share/tmp
+cd /usr/local/share/tmp
+
 git clone https://github.com/rene-s/ArchPlayground.git
 cd ./ArchPlayground
 sh ./bin/post_inst_desktop.sh
@@ -55,7 +56,7 @@ reboot
 Log in as user, then:
 
 ```
-cd /usr/share/tmp/ArchPlayground
+cd /usr/local/share/tmp/ArchPlayground
 sh ./bin/post_setup_user.sh
 ```
 
