@@ -22,6 +22,7 @@ git \
 gnome \
 gnome-extra \
 gnome-tweak-tool \
+guake \
 imagemagick \
 intellij-idea-community-edition \
 keepass \
