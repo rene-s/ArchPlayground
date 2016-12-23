@@ -13,9 +13,22 @@ fi
 
 # vars
 MOUNTPOINT="/mnt"
-DISK="/dev/sda"
-DISK_BOOT="${DISK}1"
-DISK_SYSTEM="${DISK}2"
+
+# determine disk to install on
+print_info "Available storage devices:"
+
+lsblk -o KNAME,TYPE,SIZE,MODEL | grep disk
+
+read -p "Disk to install on (for example '/dev/nvme0n1' or '/dev/sda'): " DISK
+
+if [[ $DISK == *"nvme"* ]]
+then
+    DISK_BOOT="${DISK}p1"
+    DISK_SYSTEM="${DISK}p2"
+else
+    DISK_BOOT="${DISK}1"
+    DISK_SYSTEM="${DISK}2"
+fi
 
 set -e
 loadkeys de-latin1
@@ -83,7 +96,26 @@ print_info "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
 
 # Setup/mnt/etc/mkinitcpio.conf; add "encrypt" and "lvm" hooks
 sed -i -- "s/^HOOKS=/#HOOKS=/g" /mnt/etc/mkinitcpio.conf
+sed -i -- "s/^MODULES=/#MODULES=/g" /mnt/etc/mkinitcpio.conf
 echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"' >>/mnt/etc/mkinitcpio.conf
+
+MODULES=""
+
+lsblk | grep nvme
+
+if [ $? -eq 0 ]; then
+    MODULES="nvme"
+fi
+
+arch_chroot "pacman -Ssy"
+lspci | grep -i -e "VGA.*NVIDIA"
+
+if [ $? -eq 0 ]; then
+    MODULES="${MODULES} nouveau"
+    arch_chroot "pacman -S --noconfirm xf86-video-nouveau nvidia nvidia-settings nvidia-utils"
+fi
+
+echo "MODULES=\"${MODULES}\"" >>/mnt/etc/mkinitcpio.conf
 
 arch_chroot "mkinitcpio -p linux"
 
@@ -92,7 +124,6 @@ if [ $SYS == "UEFI" ]; then
 
     sed -i -- "s/^GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"cryptdevice=UUID=${SYSTEM_UUID}:lvm\"/g" /mnt/etc/default/grub
 
-    arch_chroot "pacman -Ssy"
     arch_chroot "pacman -S --noconfirm efibootmgr dosfstools gptfdisk"
     arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck --debug"
     mkdir -p /mnt/boot/grub/locale

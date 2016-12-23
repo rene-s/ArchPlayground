@@ -13,9 +13,22 @@ fi
 
 # vars
 MOUNTPOINT="/mnt"
-DISK="/dev/sda"
-DISK_BOOT="${DISK}1"
-DISK_SYSTEM="${DISK}2"
+
+# determine disk to install on
+print_info "Available storage devices:"
+
+lsblk -o KNAME,TYPE,SIZE,MODEL | grep disk
+
+read -p "Disk to install on (for example '/dev/nvme0n1' or '/dev/sda'): " DISK
+
+if [[ $DISK == *"nvme"* ]]
+then
+    DISK_BOOT="${DISK}p1"
+    DISK_SYSTEM="${DISK}p2"
+else
+    DISK_BOOT="${DISK}1"
+    DISK_SYSTEM="${DISK}2"
+fi
 
 loadkeys de-latin1
 
