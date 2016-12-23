@@ -14,6 +14,8 @@ fi
 # vars
 MOUNTPOINT="/mnt"
 
+loadkeys de-latin1
+
 # determine disk to install on
 print_info "Available storage devices:"
 
@@ -29,8 +31,6 @@ else
     DISK_BOOT="${DISK}1"
     DISK_SYSTEM="${DISK}2"
 fi
-
-loadkeys de-latin1
 
 # Check if there are partitions set up. If so, bail out and prompt the user to wipe them first.
 print_info "Checking for existing partitions..."

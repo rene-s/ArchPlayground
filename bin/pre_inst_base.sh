@@ -14,6 +14,8 @@ fi
 # vars
 MOUNTPOINT="/mnt"
 
+loadkeys de-latin1
+
 # determine disk to install on
 print_info "Available storage devices:"
 
@@ -39,7 +41,6 @@ lspci | grep -i -e "VGA.*NVIDIA"
 [[ $? -eq 0 ]] && HAS_NVIDIA=1 || HAS_NVIDIA=0
 
 set -e
-loadkeys de-latin1
 
 # Set vars
 SYS="BIOS"
