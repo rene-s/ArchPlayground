@@ -48,7 +48,7 @@ parted --script ${DISK} \
 
 cryptsetup --verify-passphrase luksFormat $DISK_DATA -c aes -s 256 -h sha256
 cryptsetup luksOpen $DISK_DATA luks_data
-mkfs.ext4 -b 1024 -m0 /dev/mapper/luks_data # block size 1024 bytes, no space reserved for root
+mkfs.ext4 -m0 /dev/mapper/luks_data # block size 1024 bytes, no space reserved for root
 
 UUID=`cryptsetup luksUUID $DISK_DATA`
 echo "name UUID=${UUID} none luks" >> /etc/crypttab
