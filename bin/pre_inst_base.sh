@@ -116,7 +116,7 @@ fi
 
 arch_chroot "pacman -Ssy"
 
-if [ $HAS_NVIDIA? -eq 1 ]; then
+if [ $HAS_NVIDIA -eq 1 ]; then
     MODULES="${MODULES} nouveau"
     arch_chroot "pacman -S --noconfirm xf86-video-nouveau nvidia nvidia-settings nvidia-utils"
 fi
