@@ -43,28 +43,15 @@ fi
 # Set only after we have checked for existing partions as that command is supposed to fail.
 set -e
 
-KEY="/etc/luks_data.key"
-
-if [[ -f ${KEY} ]]
-then
-    print_danger "LUKS key file ${KEY} already exists. If you wish to recreate it, delete it manually and try again."
-    exit 1
-fi
-
-dd bs=512 count=4 if=/dev/urandom of=${KEY}
-chown root:root ${KEY}
-chmod 0600 ${KEY}
-
 parted --script ${DISK} \
     mkpart primary ext2 1MiB 100%
 
-cryptsetup luksAddKey $DISK_DATA ${KEY}
-cryptsetup -c aes -s 256 -h sha256 luksFormat $DISK_DATA ${KEY}
-cryptsetup luksOpen $DISK_DATA luks_data --key-file ${KEY}
+cryptsetup --verify-passphrase luksFormat $DISK_DATA -c aes -s 256 -h sha256
+cryptsetup luksOpen $DISK_DATA luks_data
 mkfs.ext4 -m0 /dev/mapper/luks_data
 
 UUID=`cryptsetup luksUUID $DISK_DATA`
-echo "luks_data UUID=${UUID} ${KEY} luks" >> /etc/crypttab
+echo "luks_data UUID=${UUID} none luks" >> /etc/crypttab
 
 mkdir /mnt/luks_data
 
