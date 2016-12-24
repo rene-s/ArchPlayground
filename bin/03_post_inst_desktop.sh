@@ -26,10 +26,12 @@ guake \
 imagemagick \
 intellij-idea-community-edition \
 keepass \
+kernel-headers \
 libreoffice-still \
 jdk8-openjdk \
 mc \
 modemmanager \
+namcap \
 networkmanager \
 networkmanager-openvpn \
 network-manager-applet \
