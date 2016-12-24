@@ -28,6 +28,7 @@ intellij-idea-community-edition \
 keepass \
 kernel-headers \
 libreoffice-still \
+libu2f-host \
 jdk8-openjdk \
 mc \
 modemmanager \
