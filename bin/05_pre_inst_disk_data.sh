@@ -45,6 +45,12 @@ set -e
 
 KEY="/etc/luks_data.key"
 
+if [[ -f ${KEY} ]]
+then
+    print_danger "LUKS key file ${KEY} already exists. If you wish to recreate it, delete it manually and try again."
+    exit 1
+fi
+
 dd bs=512 count=4 if=/dev/urandom of=${KEY}
 chown root:root
 
