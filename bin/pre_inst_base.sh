@@ -72,7 +72,7 @@ arch_chroot "pacman -S --noconfirm intel-ucode syslinux grub"
 
 # Update timezone and system time
 print_info "Setting time and time zones..."
-arch_chroot "ln -sf /usr/share/zoneinfo/Europe/Berlin /mnt/etc/localtime"
+arch_chroot "ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime"
 hwclock --systohc
 
 # Setup locales and keymap
