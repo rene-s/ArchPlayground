@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+cd $DIR
+
+. ./sharedfuncs.sh
+
+if [ "${USER}" != "root" ]; then
+    print_danger "This script is supposed to be run as root, not as user."
+    exit 1
+fi
+
+# vars
+MOUNTPOINT="/mnt"
+
+loadkeys de-latin1
+
+# determine disk to install on
+print_info "Available storage devices:"
+
+lsblk -o KNAME,TYPE,SIZE,MODEL | grep disk
+
+read -p "Disk to wipe and encrypt (for example '/dev/nvme1n1' or '/dev/sdc'): " DISK
+
+if [[ $DISK == *"nvme"* ]]
+then
+    DISK_DATA="${DISK}p1"
+else
+    DISK_DATA="${DISK}1"
+fi
+
+# Check if there are partitions set up. If so, bail out and prompt the user to wipe them first.
+print_info "Checking for existing partitions..."
+parted --script ${DISK} print
+
+if [ $? -eq 0 ]; then
+        echo "ERROR: Existing partitions on ${DISK} found."
+        echo "Wipe them first with 'sgdisk -z ${DISK}' and try again."
+        exit 1
+fi
+
+# Set only after we have checked for existing partions as that command is supposed to fail.
+set -e
+
+# Set vars
+SYS="BIOS"
+
+if [ -d /sys/firmware/efi ]; then
+        SYS="UEFI"
+fi
+
+print_info "This is a ${SYS} system."
+
+cryptsetup --verify-passphrase luksFormat $DISK_DATA -c aes -s 256 -h sha256
+cryptsetup luksOpen $DISK_DATA luks_data
+mkfs.ext4 -b 1024 -m0 /dev/mapper/luks_data # block size 1024 bytes, no space reserved for root
+
+UUID=`cryptsetup luksUUID $DISK_DATA`
+echo "name UUID=${UUID} none luks" >> /etc/crypttab
+
+mkdir /mnt/luks_data
+
+echo "/dev/mapper/luks_data /mnt/luks_data ext4 defaults 0 2" >> /etc/fstab
