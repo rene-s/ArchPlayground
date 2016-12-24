@@ -129,7 +129,7 @@ arch_chroot "mkinitcpio -p linux"
 if [ $SYS == "UEFI" ]; then
     print_info "UEFI setup..."
 
-    sed -i -- "s/^GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"nomodeset cryptdevice=UUID=${SYSTEM_UUID}:lvm\"/g" /mnt/etc/default/grub
+    sed -i -- "s/^GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"acpi_osi=! nomodeset cryptdevice=UUID=${SYSTEM_UUID}:lvm\"/g" /mnt/etc/default/grub
     sed -i -- "s/^GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g" /mnt/etc/default/grub
 
     arch_chroot "pacman -S --noconfirm efibootmgr dosfstools gptfdisk"
