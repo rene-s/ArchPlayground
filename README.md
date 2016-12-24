@@ -31,8 +31,8 @@ wget "sdo.sh/l/?arch_inst" -O - | tar xz
 Then cd into the newly created directory and run
 
 ```
-sh ./bin/pre_inst_disk.sh
-sh ./bin/pre_inst_base.sh
+sh ./bin/01_pre_inst_disk.sh
+sh ./bin/02_pre_inst_base.sh
 ```
 
 After that, reboot and remove the Arch live image.
@@ -47,7 +47,7 @@ cd /usr/local/share/tmp
 
 git clone https://github.com/rene-s/ArchPlayground.git
 cd ./ArchPlayground
-sh ./bin/post_inst_desktop.sh
+sh ./bin/03_post_inst_desktop.sh
 reboot
 ```
 
@@ -57,7 +57,7 @@ Log in as user, then:
 
 ```
 cd /usr/local/share/tmp/ArchPlayground
-sh ./bin/post_setup_user.sh
+sh ./bin/04_post_setup_user.sh
 ```
 
 Log out, repeat for all other users that require setup.
