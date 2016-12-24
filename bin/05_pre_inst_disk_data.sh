@@ -53,6 +53,7 @@ fi
 
 dd bs=512 count=4 if=/dev/urandom of=${KEY}
 chown root:root ${KEY}
+chmod 0600 ${KEY}
 
 parted --script ${DISK} \
     mkpart primary ext2 1MiB 100%
