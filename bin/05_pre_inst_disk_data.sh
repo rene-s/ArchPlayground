@@ -43,14 +43,8 @@ fi
 # Set only after we have checked for existing partions as that command is supposed to fail.
 set -e
 
-# Set vars
-SYS="BIOS"
-
-if [ -d /sys/firmware/efi ]; then
-        SYS="UEFI"
-fi
-
-print_info "This is a ${SYS} system."
+parted --script ${DISK} \
+    mkpart primary ext2 1MiB 100%
 
 cryptsetup --verify-passphrase luksFormat $DISK_DATA -c aes -s 256 -h sha256
 cryptsetup luksOpen $DISK_DATA luks_data
