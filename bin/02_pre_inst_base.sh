@@ -36,9 +36,10 @@ fi
 lsblk | grep nvme
 [[ $? -eq 0 ]] && HAS_NVME=1 || HAS_NVME=0
 
-# check for nvidia graphics
-lspci | grep -i -e "VGA.*NVIDIA"
-[[ $? -eq 0 ]] && HAS_NVIDIA=1 || HAS_NVIDIA=0
+# check for nvidia graphics (does not work correctly)
+#lspci | grep -i -e "VGA.*NVIDIA"
+#[[ $? -eq 0 ]] && HAS_NVIDIA=1 || HAS_NVIDIA=0
+HAS_NVIDIA=1
 
 set -e
 

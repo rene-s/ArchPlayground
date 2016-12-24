@@ -34,7 +34,7 @@ fi
 
 # Check if there are partitions set up. If so, bail out and prompt the user to wipe them first.
 print_info "Checking for existing partitions..."
-parted --script ${DISK} print
+lsblk ${DISK} | grep part
 
 if [ $? -eq 0 ]; then
         echo "ERROR: Existing partitions on ${DISK} found."
