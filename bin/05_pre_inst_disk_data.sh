@@ -43,15 +43,21 @@ fi
 # Set only after we have checked for existing partions as that command is supposed to fail.
 set -e
 
+KEY="/etc/luks_data.key"
+
+dd bs=512 count=4 if=/dev/urandom of=${KEY}
+chown root:root
+
 parted --script ${DISK} \
     mkpart primary ext2 1MiB 100%
 
-cryptsetup --verify-passphrase luksFormat $DISK_DATA -c aes -s 256 -h sha256
-cryptsetup luksOpen $DISK_DATA luks_data
+cryptsetup luksAddKey $DISK_DATA ${KEY}
+cryptsetup -c aes -s 256 -h sha256 luksFormat $DISK_DATA ${KEY}
+cryptsetup luksOpen $DISK_DATA luks_data --key-file ${KEY}
 mkfs.ext4 -m0 /dev/mapper/luks_data # block size 1024 bytes, no space reserved for root
 
 UUID=`cryptsetup luksUUID $DISK_DATA`
-echo "luks_data UUID=${UUID} none luks" >> /etc/crypttab
+echo "luks_data UUID=${UUID} ${KEY} luks" >> /etc/crypttab
 
 mkdir /mnt/luks_data
 
