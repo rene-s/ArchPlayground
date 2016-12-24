@@ -51,7 +51,7 @@ cryptsetup luksOpen $DISK_DATA luks_data
 mkfs.ext4 -m0 /dev/mapper/luks_data # block size 1024 bytes, no space reserved for root
 
 UUID=`cryptsetup luksUUID $DISK_DATA`
-echo "name UUID=${UUID} none luks" >> /etc/crypttab
+echo "luks_data UUID=${UUID} none luks" >> /etc/crypttab
 
 mkdir /mnt/luks_data
 
