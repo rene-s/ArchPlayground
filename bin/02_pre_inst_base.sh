@@ -103,7 +103,7 @@ echo "Server = https://mirror.netcologne.de/archlinux/\$repo/os/\$arch" >> /mnt/
 echo "" >> /mnt/etc/pacman.conf
 echo "[archlinuxfr]" >> /mnt/etc/pacman.conf
 echo "SigLevel = Never" >> /mnt/etc/pacman.conf
-echo "Server = http://repo.archlinux.fr/\$arch" >> /mnt/etc/pacman.conf
+echo "Server = https://repo.archlinux.fr/\$arch" >> /mnt/etc/pacman.conf
 
 #If you use encryption LUKS change the APPEND line to use your encrypted volume:
 SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
