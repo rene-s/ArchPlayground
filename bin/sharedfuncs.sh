@@ -665,7 +665,7 @@ failsafe_arch_chroot_passwd() {
     do
         arch_chroot "passwd $1"
         RET=$?
-        if [ $REt != 0 ]; then
+        if [ $RET != 0 ]; then
             sleep 3
         fi
     done
