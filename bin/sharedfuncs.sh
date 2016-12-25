@@ -660,6 +660,7 @@ configure_network() {
 
 # do not break the script when passwords do not match
 failsafe_arch_chroot_passwd() {
+    set +e
     RET=1
     while [ $RET != 0 ]
     do
@@ -669,6 +670,7 @@ failsafe_arch_chroot_passwd() {
             sleep 3
         fi
     done
+    set -e
 }
 
 configure_existing_user() {
