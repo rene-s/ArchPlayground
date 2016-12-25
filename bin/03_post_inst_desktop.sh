@@ -29,9 +29,9 @@ guake \
 imagemagick \
 intellij-idea-community-edition \
 keepass \
-kernel-headers \
 libreoffice-still \
 libu2f-host \
+linux-headers \
 jdk8-openjdk \
 mc \
 modemmanager \
