@@ -658,9 +658,22 @@ configure_network() {
   fi
 }
 
+# do not break the script when passwords do not match
+failsafe_arch_chroot_passwd() {
+    RET=1
+    while [ $RET != 0 ]
+    do
+        arch_chroot "passwd $1"
+        RET=$?
+        if [ $REt != 0 ]; then
+            sleep 3
+        fi
+    done
+}
+
 configure_existing_user() {
     print_info "Enter password for user $1:"
-    arch_chroot "passwd $1"
+    failsafe_arch_chroot_passwd "$1"
 
     URL_ZSHRC="https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/cfg/_zshrc"
 
