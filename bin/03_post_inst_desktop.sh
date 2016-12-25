@@ -24,6 +24,7 @@ git \
 gnome \
 gnome-extra \
 gnome-tweak-tool \
+gst-plugins-ugly \
 guake \
 imagemagick \
 intellij-idea-community-edition \
