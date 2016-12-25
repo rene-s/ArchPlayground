@@ -15,6 +15,8 @@ fi
 
 pacman -S --noconfirm \
 chromium \
+cups \
+eog \
 firefox \
 gdm \
 gimp \
@@ -37,12 +39,21 @@ networkmanager \
 networkmanager-openvpn \
 network-manager-applet \
 openssh \
+rhythmbox \
 seahorse \
+system-config-printer \
+vlc \
 xorg-xrandr
+
+pacman -R --noconfirm \
+anjuta \
+gnome-music
 
 VM=`dmidecode -s system-product-name`
 if [[ $VM == "VirtualBox" ]]; then
     pacman -S --noconfirm virtualbox-guest-modules-arch
+else
+    pacman -S --noconfirm virtualbox
 fi
 
 systemctl enable gdm.service

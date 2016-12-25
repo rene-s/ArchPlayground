@@ -61,5 +61,4 @@ git config --global user.name "${nameofuser}"
 
 # Misc stuff
 sudo chfn -f "${nameofuser}" $USER # Set name of user
-
-
+xdg-mime default org.gnome.Nautilus.desktop inode/directory # see https://wiki.archlinux.de/title/GNOME
