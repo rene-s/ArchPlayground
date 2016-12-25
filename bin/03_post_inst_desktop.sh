@@ -40,6 +40,7 @@ networkmanager \
 networkmanager-openvpn \
 network-manager-applet \
 openssh \
+p7zip \
 rhythmbox \
 seahorse \
 system-config-printer \

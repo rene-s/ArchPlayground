@@ -100,6 +100,11 @@ echo "Server = https://ftp.fau.de/archlinux/\$repo/os/\$arch" > /mnt/etc/pacman.
 echo "Server = https://mirror.vfn-nrw.de/archlinux/\$repo/os/\$arch" >> /mnt/etc/pacman.d/mirrorlist
 echo "Server = https://mirror.netcologne.de/archlinux/\$repo/os/\$arch" >> /mnt/etc/pacman.d/mirrorlist
 
+echo "" >> /mnt/etc/pacman.conf
+echo "[archlinuxfr]" >> /mnt/etc/pacman.conf
+echo "SigLevel = Never" >> /mnt/etc/pacman.conf
+echo "Server = http://repo.archlinux.fr/\$arch" >> /mnt/etc/pacman.conf
+
 #If you use encryption LUKS change the APPEND line to use your encrypted volume:
 SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
 print_info "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
@@ -116,6 +121,7 @@ if [ $HAS_NVME -eq 1 ]; then
 fi
 
 arch_chroot "pacman -Ssy"
+arch_chroot "pacman -Sy yaourt"
 
 if [ $HAS_NVIDIA -eq 1 ]; then
     MODULES="${MODULES} nouveau"
