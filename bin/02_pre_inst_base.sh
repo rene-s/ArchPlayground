@@ -169,11 +169,12 @@ echo "Schmidt DevOps \r (\l) -- setup on: "`date` > /mnt/etc/issue
 print_info "Setup network..."
 configure_network
 
-arch_chroot "pacman -Ssy > /dev/null"
+pacman -Ssy > /dev/null
+pacman -S --noconfirm dmidecode
 arch_chroot "pacman -S --noconfirm dmidecode git linux-headers mc namcap openssh p7zip"
 
 # Setup environment
-VM=`chroot /mnt "dmidecode -s system-product-name"`
+VM=`dmidecode -s system-product-name`
 if [[ $VM == "VirtualBox" ]]; then
     arch_chroot "pacman -S --noconfirm virtualbox-guest-modules-arch"
 else
