@@ -60,3 +60,6 @@ fi
 
 systemctl enable gdm.service
 systemctl enable NetworkManager.service
+
+install_yaourt
+
