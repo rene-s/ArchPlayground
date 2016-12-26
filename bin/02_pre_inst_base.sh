@@ -170,14 +170,7 @@ print_info "Setup network..."
 configure_network
 
 arch_chroot "pacman -Ssy > /dev/null"
-arch_chroot "pacman -S --noconfirm \
-dmidecode
-git \
-linux-headers \
-mc \
-namcap \
-openssh \
-p7zip"
+arch_chroot "pacman -S --noconfirm dmidecode git linux-headers mc namcap openssh p7zip"
 
 install_yaourt
 
