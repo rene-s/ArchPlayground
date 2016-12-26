@@ -173,7 +173,7 @@ arch_chroot "pacman -Ssy > /dev/null"
 arch_chroot "pacman -S --noconfirm dmidecode git linux-headers mc namcap openssh p7zip"
 
 # Setup environment
-VM=`dmidecode -s system-product-name`
+VM=`chroot /mnt "dmidecode -s system-product-name"`
 if [[ $VM == "VirtualBox" ]]; then
     arch_chroot "pacman -S --noconfirm virtualbox-guest-modules-arch"
 else
