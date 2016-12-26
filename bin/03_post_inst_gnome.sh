@@ -20,7 +20,6 @@ eog \
 firefox \
 gdm \
 gimp \
-git \
 gnome \
 gnome-extra \
 gnome-tweak-tool \
@@ -33,14 +32,10 @@ libreoffice-still \
 libu2f-host \
 linux-headers \
 jdk8-openjdk \
-mc \
 modemmanager \
-namcap \
 networkmanager \
 networkmanager-openvpn \
 network-manager-applet \
-openssh \
-p7zip \
 rhythmbox \
 seahorse \
 system-config-printer \
@@ -51,15 +46,6 @@ pacman -R --noconfirm \
 anjuta \
 gnome-music
 
-VM=`dmidecode -s system-product-name`
-if [[ $VM == "VirtualBox" ]]; then
-    pacman -S --noconfirm virtualbox-guest-modules-arch
-else
-    pacman -S --noconfirm virtualbox
-fi
-
 systemctl enable gdm.service
 systemctl enable NetworkManager.service
-
-install_yaourt
 

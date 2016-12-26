@@ -182,5 +182,24 @@ echo "Schmidt DevOps \r (\l) -- setup on: "`date` > /mnt/etc/issue
 print_info "Setup network..."
 configure_network
 
+# Setup environment
+VM=`dmidecode -s system-product-name`
+if [[ $VM == "VirtualBox" ]]; then
+    pacman -S --noconfirm virtualbox-guest-modules-arch
+else
+    pacman -S --noconfirm virtualbox
+fi
+
+pacman -S --noconfirm \
+git \
+guake \
+linux-headers \
+mc \
+namcap \
+openssh \
+p7zip
+
+install_yaourt
+
 # Finish
 print_info "Done."
