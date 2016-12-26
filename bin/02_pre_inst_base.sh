@@ -171,7 +171,7 @@ configure_network
 
 pacman -Ssy > /dev/null
 pacman -S --noconfirm dmidecode
-arch_chroot "pacman -S --noconfirm dmidecode git linux-headers mc namcap openssh p7zip"
+arch_chroot "pacman -S --noconfirm bwm-ng dmidecode git iotop linux-headers mc namcap openssh p7zip"
 
 # Setup environment
 VM=`dmidecode -s system-product-name`

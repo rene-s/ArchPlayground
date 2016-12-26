@@ -60,7 +60,8 @@ echo "/dev/mapper/luks_data /mnt/luks_data ext4 defaults 0 2" >> /etc/fstab
 mount /dev/mapper/luks_data /mnt/luks_data
 mkdir /mnt/luks_data/re /mnt/luks_data/st
 
+chown root:users /mnt/luks_data
+chmod -R 0770 /mnt/luks_data
+chmod -R u+s /mnt/luks_data
 chown re:users /mnt/luks_data/re
 chown st:users /mnt/luks_data/st
-chmod -R 0700 /mnt/luks_data
-chmod -R u+s /mnt/luks_data
