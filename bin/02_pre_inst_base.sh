@@ -36,10 +36,10 @@ fi
 lsblk | grep nvme
 [[ $? -eq 0 ]] && HAS_NVME=1 || HAS_NVME=0
 
-# check for nvidia graphics (does not work correctly)
-#lspci | grep -i -e "VGA.*NVIDIA"
-#[[ $? -eq 0 ]] && HAS_NVIDIA=1 || HAS_NVIDIA=0
-HAS_NVIDIA=1
+# check for nvidia graphics; lspci hangs when nouveau is currently loaded, so use a different method for determination
+# see https://bugs.archlinux.org/task/45825
+lsmod | grep nouveau
+[[ $? -eq 0 ]] && HAS_NVIDIA=1 || HAS_NVIDIA=0
 
 set -e
 
@@ -100,11 +100,6 @@ echo "Server = https://ftp.fau.de/archlinux/\$repo/os/\$arch" > /mnt/etc/pacman.
 echo "Server = https://mirror.vfn-nrw.de/archlinux/\$repo/os/\$arch" >> /mnt/etc/pacman.d/mirrorlist
 echo "Server = https://mirror.netcologne.de/archlinux/\$repo/os/\$arch" >> /mnt/etc/pacman.d/mirrorlist
 
-echo "" >> /mnt/etc/pacman.conf
-echo "[archlinuxfr]" >> /mnt/etc/pacman.conf
-echo "SigLevel = Never" >> /mnt/etc/pacman.conf
-echo "Server = https://repo.archlinux.fr/\$arch" >> /mnt/etc/pacman.conf
-
 #If you use encryption LUKS change the APPEND line to use your encrypted volume:
 SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
 print_info "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
@@ -121,7 +116,6 @@ if [ $HAS_NVME -eq 1 ]; then
 fi
 
 arch_chroot "pacman -Ssy"
-arch_chroot "pacman -Sy yaourt"
 
 if [ $HAS_NVIDIA -eq 1 ]; then
     MODULES="${MODULES} nouveau"
