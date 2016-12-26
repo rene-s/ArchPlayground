@@ -162,7 +162,34 @@ else
     sed -i -- "s/^TIMEOUT [0-9]*/TIMEOUT 10/g" $CFG_SYSLINUX # do not wait for user input so long
 fi
 
-# Set up root user
+# Set up /etc/issue
+echo "Schmidt DevOps \r (\l) -- setup on: "`date` > /mnt/etc/issue
+
+# Setup network
+print_info "Setup network..."
+configure_network
+
+pacman -S --noconfirm \
+dmidecode
+git \
+guake \
+linux-headers \
+mc \
+namcap \
+openssh \
+p7zip
+
+install_yaourt
+
+# Setup environment
+VM=`dmidecode -s system-product-name`
+if [[ $VM == "VirtualBox" ]]; then
+    pacman -S --noconfirm virtualbox-guest-modules-arch
+else
+    pacman -S --noconfirm virtualbox
+fi
+
+# Set up users
 print_info "Set up users:"
 
 echo "%wheel ALL=(ALL) ALL" >> /mnt/etc/sudoers
@@ -174,32 +201,6 @@ arch_chroot "useradd -m -g users -G wheel st"
 configure_existing_user 'root'
 configure_existing_user 're'
 configure_existing_user 'st'
-
-# Set up /etc/issue
-echo "Schmidt DevOps \r (\l) -- setup on: "`date` > /mnt/etc/issue
-
-# Setup network
-print_info "Setup network..."
-configure_network
-
-# Setup environment
-VM=`dmidecode -s system-product-name`
-if [[ $VM == "VirtualBox" ]]; then
-    pacman -S --noconfirm virtualbox-guest-modules-arch
-else
-    pacman -S --noconfirm virtualbox
-fi
-
-pacman -S --noconfirm \
-git \
-guake \
-linux-headers \
-mc \
-namcap \
-openssh \
-p7zip
-
-install_yaourt
 
 # Finish
 print_info "Done."
