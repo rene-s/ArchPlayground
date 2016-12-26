@@ -169,6 +169,7 @@ echo "Schmidt DevOps \r (\l) -- setup on: "`date` > /mnt/etc/issue
 print_info "Setup network..."
 configure_network
 
+pacman -Ssy > /dev/null
 pacman -S --noconfirm \
 dmidecode
 git \
