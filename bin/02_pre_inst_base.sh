@@ -188,10 +188,5 @@ echo "Schmidt DevOps \r (\l) -- setup on: "`date` > /mnt/etc/issue
 print_info "Setup network..."
 configure_network
 
-# Move /opt because on /home is more space available
-rmdir /mnt/opt
-mkdir /mnt/home/.opt
-arch_chroot "ln -s /home/.opt /opt"
-
 # Finish
 print_info "Done."
