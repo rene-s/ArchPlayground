@@ -24,6 +24,7 @@ gnome \
 gnome-extra \
 gnome-tweak-tool \
 gst-plugins-ugly \
+gtk3-print-backends \
 guake \
 imagemagick \
 intellij-idea-community-edition \
@@ -48,4 +49,5 @@ gnome-music
 
 systemctl enable gdm.service
 systemctl enable NetworkManager.service
+systemctl enable org.cups.cupsd.service
 
