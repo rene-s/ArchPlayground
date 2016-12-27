@@ -43,9 +43,8 @@ system-config-printer \
 vlc \
 xorg-xrandr
 
-pacman -R --noconfirm \
-anjuta \
-gnome-music
+pacman -R --noconfirm anjuta # not required, gnome confuses opening links with opening anjuga sometimes
+pacman -R --noconfirm gnome-music # relies on tracker which in turn als issues with indexing music from symlinks, replaced with good ol' RhythmBox
 
 systemctl enable gdm.service
 systemctl enable NetworkManager.service
