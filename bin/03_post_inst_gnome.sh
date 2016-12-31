@@ -38,6 +38,7 @@ modemmanager \
 networkmanager \
 networkmanager-openvpn \
 network-manager-applet \
+pavucontrol \
 rhythmbox \
 seahorse \
 system-config-printer \
@@ -51,3 +52,10 @@ systemctl enable gdm.service
 systemctl enable NetworkManager.service
 systemctl enable org.cups.cupsd.service
 
+# Set up bluetooth support
+read -p "Set up bluetooth support? (y/N): " BLUETOOTH
+
+if [[ BLUETOOTH == "y" ]]
+then
+    setup_bluetooth
+fi
