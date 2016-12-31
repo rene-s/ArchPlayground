@@ -33,6 +33,15 @@ gsettings set org.gnome.desktop.screensaver picture-uri file://$WALLPAPER
 
 # see http://fabhax.com/technology/change-wallpapers-in-gnome-3.4/
 
+# Set screensaver photo
+sudo mkdir -p /usr/local/share/pixmaps/wallpaper
+sudo cp $WALLPAPER /usr/local/share/pixmaps/wallpaper/.sdo_wallpaper.png
+
+GSCHEMA="/usr/share/glib-2.0/schemas/org.gnome.desktop.screensaver.gschema.override"
+sudo echo "[org.gnome.desktop.screensaver]" > $GSCHEMA
+sudo echo "picture-uri=\"/usr/local/share/pixmaps/wallpaper/.sdo_wallpaper.png\"" >> $GSCHEMA
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
+
 # Set avatar
 AVATAR="${USER}"
 wget https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/img/avatar/${AVATAR}.svg -O /home/${USER}/Bilder/.${AVATAR}.svg
