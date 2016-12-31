@@ -173,12 +173,6 @@ pacman -Ssy > /dev/null
 pacman -S --noconfirm dmidecode
 arch_chroot "pacman -S --noconfirm bwm-ng dmidecode git iotop linux-headers mc namcap openssh p7zip"
 
-# Setup short timeout for dhcpcd so it won't search so long for interfaces not connected during boot
-mkdir /mnt/etc/systemd/system/dhcpcd@.service.d
-echo "[Service]" > /mnt/etc/systemd/system/dhcpcd@.service.d/timeout.conf
-echo "ExecStart=" >> /mnt/etc/systemd/system/dhcpcd@.service.d/timeout.conf
-echo "ExecStart=/usr/bin/dhcpcd -w -q -t 3 %I" >> /mnt/etc/systemd/system/dhcpcd@.service.d/timeout.conf
-
 # Setup environment
 VM=`dmidecode -s system-product-name`
 if [[ $VM == "VirtualBox" ]]; then
@@ -199,6 +193,14 @@ arch_chroot "useradd -m -g users -G wheel st"
 configure_existing_user 'root'
 configure_existing_user 're'
 configure_existing_user 'st'
+
+# Set up bluetooth support
+read -p "Set up bluetooth support? (y/N): " BLUETOOTH
+
+if [[ BLUETOOTH == "y" ]]
+then
+    setup_bluetooth
+fi
 
 # Create QT scaling wrapper; e.g. for Seafile change Exec and TryExec in /usr/share/applications/seafile.desktop to "/usr/local/bin/qt_scaled.sh"
 QT_SCALING_WRAPPER="/usr/local/bin/qt_scaled.sh"

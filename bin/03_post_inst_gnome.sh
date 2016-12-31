@@ -23,6 +23,7 @@ gimp \
 gnome \
 gnome-extra \
 gnome-tweak-tool \
+gnome-user-share \
 gst-plugins-ugly \
 gtk3-print-backends \
 guake \

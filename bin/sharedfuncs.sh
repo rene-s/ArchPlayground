@@ -647,6 +647,11 @@
   } #}}}
 #}}}
 
+setup_bluetooth() {
+    arch_chroot "pacman -S --noconfirm bluez bluez-utils pulseaudio-bluetooth bluez-libs bluez-firmware"
+    arch_chroot "systemctl enable bluetooth.service"
+}
+
 configure_network() {
   WIRELESS_DEV=`ip link | grep wlp | awk '{print $2}'| sed 's/://' | sed '1!d'`
   if [[ -n $WIRELESS_DEV ]]; then
@@ -656,6 +661,12 @@ configure_network() {
   if [[ -n $WIRED_DEV ]]; then
     arch_chroot "systemctl enable dhcpcd@${WIRED_DEV}.service"
   fi
+
+    # Setup short timeout for dhcpcd so it won't search so long for interfaces not connected during boot
+    mkdir /mnt/etc/systemd/system/dhcpcd@.service.d
+    echo "[Service]" > /mnt/etc/systemd/system/dhcpcd@.service.d/timeout.conf
+    echo "ExecStart=" >> /mnt/etc/systemd/system/dhcpcd@.service.d/timeout.conf
+    echo "ExecStart=/usr/bin/dhcpcd -w -q -t 3 %I" >> /mnt/etc/systemd/system/dhcpcd@.service.d/timeout.conf
 }
 
 # do not break the script when passwords do not match
