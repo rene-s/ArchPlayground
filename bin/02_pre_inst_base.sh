@@ -176,8 +176,8 @@ arch_chroot "pacman -S --noconfirm bwm-ng dmidecode git iotop linux-headers mc n
 # Setup short timeout for dhcpcd so it won't search so long for interfaces not connected during boot
 mkdir /mnt/etc/systemd/system/dhcpcd@.service.d
 echo "[Service]" > /mnt/etc/systemd/system/dhcpcd@.service.d/timeout.conf
-echo "ExecStart=" > /mnt/etc/systemd/system/dhcpcd@.service.d/timeout.conf
-echo "ExecStart=/usr/bin/dhcpcd -w -q -t 3 %I" > /mnt/etc/systemd/system/dhcpcd@.service.d/timeout.conf
+echo "ExecStart=" >> /mnt/etc/systemd/system/dhcpcd@.service.d/timeout.conf
+echo "ExecStart=/usr/bin/dhcpcd -w -q -t 3 %I" >> /mnt/etc/systemd/system/dhcpcd@.service.d/timeout.conf
 
 # Setup environment
 VM=`dmidecode -s system-product-name`
