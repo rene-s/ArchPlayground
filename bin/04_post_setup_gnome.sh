@@ -31,6 +31,8 @@ fi
 gsettings set org.gnome.desktop.background picture-uri file://$WALLPAPER
 gsettings set org.gnome.desktop.screensaver picture-uri file://$WALLPAPER
 
+# see http://fabhax.com/technology/change-wallpapers-in-gnome-3.4/
+
 # Set avatar
 AVATAR="${USER}"
 wget https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/img/avatar/${AVATAR}.svg -O /home/${USER}/Bilder/.${AVATAR}.svg
