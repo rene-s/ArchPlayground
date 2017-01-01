@@ -59,3 +59,6 @@ if [[ BLUETOOTH == "y" ]]
 then
     setup_bluetooth
 fi
+
+# Prepare for IntelliJ IDEA/PhpStorm; see https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
+echo "fs.inotify.max_user_watches = 524288" > /etc/sysctl.d/inotify.conf
