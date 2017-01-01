@@ -62,7 +62,14 @@ sh ./bin/04_post_setup_user.sh
 
 Log out, repeat for all other users that require setup.
 
+## Todo
+
+1. Card reader does not work: https://bbs.archlinux.org/viewtopic.php?id=164210
+1. Hibernation has not been set up.
+1. ~~Special keys for screen brightness and touchpad do not work yet.~~
+
 ## Useful links
 
 1. https://wiki.archlinux.org/index.php/Pacman/Rosetta
+1. https://wiki.archlinux.org/index.php/Clevo_P650RS
 

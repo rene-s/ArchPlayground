@@ -17,6 +17,7 @@ pacman -S --noconfirm \
 chromium \
 cups \
 eog \
+exfat-utils \
 firefox \
 gdm \
 gimp \
@@ -38,11 +39,13 @@ modemmanager \
 networkmanager \
 networkmanager-openvpn \
 network-manager-applet \
+ntfs-3g \
 pavucontrol \
 rhythmbox \
 seahorse \
 system-config-printer \
 vlc \
+xorg-xbacklight \
 xorg-xrandr
 
 pacman -R --noconfirm anjuta # not required, gnome confuses opening links with opening anjuga sometimes
