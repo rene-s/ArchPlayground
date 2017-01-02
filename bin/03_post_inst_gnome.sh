@@ -6,6 +6,8 @@ cd $DIR
 
 . ./sharedfuncs.sh
 
+PRODUCT_NAME=`cat /sys/devices/virtual/dmi/id/product_name`
+
 if [ "${USER}" != "root" ]; then
     print_danger "This script is supposed to be run as root, not as user."
     exit 1
@@ -47,6 +49,26 @@ system-config-printer \
 vlc \
 xorg-xbacklight \
 xorg-xrandr
+
+if [ $PRODUCT_NAME == "P640RF" ]; then
+    pacman -S --noconfirm \
+        bbswitch-dkms \
+        bumblebee \
+        lib32-virtualgl \
+        lib32-nvidia-utils \
+        lib32-nvidia-340xx-util \
+        lib32-mesa-libgl \
+        mesa-demos \
+        nvidia-libgl \
+        nvidia-340xx-libgl \
+        primus \
+        virtualgl
+
+    systemctl enable bumblebee.service
+
+    useradd -m -g bumblebee re
+    useradd -m -g bumblebee st
+fi
 
 pacman -R --noconfirm anjuta # not required, gnome confuses opening links with opening anjuga sometimes
 pacman -R --noconfirm gnome-music # relies on tracker which in turn als issues with indexing music from symlinks, replaced with good ol' RhythmBox

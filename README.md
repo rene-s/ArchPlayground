@@ -67,6 +67,8 @@ Log out, repeat for all other users that require setup.
 1. Card reader does not work: https://bbs.archlinux.org/viewtopic.php?id=164210
 1. Hibernation has not been set up.
 1. ~~Special keys for screen brightness and touchpad do not work yet.~~
+1. ~~```xrandr --listproviders``` returns 0 providers. Investigate why and determine whether the Nvidia GPU is being employed or not: https://wiki.archlinux.org/index.php/hybrid_graphics and https://wiki.archlinux.org/index.php/PRIME and https://wiki.archlinux.org/index.php/bumblebee -- ```optirun glxspheres64``` läuft nur das erste Mal schnell.~~
+ 
 
 ## Useful links
 
