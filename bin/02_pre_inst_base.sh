@@ -197,16 +197,22 @@ configure_existing_user 'st'
 # Create QT scaling wrapper; e.g. for Seafile change Exec and TryExec in /usr/share/applications/seafile.desktop to "/usr/local/bin/qt_scaled.sh"
 QT_SCALING_WRAPPER="/usr/local/bin/qt_scaled.sh"
 
-echo "#!/bin/bash" > $QT_SCALING_WRAPPER
-echo "# https://wiki.archlinux.org/index.php/environment_variables" >> $QT_SCALING_WRAPPER
-echo "export QT_STYLE_OVERRIDE=adwaita" >> $QT_SCALING_WRAPPER
-echo "export QT_AUTO_SCREEN_SCALE_FACTOR=0.99" >> $QT_SCALING_WRAPPER
-echo "exec \"\$1\"" >> $QT_SCALING_WRAPPER
+echo "#!/bin/bash" > /mnt${QT_SCALING_WRAPPER}
+echo "# https://wiki.archlinux.org/index.php/environment_variables" >> /mnt${QT_SCALING_WRAPPER}
+echo "export QT_STYLE_OVERRIDE=adwaita" >> /mnt${QT_SCALING_WRAPPER}
+echo "export QT_AUTO_SCREEN_SCALE_FACTOR=0.99" >> /mnt${QT_SCALING_WRAPPER}
+echo "exec \"\$1\"" >> /mnt${QT_SCALING_WRAPPER}
 
 SEAFILE_SCALING_WRAPPER="/usr/local/bin/seafile-applet-scaling.sh"
 
-echo "#!/bin/bash" > $SEAFILE_SCALING_WRAPPER
-echo "${QT_SCALING_WRAPPER} /usr/bin/seafile-applet" >> $SEAFILE_SCALING_WRAPPER
+echo "#!/bin/bash" > /mnt${SEAFILE_SCALING_WRAPPER}
+echo "${QT_SCALING_WRAPPER} /usr/bin/seafile-applet" >> /mnt${SEAFILE_SCALING_WRAPPER}
+
+# Kernel modules
+echo "" > /mnt/etc/modules-load.d/sdo-modules.conf
+echo "nvidia" >> /mnt/etc/modules-load.d/sdo-modules.conf
+echo "#tuxedo-wmi" >> /mnt/etc/modules-load.d/sdo-modules.conf
+echo "virtio-net" >> /mnt/etc/modules-load.d/sdo-modules.conf
 
 # Finish
 print_info "Done."
