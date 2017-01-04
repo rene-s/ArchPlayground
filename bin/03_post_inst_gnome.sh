@@ -54,20 +54,14 @@ if [ $PRODUCT_NAME == "P640RF" ]; then
     pacman -S --noconfirm \
         bbswitch-dkms \
         bumblebee \
-        lib32-virtualgl \
-        lib32-nvidia-utils \
-        lib32-nvidia-340xx-util \
-        lib32-mesa-libgl \
         mesa-demos \
-        nvidia-libgl \
-        nvidia-340xx-libgl \
         primus \
         virtualgl
 
-    systemctl enable bumblebee.service
+    systemctl enable bumblebeed.service
 
-    useradd -m -g bumblebee re
-    useradd -m -g bumblebee st
+    sudo usermod -a -G bumblebee re
+    sudo usermod -a -G bumblebee st
 fi
 
 pacman -R --noconfirm anjuta # not required, gnome confuses opening links with opening anjuga sometimes
