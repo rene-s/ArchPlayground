@@ -48,7 +48,11 @@ seahorse \
 system-config-printer \
 vlc \
 xorg-xbacklight \
-xorg-xrandr
+xorg-xrandr \
+xsel
+
+# notes:
+# xsel enables KeePass to write stuff to the clipboard
 
 if [ $PRODUCT_NAME == "P640RF" ]; then
     pacman -S --noconfirm \
