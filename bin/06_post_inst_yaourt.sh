@@ -6,8 +6,8 @@ cd $DIR
 
 . ./sharedfuncs.sh
 
-if [ "${USER}" != "root" ]; then
-    print_danger "This script is supposed to be run as root, not as user."
+if [ "${USER}" == "root" ]; then
+    print_danger "This script is supposed to be run as user, not as root."
     exit 1
 fi
 
