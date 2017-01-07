@@ -1,5 +1,9 @@
 # https://wiki.archlinux.de/title/yaourt#Installation
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+cd $DIR
+
 . ./sharedfuncs.sh
 
 if [ "${USER}" != "root" ]; then
