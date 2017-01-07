@@ -11,6 +11,8 @@ if [ "${USER}" == "root" ]; then
     exit 1
 fi
 
+PRODUCT_NAME=`cat /sys/devices/virtual/dmi/id/product_name`
+
 sudo pacman -S wget diffutils base-devel
 
 cd /tmp
