@@ -79,7 +79,7 @@ systemctl enable org.cups.cupsd.service
 # Set up bluetooth support
 read -p "Set up bluetooth support? (y/N): " BLUETOOTH
 
-if [[ BLUETOOTH == "y" ]]
+if [[ $BLUETOOTH == "y" ]]
 then
     setup_bluetooth
 fi
