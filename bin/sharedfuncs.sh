@@ -724,6 +724,7 @@ install_yaourt() {
 }
 
 find_fastest_mirrors() {
-    arch_chroot "grep -A1 --no-group-separator Germany /etc/pacman.d/mirrorlist > /etc/pacman.d/mirrorlist.germany"
-    arch_chroot "rankmirrors -n 2 /etc/pacman.d/mirrorlist.germany > /etc/pacman.d/mirrorlist"
+    grep -A1 --no-group-separator Germany /etc/pacman.d/mirrorlist > /etc/pacman.d/mirrorlist.germany
+    rankmirrors -n 2 /etc/pacman.d/mirrorlist.germany > /etc/pacman.d/mirrorlist
+    cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 }

@@ -54,6 +54,8 @@ print_info "This is a ${SYS} system."
 
 # Bootstrap Arch
 print_info "Bootstrapping"
+
+find_fastest_mirrors
 pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode
 
 # Update time
@@ -115,7 +117,6 @@ if [ $HAS_NVME -eq 1 ]; then
     MODULES="nvme"
 fi
 
-find_fastest_mirrors
 arch_chroot "pacman -Ssy"
 
 if [ $HAS_NVIDIA -eq 1 ]; then
