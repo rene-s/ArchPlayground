@@ -104,7 +104,7 @@ echo "Server = https://mirror.netcologne.de/archlinux/\$repo/os/\$arch" >> /mnt/
 SYSTEM_UUID=`blkid -s UUID -o value "${DISK_SYSTEM}"`
 print_info "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
 
-# Setup/mnt/etc/mkinitcpio.conf; add "encrypt" and "lvm" hooks
+# Setup /mnt/etc/mkinitcpio.conf; add "encrypt" and "lvm" hooks
 sed -i -- "s/^HOOKS=/#HOOKS=/g" /mnt/etc/mkinitcpio.conf
 sed -i -- "s/^MODULES=/#MODULES=/g" /mnt/etc/mkinitcpio.conf
 echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"' >>/mnt/etc/mkinitcpio.conf
@@ -121,7 +121,7 @@ if [ $HAS_NVIDIA -eq 1 ]; then
     MODULES="${MODULES} nouveau"
     arch_chroot "pacman -S --noconfirm xf86-video-nouveau nvidia nvidia-settings nvidia-utils"
 
-    NVIDIA_CONF="/etc/X11/xorg.conf.d/20-nvidia.conf"
+    NVIDIA_CONF="/mnt/etc/X11/xorg.conf.d/20-nvidia.conf"
 
     echo "Section \"Device\"" > $NVIDIA_CONF 
     echo "  Identifier \"Nvidia Card\"" >> $NVIDIA_CONF 
