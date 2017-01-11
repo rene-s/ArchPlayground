@@ -57,6 +57,7 @@ print_info "Bootstrapping"
 
 find_fastest_mirrors
 pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist # save fast mirrorlist for later
 
 # Update time
 print_info "Update time";
