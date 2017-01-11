@@ -115,6 +115,7 @@ if [ $HAS_NVME -eq 1 ]; then
     MODULES="nvme"
 fi
 
+find_fastest_mirrors
 arch_chroot "pacman -Ssy"
 
 if [ $HAS_NVIDIA -eq 1 ]; then

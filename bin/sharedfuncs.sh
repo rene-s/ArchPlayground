@@ -722,3 +722,8 @@ install_yaourt() {
     cd yaourt
     arch_chroot "makepkg -si"
 }
+
+find_fastest_mirrors() {
+    arch_chroot "grep -A1 --no-group-separator Germany /etc/pacman.d/mirrorlist > /etc/pacman.d/mirrorlist.germany"
+    arch_chroot "rankmirrors -n 2 /etc/pacman.d/mirrorlist.germany > /etc/pacman.d/mirrorlist"
+}
