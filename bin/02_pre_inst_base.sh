@@ -120,6 +120,18 @@ arch_chroot "pacman -Ssy"
 if [ $HAS_NVIDIA -eq 1 ]; then
     MODULES="${MODULES} nouveau"
     arch_chroot "pacman -S --noconfirm xf86-video-nouveau nvidia nvidia-settings nvidia-utils"
+
+    NVIDIA_CONF="/etc/X11/xorg.conf.d/20-nvidia.conf"
+
+    echo "Section \"Device\"" > $NVIDIA_CONF 
+    echo "  Identifier \"Nvidia Card\"" >> $NVIDIA_CONF 
+    echo "  Driver \"nvidia\"" >> $NVIDIA_CONF
+    echo "  VendorName \"NVIDIA Corporation\"" >> $NVIDIA_CONF
+    echo "  Option \"NoLogo\" \"true\"" >> $NVIDIA_CONF
+    echo "  #Option \"UseEDID\" \"false\"" >> $NVIDIA_CONF
+    echo "  #Option \"ConnectedMonitor\" \"DFP\"" >> $NVIDIA_CONF
+    echo "  # ..." >> $NVIDIA_CONF
+    echo "EndSection" >> $NVIDIA_CONF
 fi
 
 echo "MODULES=\"${MODULES}\"" >>/mnt/etc/mkinitcpio.conf
