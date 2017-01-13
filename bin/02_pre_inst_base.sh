@@ -55,7 +55,7 @@ fi
 print_info "This is a ${SYS} system."
 
 # Bootstrap Arch
-print_info "Bootstrapping"
+print_info "Please wait! Searching for the fastest mirror..."
 
 find_fastest_mirrors
 pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode
@@ -68,9 +68,6 @@ timedatectl set-ntp true
 # Generate fstab
 print_info "Generating fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
-
-# Chroot into new env
-print_info "Chrooting..."
 
 # Install Intel microcode
 print_info "Install Intel microcode..."
@@ -141,7 +138,7 @@ arch_chroot "mkinitcpio -p linux"
 if [ $SYS == "UEFI" ]; then
     print_info "UEFI setup..."
 
-    # P640RF=Tuxedo XF1406, 4180W15=Lenovo T420
+    # P640RF=Tuxedo XC1406, 4180W15=Lenovo T420
     if [ $PRODUCT_NAME == "P640RF" ]; then
         sed -i -- "s/^GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"acpi_os_name=Linux acpi_osi= acpi_backlight=vendor i8042.reset i8042.nomux i8042.nopnp i8042.noloop cryptdevice=UUID=${SYSTEM_UUID}:lvm\"/g" /mnt/etc/default/grub
     else

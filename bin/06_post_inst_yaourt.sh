@@ -31,7 +31,7 @@ yaourt -S seafile-client
 yaourt -S phpstorm
 yaourt -S rts_bpp-dkms-git
 
-# P640RF=Tuxedo XF1406, 4180W15=Lenovo T420
+# P640RF=Tuxedo XC1406, 4180W15=Lenovo T420
 if [ $PRODUCT_NAME == "P640RF" ]; then
     yaourt -S tuxedo-wmi-dkms
     # https://www.linux-onlineshop.de/forum/index.php?page=Thread&threadID=26
