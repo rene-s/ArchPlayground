@@ -11,6 +11,8 @@ if [ "${USER}" != "root" ]; then
     exit 1
 fi
 
+PRODUCT_NAME=`cat /sys/devices/virtual/dmi/id/product_name`
+
 # vars
 MOUNTPOINT="/mnt"
 
@@ -139,7 +141,13 @@ arch_chroot "mkinitcpio -p linux"
 if [ $SYS == "UEFI" ]; then
     print_info "UEFI setup..."
 
-    sed -i -- "s/^GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"acpi_os_name=Linux acpi_osi= acpi_backlight=vendor i8042.reset i8042.nomux i8042.nopnp i8042.noloop cryptdevice=UUID=${SYSTEM_UUID}:lvm\"/g" /mnt/etc/default/grub
+    # P640RF=Tuxedo XF1406, 4180W15=Lenovo T420
+    if [ $PRODUCT_NAME == "P640RF" ]; then
+        sed -i -- "s/^GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"acpi_os_name=Linux acpi_osi= acpi_backlight=vendor i8042.reset i8042.nomux i8042.nopnp i8042.noloop cryptdevice=UUID=${SYSTEM_UUID}:lvm\"/g" /mnt/etc/default/grub
+    else
+        sed -i -- "s/^GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"cryptdevice=UUID=${SYSTEM_UUID}:lvm\"/g" /mnt/etc/default/grub
+    fi
+
     sed -i -- "s/^GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g" /mnt/etc/default/grub
 
     arch_chroot "pacman -S --noconfirm efibootmgr dosfstools gptfdisk"
