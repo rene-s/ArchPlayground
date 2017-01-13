@@ -38,8 +38,10 @@ sudo mkdir -p /usr/local/share/pixmaps/wallpaper
 sudo cp $WALLPAPER /usr/local/share/pixmaps/wallpaper/.sdo_wallpaper.png
 
 GSCHEMA="/usr/share/glib-2.0/schemas/org.gnome.desktop.screensaver.gschema.override"
-sudo echo "[org.gnome.desktop.screensaver]" > $GSCHEMA
-sudo echo "picture-uri=\"/usr/local/share/pixmaps/wallpaper/.sdo_wallpaper.png\"" >> $GSCHEMA
+
+echo "[User]" | sudo tee $USER_FILE
+echo "[org.gnome.desktop.screensaver]" | sudo tee --append $GSCHEMA
+echo "picture-uri=\"/usr/local/share/pixmaps/wallpaper/.sdo_wallpaper.png\"" | sudo tee --append $GSCHEMA
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 # Set avatar
