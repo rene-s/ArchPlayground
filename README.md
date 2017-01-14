@@ -42,12 +42,15 @@ After that, reboot and remove the Arch live image.
 Log in as root, then:
 
 ```
+systemctl start dhcpcd.service
 mkdir /usr/local/share/tmp
 cd /usr/local/share/tmp
 
-git clone https://github.com/rene-s/ArchPlayground.git
+git clone https://github.com/rene-s/ArchPlayground.git 
 cd ./ArchPlayground
+su - re
 sh ./system/03_post_base_install.sh
+exit
 sh ./system/04_post_desktop_default_install.sh
 reboot
 ```
