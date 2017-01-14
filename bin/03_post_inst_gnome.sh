@@ -88,5 +88,5 @@ fi
 # Prepare for IntelliJ IDEA/PhpStorm; see https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
 echo "fs.inotify.max_user_watches = 524288" > /etc/sysctl.d/inotify.conf
 
-# Fix wrong permissions
+# Fix wrong permissions; fixes GDM sometimes not starting after installation
 chown -R gdm:gdm /var/lib/gdm/.config
