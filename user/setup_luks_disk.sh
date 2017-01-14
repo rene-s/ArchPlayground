@@ -4,7 +4,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DIR
 
-. ./sharedfuncs.sh
+. ../lib/sharedfuncs.sh
 
 if [ "${USER}" != "root" ]; then
     print_danger "This script is supposed to be run as root, not as user."

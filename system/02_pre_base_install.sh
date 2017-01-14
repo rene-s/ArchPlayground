@@ -4,7 +4,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DIR
 
-. ./sharedfuncs.sh
+. ../lib/sharedfuncs.sh
 
 if [ "${USER}" != "root" ]; then
     print_danger "This script is supposed to be run as root, not as user."
@@ -228,6 +228,20 @@ echo "" > /mnt/etc/modules-load.d/sdo-modules.conf
 echo "nvidia" >> /mnt/etc/modules-load.d/sdo-modules.conf
 echo "#tuxedo-wmi" >> /mnt/etc/modules-load.d/sdo-modules.conf
 echo "virtio-net" >> /mnt/etc/modules-load.d/sdo-modules.conf
+
+# Install yaourt
+arch_chroot "pacman -S wget diffutils base-devel"
+arch_chroot "cd /tmp"
+arch_chroot "curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz"
+arch_chroot "tar -xvzf package-query.tar.gz"
+arch_chroot "cd package-query"
+arch_chroot "makepkg -si"
+
+arch_chroot "cd .."
+arch_chroot "curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar."
+arch_chroot "tar -xvzf yaourt.tar.gz"
+arch_chroot "cd yaourt"
+arch_chroot "makepkg -si"
 
 # Finish
 print_info "Done."

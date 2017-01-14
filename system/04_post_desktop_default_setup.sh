@@ -4,12 +4,14 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DIR
 
-. ./sharedfuncs.sh
+. ../lib/sharedfuncs.sh
 
 if [ "${USER}" == "root" ]; then
     print_danger "This script is supposed to be run as a user, not as root."
     exit 1
 fi
+
+PRODUCT_NAME=`cat /sys/devices/virtual/dmi/id/product_name`
 
 mkdir -p ~/Bilder
 
@@ -74,3 +76,16 @@ git config --global user.name "${nameofuser}"
 # Misc stuff
 sudo chfn -f "${nameofuser}" $USER # Set name of user
 xdg-mime default org.gnome.Nautilus.desktop inode/directory # see https://wiki.archlinux.de/title/GNOME
+
+# Install AUR packages
+yaourt -S seafile-client
+yaourt -S rts_bpp-dkms-git
+
+# P640RF=Tuxedo XC1406, 4180W15=Lenovo T420
+if [ $PRODUCT_NAME == "P640RF" ]; then
+    yaourt -S tuxedo-wmi-dkms
+    # https://www.linux-onlineshop.de/forum/index.php?page=Thread&threadID=26
+    sed -i -- "s/^#tuxedo-wmi/tuxedo-wmi/g" /etc/modules-load.d/sdo-modules.conf
+fi
+
+

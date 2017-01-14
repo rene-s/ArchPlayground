@@ -661,14 +661,15 @@ setup_bluetooth() {
 }
 
 configure_network() {
-  WIRELESS_DEV=`ip link | grep wlp | awk '{print $2}'| sed 's/://' | sed '1!d'`
-  if [[ -n $WIRELESS_DEV ]]; then
-    pacstrap ${MOUNTPOINT} iw wireless_tools wpa_actiond wpa_supplicant dialog
-  fi
-  WIRED_DEV=`ip link | grep "ens\|eno\|enp" | awk '{print $2}'| sed 's/://' | sed '1!d'`
-  if [[ -n $WIRED_DEV ]]; then
-    arch_chroot "systemctl enable dhcpcd@${WIRED_DEV}.service"
-  fi
+    WIRELESS_DEV=`ip link | grep wlp | awk '{print $2}'| sed 's/://' | sed '1!d'`
+    if [[ -n $WIRELESS_DEV ]]; then
+        pacstrap ${MOUNTPOINT} iw wireless_tools wpa_actiond wpa_supplicant dialog
+    fi
+
+    WIRED_DEV=`ip link | grep "ens\|eno\|enp" | awk '{print $2}'| sed 's/://' | sed '1!d'`
+    if [[ -n $WIRED_DEV ]]; then
+        arch_chroot "systemctl enable dhcpcd@${WIRED_DEV}.service"
+    fi
 
     # Setup short timeout for dhcpcd so it won't search so long for interfaces not connected during boot
     mkdir /mnt/etc/systemd/system/dhcpcd@.service.d
@@ -726,4 +727,13 @@ install_yaourt() {
 find_fastest_mirrors() {
     grep -A1 --no-group-separator Germany /etc/pacman.d/mirrorlist > /etc/pacman.d/mirrorlist.germany
     rankmirrors -n 2 /etc/pacman.d/mirrorlist.germany > /etc/pacman.d/mirrorlist
+}
+
+bail_on_missing_yaourt() {
+    which yaourt > /dev/null
+
+    if [ "$?" == "1" ]; then
+        print_danger "Requires yaourt."
+        exit 1
+    fi
 }

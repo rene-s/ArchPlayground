@@ -4,7 +4,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DIR
 
-. ./sharedfuncs.sh
+. ../lib/sharedfuncs.sh
 
 PRODUCT_NAME=`cat /sys/devices/virtual/dmi/id/product_name`
 
@@ -29,9 +29,7 @@ gnome-tweak-tool \
 gnome-user-share \
 gst-plugins-ugly \
 gtk3-print-backends \
-guake \
 imagemagick \
-intellij-idea-community-edition \
 keepass \
 libreoffice-still \
 libu2f-host \
@@ -77,6 +75,12 @@ systemctl enable gdm.service
 systemctl enable NetworkManager.service
 systemctl enable org.cups.cupsd.service
 
+# Prepare for IntelliJ IDEA/PhpStorm; see https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
+echo "fs.inotify.max_user_watches = 524288" > /etc/sysctl.d/inotify.conf
+
+# Fix wrong permissions; fixes GDM sometimes not starting after installation
+chown -R gdm:gdm /var/lib/gdm/.config
+
 # Set up bluetooth support
 read -p "Set up bluetooth support? (y/N): " BLUETOOTH
 
@@ -84,9 +88,3 @@ if [[ $BLUETOOTH == "y" ]]
 then
     setup_bluetooth
 fi
-
-# Prepare for IntelliJ IDEA/PhpStorm; see https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
-echo "fs.inotify.max_user_watches = 524288" > /etc/sysctl.d/inotify.conf
-
-# Fix wrong permissions; fixes GDM sometimes not starting after installation
-chown -R gdm:gdm /var/lib/gdm/.config
