@@ -1,15 +1,9 @@
 #!/usr/bin/env bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-cd $DIR
-
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";cd $DIR
 . ../lib/sharedfuncs.sh
 
-if [ "${USER}" != "root" ]; then
-    print_danger "This script is supposed to be run as root, not as user."
-    exit 1
-fi
+bail_on_user
 
 # vars
 MOUNTPOINT="/mnt"
