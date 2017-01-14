@@ -31,8 +31,8 @@ wget "sdo.sh/l/?arch_inst" -O - | tar xz
 Then cd into the newly created directory and run
 
 ```
-sh ./bin/01_pre_inst_disk.sh
-sh ./bin/02_pre_inst_base.sh
+sh ./system/01_pre_disk_setup.sh
+sh ./system/02_pre_base_install.sh
 ```
 
 After that, reboot and remove the Arch live image.
@@ -47,7 +47,8 @@ cd /usr/local/share/tmp
 
 git clone https://github.com/rene-s/ArchPlayground.git
 cd ./ArchPlayground
-sh ./bin/03_post_inst_desktop.sh
+sh ./system/03_post_base_install.sh
+sh ./system/04_post_desktop_default_install.sh
 reboot
 ```
 
@@ -57,10 +58,20 @@ Log in as user, then:
 
 ```
 cd /usr/local/share/tmp/ArchPlayground
-sh ./bin/04_post_setup_user.sh
+sh ./system/05_post_desktop_default_setup.sh
 ```
 
 Log out, repeat for all other users that require setup.
+
+### Optional stage
+
+Once the default system has been set up you may want to run one or more of these scripts:
+
+| Name | Purpose
+| ---- | -------
+| ```user/setup_latex.sh``` | Sets up a LaTeX environment with "TeX Live", Koma-Script, and Kile 
+| ```user/setup_luks_disk.sh``` | Encrypts and sets up a second permanent hard disk or solid state disk
+| ```user/setup_programming.sh``` | Installs the default SDO software development environment for Java, PHP, and JavaScript/NodeJS
 
 ## Todo
 

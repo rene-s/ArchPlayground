@@ -180,7 +180,7 @@ configure_network
 
 pacman -Ssy > /dev/null
 pacman -S --noconfirm dmidecode
-arch_chroot "pacman -S --noconfirm bwm-ng dmidecode git iotop linux-headers mc namcap openssh p7zip"
+arch_chroot "pacman -S --noconfirm bwm-ng dmidecode git iotop linux-headers mc namcap openssh p7zip wget diffutils base-devel"
 
 # Setup environment
 VM=`dmidecode -s system-product-name`
@@ -222,15 +222,6 @@ echo "" > /mnt/etc/modules-load.d/sdo-modules.conf
 echo "nvidia" >> /mnt/etc/modules-load.d/sdo-modules.conf
 echo "#tuxedo-wmi" >> /mnt/etc/modules-load.d/sdo-modules.conf
 echo "virtio-net" >> /mnt/etc/modules-load.d/sdo-modules.conf
-
-# Install yaourt
-arch_chroot "pacman -S wget diffutils base-devel"
-
-arch_chroot "wget https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz -O - | tar xz -C /tmp/"
-arch_chroot "wget https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz -O - | tar xz -C /tmp/"
-
-arch_chroot "cd /tmp/package-query;makepkg -si"
-arch_chroot "cd /tmp/yaourt;makepkg -si"
 
 # Finish
 print_info "Done."
