@@ -73,7 +73,7 @@ systemctl enable org.cups.cupsd.service
 echo "fs.inotify.max_user_watches = 524288" > /etc/sysctl.d/inotify.conf
 
 # Fix wrong permissions; fixes GDM sometimes not starting after installation
-chown -R gdm:gdm /var/lib/gdm/.config
+chown -R gdm:gdm /var/lib/gdm/
 
 # Set up bluetooth support
 read -p "Set up bluetooth support? (y/N): " BLUETOOTH
