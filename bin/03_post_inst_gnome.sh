@@ -43,6 +43,7 @@ networkmanager-openvpn \
 network-manager-applet \
 ntfs-3g \
 pavucontrol \
+qt4 \
 rhythmbox \
 seahorse \
 system-config-printer \
