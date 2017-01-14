@@ -225,17 +225,12 @@ echo "virtio-net" >> /mnt/etc/modules-load.d/sdo-modules.conf
 
 # Install yaourt
 arch_chroot "pacman -S wget diffutils base-devel"
-arch_chroot "cd /tmp"
-arch_chroot "curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz"
-arch_chroot "tar -xvzf package-query.tar.gz"
-arch_chroot "cd package-query"
-arch_chroot "makepkg -si"
 
-arch_chroot "cd .."
-arch_chroot "curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar."
-arch_chroot "tar -xvzf yaourt.tar.gz"
-arch_chroot "cd yaourt"
-arch_chroot "makepkg -si"
+arch_chroot "wget https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz -O - | tar xz -C /tmp/"
+arch_chroot "wget https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz -O - | tar xz -C /tmp/"
+
+arch_chroot "cd /tmp/package-query;makepkg -si"
+arch_chroot "cd /tmp/yaourt;makepkg -si"
 
 # Finish
 print_info "Done."
