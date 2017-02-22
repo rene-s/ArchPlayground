@@ -216,6 +216,18 @@ SEAFILE_SCALING_WRAPPER="/usr/local/bin/seafile-applet-scaling.sh"
 
 echo "#!/bin/bash" > /mnt${SEAFILE_SCALING_WRAPPER}
 echo "${QT_SCALING_WRAPPER} /usr/bin/seafile-applet" >> /mnt${SEAFILE_SCALING_WRAPPER}
+chmod +x $SEAFILE_SCALING_WRAPPER
+
+# Add desktop file; set up auto start with gnome-tweak-tool
+DESKTOP_FILE=/usr/share/applications/seafile-scaled.desktop
+echo "[Desktop Entry]" > $DESKTOP_FILE
+echo "Name=Seafile Scaled" >> $DESKTOP_FILE
+echo "Comment=Seafile desktop sync client" >> $DESKTOP_FILE
+echo "TryExec=/usr/local/bin/seafile-applet-scaling.sh" >> $DESKTOP_FILE
+echo "Exec=/usr/local/bin/seafile-applet-scaling.sh" >> $DESKTOP_FILE
+echo "Icon=seafile" >> $DESKTOP_FILE
+echo "Type=Application" >> $DESKTOP_FILE
+echo "Categories=Network;FileTransfer;" >> $DESKTOP_FILE
 
 # Kernel modules
 echo "" > /mnt/etc/modules-load.d/sdo-modules.conf
