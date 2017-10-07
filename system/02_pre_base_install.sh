@@ -52,6 +52,8 @@ print_info "This is a ${SYS} system."
 print_info "Please wait! Searching for the fastest mirror..."
 
 find_fastest_mirrors
+pacman -Ssy > /dev/null
+pacman -S archlinux-keyring # useful when the image is a little older...
 pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist # save fast mirrorlist for later
 
@@ -106,7 +108,6 @@ if [ $HAS_NVME -eq 1 ]; then
     MODULES="nvme"
 fi
 
-# install archlinux-keyring first?
 arch_chroot "pacman -Ssy"
 
 if [ $HAS_NVIDIA -eq 1 ]; then
@@ -207,28 +208,35 @@ configure_existing_user 'st'
 # Create QT scaling wrapper; e.g. for Seafile change Exec and TryExec in /usr/share/applications/seafile.desktop to "/usr/local/bin/qt_scaled.sh"
 QT_SCALING_WRAPPER="/usr/local/bin/qt_scaled.sh"
 
-echo "#!/bin/bash" > /mnt${QT_SCALING_WRAPPER}
-echo "# https://wiki.archlinux.org/index.php/environment_variables" >> /mnt${QT_SCALING_WRAPPER}
-echo "export QT_STYLE_OVERRIDE=adwaita" >> /mnt${QT_SCALING_WRAPPER}
-echo "export QT_AUTO_SCREEN_SCALE_FACTOR=0.99" >> /mnt${QT_SCALING_WRAPPER}
-echo "exec \"\$1\"" >> /mnt${QT_SCALING_WRAPPER}
+if [ -f $QT_SCALING_WRAPPER ]; then
+    echo "#!/bin/bash" > /mnt${QT_SCALING_WRAPPER}
+    echo "# https://wiki.archlinux.org/index.php/environment_variables" >> /mnt${QT_SCALING_WRAPPER}
+    echo "export QT_STYLE_OVERRIDE=adwaita" >> /mnt${QT_SCALING_WRAPPER}
+    echo "export QT_AUTO_SCREEN_SCALE_FACTOR=0.99" >> /mnt${QT_SCALING_WRAPPER}
+    echo "exec \"\$1\"" >> /mnt${QT_SCALING_WRAPPER}
+fi
 
 SEAFILE_SCALING_WRAPPER="/usr/local/bin/seafile-applet-scaling.sh"
 
-echo "#!/bin/bash" > /mnt${SEAFILE_SCALING_WRAPPER}
-echo "${QT_SCALING_WRAPPER} /usr/bin/seafile-applet" >> /mnt${SEAFILE_SCALING_WRAPPER}
-chmod +x $SEAFILE_SCALING_WRAPPER
+if [ -f $SEAFILE_SCALING_WRAPPER ]; then
+    echo "#!/bin/bash" > /mnt${SEAFILE_SCALING_WRAPPER}
+    echo "${QT_SCALING_WRAPPER} /usr/bin/seafile-applet" >> /mnt${SEAFILE_SCALING_WRAPPER}
+    chmod +x $SEAFILE_SCALING_WRAPPER
+fi
 
 # Add desktop file; set up auto start with gnome-tweak-tool
 DESKTOP_FILE=/usr/share/applications/seafile-scaled.desktop
-echo "[Desktop Entry]" > $DESKTOP_FILE
-echo "Name=Seafile Scaled" >> $DESKTOP_FILE
-echo "Comment=Seafile desktop sync client" >> $DESKTOP_FILE
-echo "TryExec=/usr/local/bin/seafile-applet-scaling.sh" >> $DESKTOP_FILE
-echo "Exec=/usr/local/bin/seafile-applet-scaling.sh" >> $DESKTOP_FILE
-echo "Icon=seafile" >> $DESKTOP_FILE
-echo "Type=Application" >> $DESKTOP_FILE
-echo "Categories=Network;FileTransfer;" >> $DESKTOP_FILE
+
+if [ -f $DESKTOP_FILE ]; then
+    echo "[Desktop Entry]" > $DESKTOP_FILE
+    echo "Name=Seafile Scaled" >> $DESKTOP_FILE
+    echo "Comment=Seafile desktop sync client" >> $DESKTOP_FILE
+    echo "TryExec=/usr/local/bin/seafile-applet-scaling.sh" >> $DESKTOP_FILE
+    echo "Exec=/usr/local/bin/seafile-applet-scaling.sh" >> $DESKTOP_FILE
+    echo "Icon=seafile" >> $DESKTOP_FILE
+    echo "Type=Application" >> $DESKTOP_FILE
+    echo "Categories=Network;FileTransfer;" >> $DESKTOP_FILE
+fi
 
 # Kernel modules
 echo "" > /mnt/etc/modules-load.d/sdo-modules.conf
