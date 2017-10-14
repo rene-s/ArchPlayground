@@ -7,7 +7,7 @@ bail_on_user
 
 # first minimalistic approach
 
-pacman -S \
+pacman -S --noconfirm \
 chromium \
 connman \
 lxappearance \

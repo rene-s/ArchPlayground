@@ -53,7 +53,7 @@ print_info "Please wait! Searching for the fastest mirror..."
 
 find_fastest_mirrors
 pacman -Ssy > /dev/null
-pacman -S archlinux-keyring # useful when the image is a little older...
+pacman -S --noconfirm archlinux-keyring # useful when the image is a little older...
 pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist # save fast mirrorlist for later
 

@@ -76,6 +76,12 @@ Once the default system has been set up you may want to run one or more of these
 | ```user/setup_luks_disk.sh``` | Encrypts and sets up a second permanent hard disk or solid state disk
 | ```user/setup_programming.sh``` | Installs the default SDO software development environment for Java, PHP, and JavaScript/NodeJS
 
+## Virtualbox and UEFI booting
+
+In the VM settings, go to ```System > Mainboard``` and enable ```EFI```. The virtual drive must be connected to a SATA controller.
+
+Instead of showing the boot loader right away you may get thrown to a UEFI console. Switch to FS0 by typing ```FS0```. Then start the boot loader by running ```EFI\arch_grub\grubx64.efi``` (on german keyboards backslash is the # key).
+
 ## Todo
 
 1. Card reader does not work: https://bbs.archlinux.org/viewtopic.php?id=164210
