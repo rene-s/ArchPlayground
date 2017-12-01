@@ -28,7 +28,7 @@ Bear in mind though there is no proper way of customisation as the default Schmi
 
 ### First stage
 
-After booting the Arch Linux live image, run
+After booting the Arch Linux ISO image, run
 
 ```
 wget "sdo.sh/l/?arch_inst" -O - | tar xz
