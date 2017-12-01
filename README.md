@@ -64,7 +64,7 @@ reboot
 
 ### Third stage
 
-Log in as user, then:
+Log in as user and open a terminal. Then finish the installation:
 
 ```
 cd /usr/local/share/tmp/ArchPlayground
