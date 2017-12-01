@@ -41,7 +41,7 @@ sh ./system/01_pre_disk_setup.sh
 sh ./system/02_pre_base_install.sh
 ```
 
-After that, reboot and remove the Arch live image.
+After that, reboot and remove the Arch ISO image from the VM.
 
 ### Second stage
 
