@@ -31,13 +31,13 @@ Bear in mind though there is no proper way of customisation as the default Schmi
 After booting the Arch Linux ISO image, run
 
 ```
-wget "sdo.sh/l/?arch_inst" -O - | tar xz
+wget "sdo.sh/l/?arch_inst" -O - | tar xz # NOTE: there are no numbers in the URL
 ```
 
 Then cd into the newly created directory and run
 
 ```
-sh ./system/01_pre_disk_setup.sh
+sh ./system/01_pre_disk_setup.sh # NOTE: at this point, the keymap will be german
 sh ./system/02_pre_base_install.sh
 ```
 
