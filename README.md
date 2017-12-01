@@ -54,7 +54,8 @@ cd /usr/local/share/tmp
 
 git clone https://github.com/rene-s/ArchPlayground.git 
 cd ./ArchPlayground
-su - re
+su - <your_username>
+cd /usr/local/share/tmp/ArchPlayground
 sh ./system/03_post_base_install.sh
 exit
 sh ./system/04_post_desktop_default_install.sh
