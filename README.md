@@ -20,6 +20,12 @@ Bear in mind though there is no proper way of customisation as the default Schmi
 
 ## Usage
 
+### Preparations
+
+1. Download the Arch Linux ISO image from https://www.archlinux.org/download/
+1. Create a VM in VirtualBox or whatever you are using.
+1. Boot from the ISO image.
+
 ### First stage
 
 After booting the Arch Linux live image, run
