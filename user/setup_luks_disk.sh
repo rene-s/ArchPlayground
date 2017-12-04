@@ -78,7 +78,11 @@ fi
 # Set only after we have checked for existing partions as that command is supposed to fail.
 set -e
 
-parted --script ${DISK} mkpart primary ${start_block} 100%
+if [ $start_block -gt 0 ]; then
+    parted --script ${DISK} mkpart primary ${start_block} 100%
+else
+    parted --script ${DISK} mkpart primary ext2 1MiB 100%
+fi
 
 if [[ $USE_STATIC_KEY_FILES == "y" ]]; then
 	cryptsetup luksFormat $DISK_DATA $STATIC_KEY_FILE
