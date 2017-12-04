@@ -7,12 +7,6 @@ bail_on_user
 # vars
 MOUNTPOINT="/mnt"
 
-SYS="BIOS"
-
-if [ -d /sys/firmware/efi ]; then
-        SYS="UEFI"
-fi
-
 loadkeys de-latin1
 
 # determine disk to install on
@@ -27,6 +21,20 @@ then
     DISK_DATA="${DISK}p1"
 else
     DISK_DATA="${DISK}1"
+fi
+
+# Calculate optimal start block (check with ```parted ${DISK}``` and then ```align-check optimal 1```
+IFS='/' read -ra disk_name <<< "$DISK"
+
+optimal_io_size=`cat /sys/block/${disk_name[2]}/queue/optimal_io_size`
+alignment_offset=`cat /sys/block/${disk_name[2]}/alignment_offset`
+physical_block_size=`cat /sys/block/${disk_name[2]}/queue/physical_block_size`
+
+sum=$((optimal_io_size+alignment_offset))
+start_block=0
+
+if [ $sum -gt 0 ] && [ $physical_block_size -gt 0 ]; then
+	start_block=$(((optimal_io_size+alignment_offset)/physical_block_size))
 fi
 
 # Decide whether to use static key files or not
@@ -53,11 +61,7 @@ then
     exit 0
 fi
 
-if [ $SYS == "BIOS" ]; then
-    parted --script ${DISK} mklabel msdos
-else
-    parted --script ${DISK} mklabel gpt
-fi
+parted --script ${DISK} mklabel gpt
 
 # Check if there are partitions set up. If so, bail out and prompt the user to wipe them first.
 print_info "Checking for existing partitions..."
@@ -72,7 +76,7 @@ fi
 # Set only after we have checked for existing partions as that command is supposed to fail.
 set -e
 
-parted --script ${DISK} mkpart primary ext2 1MiB 100%
+parted --script ${DISK} mkpart primary ${start_block} 100%
 
 if [[ $USE_STATIC_KEY_FILES == "y" ]]; then
 	cryptsetup luksFormat $DISK_DATA $STATIC_KEY_FILE
