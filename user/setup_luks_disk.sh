@@ -31,6 +31,14 @@ else
 fi
 
 # Create partition table
+
+read -p "Set up new partition table for ${DISK}? (y/N): " NEWPARTITIONTABLE
+
+if [[ NEWPARTITIONTABLE != "y" ]]
+then
+    exit 0
+fi
+
 if [ $SYS == "BIOS" ]; then
     parted --script ${DISK} mklabel msdos
 else
