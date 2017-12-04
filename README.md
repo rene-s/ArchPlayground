@@ -87,7 +87,7 @@ Once the default system has been set up you may want to run one or more of these
 
 In the VM settings, go to ```System > Mainboard``` and enable ```EFI```. The virtual drive must be connected to a SATA controller.
 
-Instead of showing the boot loader right away you may get thrown to a UEFI console. Switch to FS0 by typing ```FS0```. Then start the boot loader by running ```EFI\arch_grub\grubx64.efi``` (on german keyboards backslash is the # key).
+Instead of showing the boot loader right away you may get thrown to a UEFI console. Switch to FS0 by typing ```FS0:```. Then start the boot loader by running ```EFI\arch_grub\grubx64.efi``` (on german keyboards backslash is the # key).
 
 ## Todo
 

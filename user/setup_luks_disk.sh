@@ -37,8 +37,7 @@ fi
 # Set only after we have checked for existing partions as that command is supposed to fail.
 set -e
 
-parted --script ${DISK} \
-    mkpart primary ext2 1MiB 100%
+parted --script ${DISK} mkpart primary ext2 1MiB 100%
 
 cryptsetup --verify-passphrase luksFormat $DISK_DATA -c aes -s 256 -h sha256
 cryptsetup luksOpen $DISK_DATA luks_data
@@ -47,7 +46,7 @@ mkfs.ext4 -m0 /dev/mapper/luks_data
 UUID=`cryptsetup luksUUID $DISK_DATA`
 echo "luks_data UUID=${UUID} none luks" >> /etc/crypttab
 
-mkdir /mnt/luks_data
+mkdir -p /mnt/luks_data
 
 echo "/dev/mapper/luks_data /mnt/luks_data ext4 defaults 0 2" >> /etc/fstab
 
