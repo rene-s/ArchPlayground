@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";cd $DIR
 . ../lib/sharedfuncs.sh
 
@@ -30,11 +29,26 @@ else
     DISK_DATA="${DISK}1"
 fi
 
+# Decide whether to use static key files or not
+USE_STATIC_KEY_FILES="n"
+STATIC_KEY_FILE=""
+
+read -p "Use static key file for ${DISK}? (y/N): " ANSWER
+
+if [[ $ANSWER == "y" ]]
+then
+    USE_STATIC_KEY_FILES="y"
+    STATIC_KEY_FILE="/etc/luks_static_key_"`uuidgen`
+    touch $STATIC_KEY_FILE
+    chmod 0600 $STATIC_KEY_FILE
+    dd bs=512 count=4 if=/dev/urandom of=$STATIC_KEY_FILE
+fi
+
 # Create partition table
 
-read -p "Set up new partition table for ${DISK}? (y/N): " NEWPARTITIONTABLE
+read -p "Set up new partition table for ${DISK}? (y/N): " NEW_PARTITION_TABLE
 
-if [[ NEWPARTITIONTABLE != "y" ]]
+if [[ $NEW_PARTITION_TABLE != "y" ]]
 then
     exit 0
 fi
@@ -60,12 +74,23 @@ set -e
 
 parted --script ${DISK} mkpart primary ext2 1MiB 100%
 
-cryptsetup --verify-passphrase luksFormat $DISK_DATA -c aes -s 256 -h sha256
-cryptsetup luksOpen $DISK_DATA luks_data
+if [[ $USE_STATIC_KEY_FILES == "y" ]]; then
+	cryptsetup luksFormat $DISK_DATA $STATIC_KEY_FILE
+	cryptsetup luksOpen $DISK_DATA luks_data --key-file $STATIC_KEY_FILE
+else
+	cryptsetup --verify-passphrase luksFormat $DISK_DATA -c aes -s 256 -h sha256
+	cryptsetup luksOpen $DISK_DATA luks_data
+fi
+
 mkfs.ext4 -m0 /dev/mapper/luks_data
 
 UUID=`cryptsetup luksUUID $DISK_DATA`
-echo "luks_data UUID=${UUID} none luks" >> /etc/crypttab
+
+if [[ $USE_STATIC_KEY_FILES == "y" ]]; then
+	echo "luks_data UUID=${UUID} ${STATIC_KEY_FILE}" >> /etc/crypttab
+else
+	echo "luks_data UUID=${UUID} none luks" >> /etc/crypttab
+fi
 
 mkdir -p /mnt/luks_data
 
