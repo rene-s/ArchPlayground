@@ -8,6 +8,12 @@ bail_on_user
 # vars
 MOUNTPOINT="/mnt"
 
+SYS="BIOS"
+
+if [ -d /sys/firmware/efi ]; then
+        SYS="UEFI"
+fi
+
 loadkeys de-latin1
 
 # determine disk to install on
@@ -22,6 +28,13 @@ then
     DISK_DATA="${DISK}p1"
 else
     DISK_DATA="${DISK}1"
+fi
+
+# Create partition table
+if [ $SYS == "BIOS" ]; then
+    parted --script ${DISK} mklabel msdos
+else
+    parted --script ${DISK} mklabel gpt
 fi
 
 # Check if there are partitions set up. If so, bail out and prompt the user to wipe them first.
