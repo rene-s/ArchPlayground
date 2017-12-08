@@ -33,11 +33,14 @@ physical_block_size=`cat /sys/block/${disk_name[2]}/queue/physical_block_size`
 sum=$((optimal_io_size+alignment_offset))
 start_block=0
 
-if [ $sum -gt 0 ] && [ $physical_block_size -gt 0 ]; then
-	start_block=$(((optimal_io_size+alignment_offset)/physical_block_size))
-fi
+read -p "Want me to automatically try to calculate partition alignment for ${DISK}? (y/N): " ANSWER
 
-echo "Using optimal start block ${start_block}!"
+if [[ $ANSWER == "y" ]]; then
+    if [ $sum -gt 0 ] && [ $physical_block_size -gt 0 ]; then
+        start_block=$(((optimal_io_size+alignment_offset)/physical_block_size))
+    fi
+    echo "Using optimal start block ${start_block}!"
+fi
 
 # Decide whether to use static key files or not
 USE_STATIC_KEY_FILES="n"

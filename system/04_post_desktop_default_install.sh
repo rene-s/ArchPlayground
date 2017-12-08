@@ -38,6 +38,7 @@ pavucontrol \
 qt4 \
 rhythmbox \
 seahorse \
+sane \
 system-config-printer \
 vlc \
 xorg-xbacklight \
