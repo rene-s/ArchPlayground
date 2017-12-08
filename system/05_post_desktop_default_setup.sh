@@ -72,13 +72,13 @@ sudo chfn -f "${nameofuser}" $USER # Set name of user
 xdg-mime default org.gnome.Nautilus.desktop inode/directory # see https://wiki.archlinux.de/title/GNOME
 
 # Install AUR packages
-yaourt -S seafile-client
-yaourt -S rts_bpp-dkms-git
-yaourt -S gnome-shell-extension-appindicator-git # activate: tweaks > extensions > Kstatusnotifieritem
+yaourt -Q seafile-client || yaourt -S seafile-client
+yaourt -Q gnome-shell-extension-appindicator-git || yaourt -S gnome-shell-extension-appindicator-git # activate: tweaks > extensions > Kstatusnotifieritem
 
 # P640RF=Tuxedo XC1406, 4180W15=Lenovo T420
 if [ $PRODUCT_NAME == "P640RF" ]; then
-    yaourt -S tuxedo-wmi-dkms
+    yaourt -Q tuxedo-wmi-dkms || yaourt -S tuxedo-wmi-dkms
+    yaourt -Q rts_bpp-dkms-git || yaourt -S rts_bpp-dkms-git
     # https://www.linux-onlineshop.de/forum/index.php?page=Thread&threadID=26
     sed -i -- "s/^#tuxedo-wmi/tuxedo-wmi/g" /etc/modules-load.d/sdo-modules.conf
 fi

@@ -75,7 +75,7 @@ if [ $? -eq 0 ]; then
         exit 1
 fi
 
-# Set only after we have checked for existing partions as that command is supposed to fail.
+# Set only after we have checked for existing partitions as that command is supposed to fail.
 set -e
 
 if [ $start_block -gt 0 ]; then
