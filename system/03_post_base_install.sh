@@ -18,9 +18,9 @@ fi
 
 pacman -Q cower 2>/dev/null
 TMP_DIR=`mktemp -d`
-cd $TMP_DIR
 
 if [ $? != "0" ]; then
+    cd $TMP_DIR
 	echo "Installing cower..."
 	sudo pacman -S expac yajl --noconfirm
 	gpg --recv-keys --keyserver hkp://pgp.mit.edu 1EB2638FF56C0C53
@@ -31,6 +31,7 @@ fi
 pacman -Q pacaur 2>/dev/null
 
 if [ $? != "0" ]; then
+    cd $TMP_DIR
 	echo "Installing pacaur..."
 	curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur
 	makepkg -i PKGBUILD --noconfirm
