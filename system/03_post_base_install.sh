@@ -5,21 +5,37 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";cd $DIR
 
 bail_on_root
 
-# Install yaourt
-wget https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz -O - | tar xz -C /tmp
-wget https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz -O - | tar xz -C /tmp/
+pacman -Q yaourt 2>/dev/null
 
-cd /tmp/package-query;makepkg -si
-cd /tmp/yaourt;makepkg -si
+if [ $? != "0" ]; then
+	echo "Installing yaourt..."
+	wget https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz -O - | tar xz -C /tmp
+	wget https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz -O - | tar xz -C /tmp/
 
-# Install pacaur
-sudo pacman -S expac yajl --noconfirm
+	cd /tmp/package-query;makepkg -si
+	cd /tmp/yaourt;makepkg -si
+fi
+
+pacman -Q cower 2>/dev/null
 TMP_DIR=`mktemp -d`
 cd $TMP_DIR
-gpg --recv-keys --keyserver hkp://pgp.mit.edu 1EB2638FF56C0C53
-curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=cower
-makepkg -i PKGBUILD --noconfirm
-curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur
-makepkg -i PKGBUILD --noconfirm
+
+if [ $? != "0" ]; then
+	echo "Installing cower..."
+	sudo pacman -S expac yajl --noconfirm
+	gpg --recv-keys --keyserver hkp://pgp.mit.edu 1EB2638FF56C0C53
+	curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=cower
+	makepkg -i PKGBUILD --noconfirm
+fi
+
+pacman -Q pacaur 2>/dev/null
+
+if [ $? != "0" ]; then
+	echo "Installing pacaur..."
+	curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur
+	makepkg -i PKGBUILD --noconfirm
+fi
+
 cd
 rm -rf $TMP_DIR
+echo "Done."
