@@ -16,8 +16,8 @@ if [ $? != "0" ]; then
 	cd /tmp/yaourt;makepkg -si
 fi
 
-pacman -Q cower 2>/dev/null
 TMP_DIR=`mktemp -d`
+pacman -Q cower 2>/dev/null
 
 if [ $? != "0" ]; then
     cd $TMP_DIR
