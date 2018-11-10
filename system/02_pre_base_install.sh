@@ -51,7 +51,6 @@ print_info "This is a ${SYS} system."
 # Bootstrap Arch
 print_info "Please wait!"
 
-find_fastest_mirrors
 pacman -Ssy > /dev/null
 pacman -S --noconfirm archlinux-keyring # useful when the image is a little older...
 pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode

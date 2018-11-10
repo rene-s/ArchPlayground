@@ -710,13 +710,6 @@ configure_existing_user() {
     arch_chroot "chsh -s /usr/bin/zsh $1"
 }
 
-find_fastest_mirrors() {
-    #grep -A1 --no-group-separator Germany /etc/pacman.d/mirrorlist > /etc/pacman.d/mirrorlist.germany
-    #rankmirrors -n 2 /etc/pacman.d/mirrorlist.germany > /etc/pacman.d/mirrorlist
-    # rankmirrors is not part of the default Arch ISO anymore so we are skipping the ranking.
-    cp /etc/pacman.d/mirrorlist.germany /etc/pacman.d/mirrorlist
-}
-
 bail_on_missing_yay() {
     which yay > /dev/null
 
