@@ -49,7 +49,7 @@ fi
 print_info "This is a ${SYS} system."
 
 # Bootstrap Arch
-print_info "Please wait! Searching for the fastest mirror..."
+print_info "Please wait!"
 
 find_fastest_mirrors
 pacman -Ssy > /dev/null

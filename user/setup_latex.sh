@@ -4,7 +4,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";cd $DIR
 . ../lib/sharedfuncs.sh
 
 bail_on_root
-bail_on_missing_yaourt
+bail_on_missing_yay
 
 sudo pacman -S texlive-most kile
-yaourt -S koma-script
+yay -S koma-script

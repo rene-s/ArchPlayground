@@ -8,7 +8,6 @@ bail_on_user
 # first minimalistic approach
 
 pacman -S --noconfirm \
-chromium \
 connman \
 lxappearance \
 lxqt \

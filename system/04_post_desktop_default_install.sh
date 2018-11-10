@@ -10,7 +10,6 @@ bail_on_user
 # first minimalistic approach
 
 pacman -S --noconfirm \
-chromium \
 cups \
 eog \
 exfat-utils \

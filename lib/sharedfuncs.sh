@@ -710,30 +710,18 @@ configure_existing_user() {
     arch_chroot "chsh -s /usr/bin/zsh $1"
 }
 
-install_yaourt() {
-    cd /mnt/tmp
-    curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
-    tar -xvzf package-query.tar.gz
-    cd package-query
-    arch_chroot "makepkg -si"
-
-    cd ..
-    curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz
-    tar -xvzf yaourt.tar.gz
-    cd yaourt
-    arch_chroot "makepkg -si"
-}
-
 find_fastest_mirrors() {
-    grep -A1 --no-group-separator Germany /etc/pacman.d/mirrorlist > /etc/pacman.d/mirrorlist.germany
-    rankmirrors -n 2 /etc/pacman.d/mirrorlist.germany > /etc/pacman.d/mirrorlist
+    #grep -A1 --no-group-separator Germany /etc/pacman.d/mirrorlist > /etc/pacman.d/mirrorlist.germany
+    #rankmirrors -n 2 /etc/pacman.d/mirrorlist.germany > /etc/pacman.d/mirrorlist
+    # rankmirrors is not part of the default Arch ISO anymore so we are skipping the ranking.
+    cp /etc/pacman.d/mirrorlist.germany /etc/pacman.d/mirrorlist
 }
 
-bail_on_missing_yaourt() {
-    which yaourt > /dev/null
+bail_on_missing_yay() {
+    which yay > /dev/null
 
     if [ "$?" == "1" ]; then
-        print_danger "Requires yaourt."
+        print_danger "Requires yay."
         exit 1
     fi
 }
