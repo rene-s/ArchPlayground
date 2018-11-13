@@ -22,8 +22,8 @@ gnome-tweak-tool \
 gnome-user-share \
 gst-plugins-ugly \
 gtk3-print-backends \
+htop \
 imagemagick \
-keepass \
 libreoffice-still \
 libu2f-host \
 linux-headers \

@@ -204,38 +204,38 @@ configure_existing_user 'root'
 configure_existing_user 're'
 configure_existing_user 'st'
 
-# Create QT scaling wrapper; e.g. for Seafile change Exec and TryExec in /usr/share/applications/seafile.desktop to "/usr/local/bin/qt_scaled.sh"
-QT_SCALING_WRAPPER="/usr/local/bin/qt_scaled.sh"
+## Create QT scaling wrapper; e.g. for Seafile change Exec and TryExec in /usr/share/applications/seafile.desktop to "/usr/local/bin/qt_scaled.sh"
+#QT_SCALING_WRAPPER="/usr/local/bin/qt_scaled.sh"
+#
+#if [ -f $QT_SCALING_WRAPPER ]; then
+#    echo "#!/bin/bash" > /mnt${QT_SCALING_WRAPPER}
+#    echo "# https://wiki.archlinux.org/index.php/environment_variables" >> /mnt${QT_SCALING_WRAPPER}
+#    echo "export QT_STYLE_OVERRIDE=adwaita" >> /mnt${QT_SCALING_WRAPPER}
+#    echo "export QT_AUTO_SCREEN_SCALE_FACTOR=0.99" >> /mnt${QT_SCALING_WRAPPER}
+#    echo "exec \"\$1\"" >> /mnt${QT_SCALING_WRAPPER}
+#fi
+#
+#SEAFILE_SCALING_WRAPPER="/usr/local/bin/seafile-applet-scaling.sh"
+#
+#if [ -f $SEAFILE_SCALING_WRAPPER ]; then
+#    echo "#!/bin/bash" > /mnt${SEAFILE_SCALING_WRAPPER}
+#    echo "${QT_SCALING_WRAPPER} /usr/bin/seafile-applet" >> /mnt${SEAFILE_SCALING_WRAPPER}
+#    chmod +x $SEAFILE_SCALING_WRAPPER
+#fi
 
-if [ -f $QT_SCALING_WRAPPER ]; then
-    echo "#!/bin/bash" > /mnt${QT_SCALING_WRAPPER}
-    echo "# https://wiki.archlinux.org/index.php/environment_variables" >> /mnt${QT_SCALING_WRAPPER}
-    echo "export QT_STYLE_OVERRIDE=adwaita" >> /mnt${QT_SCALING_WRAPPER}
-    echo "export QT_AUTO_SCREEN_SCALE_FACTOR=0.99" >> /mnt${QT_SCALING_WRAPPER}
-    echo "exec \"\$1\"" >> /mnt${QT_SCALING_WRAPPER}
-fi
-
-SEAFILE_SCALING_WRAPPER="/usr/local/bin/seafile-applet-scaling.sh"
-
-if [ -f $SEAFILE_SCALING_WRAPPER ]; then
-    echo "#!/bin/bash" > /mnt${SEAFILE_SCALING_WRAPPER}
-    echo "${QT_SCALING_WRAPPER} /usr/bin/seafile-applet" >> /mnt${SEAFILE_SCALING_WRAPPER}
-    chmod +x $SEAFILE_SCALING_WRAPPER
-fi
-
-# Add desktop file; set up auto start with gnome-tweak-tool
-DESKTOP_FILE=/usr/share/applications/seafile-scaled.desktop
-
-if [ -f $DESKTOP_FILE ]; then
-    echo "[Desktop Entry]" > $DESKTOP_FILE
-    echo "Name=Seafile Scaled" >> $DESKTOP_FILE
-    echo "Comment=Seafile desktop sync client" >> $DESKTOP_FILE
-    echo "TryExec=/usr/local/bin/seafile-applet-scaling.sh" >> $DESKTOP_FILE
-    echo "Exec=/usr/local/bin/seafile-applet-scaling.sh" >> $DESKTOP_FILE
-    echo "Icon=seafile" >> $DESKTOP_FILE
-    echo "Type=Application" >> $DESKTOP_FILE
-    echo "Categories=Network;FileTransfer;" >> $DESKTOP_FILE
-fi
+## Add desktop file; set up auto start with gnome-tweak-tool
+#DESKTOP_FILE=/usr/share/applications/seafile-scaled.desktop
+#
+#if [ -f $DESKTOP_FILE ]; then
+#    echo "[Desktop Entry]" > $DESKTOP_FILE
+#    echo "Name=Seafile Scaled" >> $DESKTOP_FILE
+#    echo "Comment=Seafile desktop sync client" >> $DESKTOP_FILE
+#    echo "TryExec=/usr/local/bin/seafile-applet-scaling.sh" >> $DESKTOP_FILE
+#    echo "Exec=/usr/local/bin/seafile-applet-scaling.sh" >> $DESKTOP_FILE
+#    echo "Icon=seafile" >> $DESKTOP_FILE
+#    echo "Type=Application" >> $DESKTOP_FILE
+#    echo "Categories=Network;FileTransfer;" >> $DESKTOP_FILE
+#fi
 
 # Kernel modules
 echo "" > /mnt/etc/modules-load.d/sdo-modules.conf
