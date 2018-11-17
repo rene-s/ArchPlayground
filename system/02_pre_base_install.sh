@@ -181,7 +181,8 @@ configure_network
 
 pacman -Ssy > /dev/null
 pacman -S --noconfirm dmidecode
-arch_chroot "pacman -S --noconfirm bwm-ng dmidecode git iotop linux-headers mc namcap openssh p7zip wget diffutils base-devel"
+arch_chroot "pacman -S --noconfirm bwm-ng dmidecode git iotop linux-headers mc namcap openssh p7zip wget diffutils base-devel htop reflector"
+arch_chroot "reflector --country France --country Germany --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
 
 # Setup environment
 VM=`dmidecode -s system-product-name`

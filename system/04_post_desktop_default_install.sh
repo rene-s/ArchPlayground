@@ -22,7 +22,6 @@ gnome-tweak-tool \
 gnome-user-share \
 gst-plugins-ugly \
 gtk3-print-backends \
-htop \
 imagemagick \
 libreoffice-still \
 libu2f-host \
@@ -39,6 +38,7 @@ rhythmbox \
 seahorse \
 sane \
 system-config-printer \
+tilix \
 vlc \
 xorg-xbacklight \
 xorg-xrandr \
