@@ -83,4 +83,5 @@ if [ $PRODUCT_NAME == "P640RF" ]; then
     sed -i -- "s/^#tuxedo-wmi/tuxedo-wmi/g" /etc/modules-load.d/sdo-modules.conf
 fi
 
+echo "Done."
 

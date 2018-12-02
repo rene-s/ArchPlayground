@@ -82,3 +82,6 @@ if [[ $BLUETOOTH == "y" ]]
 then
     setup_bluetooth
 fi
+
+echo "Done."
+echo "Reboot and login as user, then continue with /usr/local/share/tmp/ArchPlayground/system/05_post_desktop_default_setup.sh"

@@ -14,3 +14,6 @@ lxqt \
 oxygen-icons \
 sddm \
 wpa_supplicant
+
+echo "Done."
+echo "Reboot and login as user, then continue with /usr/local/share/tmp/ArchPlayground/system/05_post_desktop_default_setup.sh"

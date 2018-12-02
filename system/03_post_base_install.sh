@@ -17,4 +17,6 @@ fi
 
 cd
 rm -rf $TMP_DIR
+
 echo "Done."
+echo "Exit the root session and continue with ./system/03_post_base_install.sh as user."
