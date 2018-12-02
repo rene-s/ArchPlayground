@@ -672,7 +672,7 @@ configure_network() {
     fi
 
     # Setup short timeout for dhcpcd so it won't search so long for interfaces not connected during boot
-    mkdir /mnt/etc/systemd/system/dhcpcd@.service.d
+    mkdir -p /mnt/etc/systemd/system/dhcpcd@.service.d
     echo "[Service]" > /mnt/etc/systemd/system/dhcpcd@.service.d/timeout.conf
     echo "ExecStart=" >> /mnt/etc/systemd/system/dhcpcd@.service.d/timeout.conf
     echo "ExecStart=/usr/bin/dhcpcd -w -q -t 3 %I" >> /mnt/etc/systemd/system/dhcpcd@.service.d/timeout.conf
@@ -705,7 +705,6 @@ configure_existing_user() {
     else
         wget -q $URL_ZSHRC -O /mnt/home/$1/.zshrc
         arch_chroot "chown $1:users /home/$1/.zshrc"
-        arch_chroot "useradd -m -g users $1"
         arch_chroot "usermod -aG network $1"
         arch_chroot "usermod -aG wheel $1"
     fi

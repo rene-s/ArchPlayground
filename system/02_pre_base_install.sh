@@ -198,6 +198,8 @@ print_info "Set up users:"
 echo "%wheel ALL=(ALL) ALL" >> /mnt/etc/sudoers
 
 arch_chroot "pacman -S --noconfirm zsh"
+arch_chroot "useradd -m -g users -G wheel re"
+arch_chroot "useradd -m -g users -G wheel st"
 
 configure_existing_user 'root'
 configure_existing_user 're'
