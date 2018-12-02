@@ -31,6 +31,7 @@ Bear in mind though there is no proper way of customisation as the default Schmi
 After booting the Arch Linux ISO image, run
 
 ```
+cd /root
 wget "sdo.sh/l/?arch_inst" -O - | tar xz # NOTE: there are no numbers in the URL
 ```
 
@@ -49,11 +50,6 @@ Log in as root, then:
 
 ```
 systemctl start dhcpcd.service
-mkdir /usr/local/share/tmp
-cd /usr/local/share/tmp
-
-git clone https://github.com/rene-s/ArchPlayground.git 
-cd ./ArchPlayground
 su - <your_username>
 cd /usr/local/share/tmp/ArchPlayground
 sh ./system/03_post_base_install.sh

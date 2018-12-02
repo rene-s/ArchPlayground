@@ -198,8 +198,6 @@ print_info "Set up users:"
 echo "%wheel ALL=(ALL) ALL" >> /mnt/etc/sudoers
 
 arch_chroot "pacman -S --noconfirm zsh"
-arch_chroot "useradd -m -g users -G wheel re"
-arch_chroot "useradd -m -g users -G wheel st"
 
 configure_existing_user 'root'
 configure_existing_user 're'
@@ -238,6 +236,10 @@ configure_existing_user 'st'
 #    echo "Categories=Network;FileTransfer;" >> $DESKTOP_FILE
 #fi
 
+# Move the install scripts onto the new disk so the user has not have to download the scripts twice."
+mkdir "/mnt/usr/local/share/tmp"
+mv /root/rene-s-ArchPlayground-* /mnt/usr/local/share/tmp/ArchPlayground
+
 # Kernel modules
 echo "" > /mnt/etc/modules-load.d/sdo-modules.conf
 echo "nvidia" >> /mnt/etc/modules-load.d/sdo-modules.conf
@@ -246,3 +248,5 @@ echo "virtio-net" >> /mnt/etc/modules-load.d/sdo-modules.conf
 
 # Finish
 print_info "Done."
+print_info "Reboot and remove the installation media."
+print_info "Then continue with /usr/local/share/tmp/ArchPlayground/system/03_post_base_install.sh"
