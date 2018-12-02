@@ -19,4 +19,4 @@ cd
 rm -rf $TMP_DIR
 
 echo "Done."
-echo "Exit the shell session and continue with ./system/03_post_base_install.sh as root."
+echo "Exit the shell session and continue with ./system/04_post_desktop_default_install.sh as root."
