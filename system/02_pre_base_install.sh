@@ -148,6 +148,8 @@ if [ $SYS == "UEFI" ]; then
     cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /mnt/boot/grub/locale/en.mo
     arch_chroot "grub-mkconfig -o /boot/grub/grub.cfg"
 
+# @todo Einen weiteren Menüpunkt namens "Schmidt_DevOps Arch Linux No GUI" einfügen mit "systemd.unit=multi-user.target"
+
     # Hinweis: Falls grub-install den Bootmenüeintrag nicht erstellen kann und eine Fehlermeldung ausgegeben wurde, folgenden Befehl ausführen um den UEFI-Bootmenüeintrag manuell zu erstellen:
     #efibootmgr -q -c -d /dev/sda -p 1 -w -L "GRUB: Arch-Linux" -l '\EFI\arch_grub\grubx64.efi'
 else
@@ -166,6 +168,13 @@ else
     echo "    MENU LABEL Schmidt_DevOps_Arch" >> $CFG_SYSLINUX
     echo "    LINUX ../vmlinuz-linux" >> $CFG_SYSLINUX
     echo "    APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID="${SYSTEM_UUID}":lvm rw" >> $CFG_SYSLINUX
+    echo "    INITRD ../initramfs-linux.img" >> $CFG_SYSLINUX
+
+    echo "" >> $CFG_SYSLINUX
+    echo "LABEL Schmidt_DevOps_Arch_No_Gui" >> $CFG_SYSLINUX
+    echo "    MENU LABEL Schmidt_DevOps_Arch_No_Gui" >> $CFG_SYSLINUX
+    echo "    LINUX ../vmlinuz-linux" >> $CFG_SYSLINUX
+    echo "    APPEND root=/dev/mapper/SDOVG-rootlv cryptdevice=UUID="${SYSTEM_UUID}":lvm rw systemd.unit=multi-user.target" >> $CFG_SYSLINUX
     echo "    INITRD ../initramfs-linux.img" >> $CFG_SYSLINUX
 
     sed -i -- "s/^DEFAULT arch/DEFAULT Schmidt_DevOps_Arch/g" $CFG_SYSLINUX # Make SDO/Arch flavour the default

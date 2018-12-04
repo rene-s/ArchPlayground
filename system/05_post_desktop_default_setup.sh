@@ -80,7 +80,7 @@ if [ $PRODUCT_NAME == "P640RF" ]; then
     yay -Q tuxedo-wmi-dkms || yay -S tuxedo-wmi-dkms
     yay -Q rts_bpp-dkms-git || yay -S rts_bpp-dkms-git
     # https://www.linux-onlineshop.de/forum/index.php?page=Thread&threadID=26
-    sed -i -- "s/^#tuxedo-wmi/tuxedo-wmi/g" /etc/modules-load.d/sdo-modules.conf
+    sudo sed -i -- "s/^#tuxedo-wmi/tuxedo-wmi/g" /etc/modules-load.d/sdo-modules.conf
 fi
 
 echo "Done."

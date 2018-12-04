@@ -17,4 +17,7 @@ yay -S phpstorm
 wget https://phar.phpunit.de/phpunit.phar -O /tmp/phpunit.phar
 sudo mv /tmp/phpunit.phar /usr/bin/phpunit
 sudo chmod +x /usr/bin/phpunit
-sudo sed -i -- "s/^;zend_extension=xdebug.so/zend_extension=xdebug.so/g" /etc/php/conf.d/xdebug.ini
+
+if [ -f /etc/php/conf.d/xdebug.ini ]; then
+    sudo sed -i -- "s/^;zend_extension=xdebug.so/zend_extension=xdebug.so/g" /etc/php/conf.d/xdebug.ini
+fi
