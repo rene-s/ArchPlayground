@@ -98,3 +98,31 @@ Instead of showing the boot loader right away you may get thrown to a UEFI conso
 1. https://wiki.archlinux.org/index.php/Pacman/Rosetta
 1. https://wiki.archlinux.org/index.php/Clevo_P650RS
 
+# Howtos
+
+## Convert a P640RF system (Tuxedo notebook) for an Intel NUC8i7BEH
+
+Keys at startup:
+
+- `F2` for entering the "Visual BIOS" (from now on references as "BIOS").
+- `F10` for selecting the boot device.
+
+1. In the BIOS disable "Devices > USB > USB Legacy".
+1. In the BIOS enable "Boot > Boot Priority > Legacy Boot".
+1. In the BIOS enable "Boot > Boot Configuration > UEFI Boot > Internal UEFI Shell".
+1. In the BIOS disable "Boot > Boot Configuration > UEFI Boot > Network Boot".
+1. Then boot an Arch image from a USB drive and mount the system:
+   ```bash
+    cryptsetup open --type luks /dev/nvme0n1p2 lvmdisk and enter the passphrase.
+    mount /dev/mapper/SDOVG-rootlv /mnt/
+    mount /dev/mapper/SDOVG-homelv /mnt/home/
+    mount /dev/nvme0n1p1 /mnt/boot/
+    arch_chroot /mnt
+   ```
+1. Remove the P640RF-specific kernel options from `/etc/default/grub`.
+1. Remove the P640RF-specific modules from cat `/etc/modules-load.d/sdo-modules.conf`.
+1. Remove the following packages: `bumblebee primus`.
+1. Run `grub-mkconfig -o /boot/grub/grub.cfg`.
+1. Create `/boot/startup.nsh` with this content: `\EFI\arch_grub\grubx64.efi`. 
+
+Reboot. The system should now boot without interaction required.
