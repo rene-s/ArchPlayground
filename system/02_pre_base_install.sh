@@ -130,6 +130,8 @@ echo "MODULES=\"${MODULES}\"" >>/mnt/etc/mkinitcpio.conf
 
 arch_chroot "mkinitcpio -p linux"
 
+# @todo Ab hier muss mal mit Virtualbox debuggt werden (schön mit Snapshots arbeiten dafür!)
+
 if [ $SYS == "UEFI" ]; then
     print_info "UEFI setup..."
 
