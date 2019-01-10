@@ -112,7 +112,7 @@ Keys at startup:
 1. In the BIOS enable "Boot > Boot Configuration > UEFI Boot > Internal UEFI Shell".
 1. In the BIOS disable "Boot > Boot Configuration > UEFI Boot > Network Boot".
 1. In the BIOS set Thunderbolt security to "Unique ID".
-1. In the BIOS under "Devices > Video" set "Thunderbolt" as primary video port and "HDMI" as secondary video port.
+1. In the BIOS under "Devices > Video" set "auto" as primary video port.
 1. Then boot an Arch image from a USB drive and mount the system:
    ```bash
     cryptsetup open --type luks /dev/nvme0n1p2 lvmdisk and enter the passphrase.
