@@ -137,5 +137,6 @@ Keys at startup:
    grub-mkconfig -o /boot/grub/grub.cfg
    ```
 1. Create `/boot/startup.nsh` with this content: `\EFI\arch_grub\grubx64.efi`. 
+1. Make sure that time and date are correct!
 
 Reboot. The system should now boot without interaction required.
