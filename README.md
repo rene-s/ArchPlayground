@@ -126,7 +126,16 @@ Keys at startup:
 1. Remove the P640RF-specific modules from `/etc/modules-load.d/sdo-modules.conf`.
 1. Remove the following Arch packages: `bumblebee primus`.
 1. Add the following Arch packages: `bolt`.
-1. Run `grub-mkconfig -o /boot/grub/grub.cfg`.
+1. Run this: 
+   ```
+   exit # from chroot
+   mkdir /mnt/hostrun
+   mount --bind /run /mnt/hostrun
+   arch-chroot /mnt
+   mkdir /run/lvm
+   mount --bind /hostrun/lvm /run/lvm
+   grub-mkconfig -o /boot/grub/grub.cfg
+   ```
 1. Create `/boot/startup.nsh` with this content: `\EFI\arch_grub\grubx64.efi`. 
 
 Reboot. The system should now boot without interaction required.
