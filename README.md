@@ -111,7 +111,7 @@ Keys at startup:
 1. In the BIOS enable "Boot > Boot Priority > Legacy Boot".
 1. In the BIOS enable "Boot > Boot Configuration > UEFI Boot > Internal UEFI Shell".
 1. In the BIOS disable "Boot > Boot Configuration > UEFI Boot > Network Boot".
-1. In the BIOS set Thunderbolt security to "Unique ID".
+1. (Path is missing) In the BIOS set Thunderbolt security to "Unique ID".
 1. In the BIOS under "Devices > Video" set "auto" as primary video port.
 1. Then boot an Arch image from a USB drive and mount the system:
    ```bash
@@ -123,9 +123,9 @@ Keys at startup:
    ```
 1. Disable this network device: `systemctl disable dhcpcd@enp3s0f1.service`.
 1. Remove the P640RF-specific kernel options from `/etc/default/grub`.
-1. Remove the P640RF-specific modules from cat `/etc/modules-load.d/sdo-modules.conf`.
-1. Remove the following packages: `bumblebee primus`.
-1. Add the following packages: `bolt`.
+1. Remove the P640RF-specific modules from `/etc/modules-load.d/sdo-modules.conf`.
+1. Remove the following Arch packages: `bumblebee primus`.
+1. Add the following Arch packages: `bolt`.
 1. Run `grub-mkconfig -o /boot/grub/grub.cfg`.
 1. Create `/boot/startup.nsh` with this content: `\EFI\arch_grub\grubx64.efi`. 
 
