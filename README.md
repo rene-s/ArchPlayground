@@ -115,7 +115,7 @@ Keys at startup:
 1. In the BIOS under "Devices > Video" set "auto" as primary video port.
 1. Then boot an Arch image from a USB drive and mount the system:
    ```bash
-    cryptsetup open --type luks /dev/nvme0n1p2 lvmdisk and enter the passphrase.
+    cryptsetup open --type luks /dev/nvme0n1p2 lvmdisk # enter the passphrase.
     mount /dev/mapper/SDOVG-rootlv /mnt/
     mount /dev/mapper/SDOVG-homelv /mnt/home/
     mount /dev/nvme0n1p1 /mnt/boot/
