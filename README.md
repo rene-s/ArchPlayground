@@ -104,7 +104,7 @@ Instead of showing the boot loader right away you may get thrown to a UEFI conso
 
 Keys at startup:
 
-- `F2` for entering the "Visual BIOS" (from now on references as "BIOS").
+- `F2` for entering the "Visual BIOS" (from now on referenced as "BIOS").
 - `F10` for selecting the boot device.
 
 1. In the BIOS disable "Devices > USB > USB Legacy".
