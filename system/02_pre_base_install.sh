@@ -130,6 +130,8 @@ echo "MODULES=\"${MODULES}\"" >>/mnt/etc/mkinitcpio.conf
 
 arch_chroot "mkinitcpio -p linux"
 
+# @todo Ab hier muss mal mit Virtualbox debuggt werden (schön mit Snapshots arbeiten dafür!)
+
 if [ $SYS == "UEFI" ]; then
     print_info "UEFI setup..."
 
@@ -152,6 +154,8 @@ if [ $SYS == "UEFI" ]; then
 
     # Hinweis: Falls grub-install den Bootmenüeintrag nicht erstellen kann und eine Fehlermeldung ausgegeben wurde, folgenden Befehl ausführen um den UEFI-Bootmenüeintrag manuell zu erstellen:
     #efibootmgr -q -c -d /dev/sda -p 1 -w -L "GRUB: Arch-Linux" -l '\EFI\arch_grub\grubx64.efi'
+
+    echo "\\\EFI\\\arch_grub\\\grubx64.efi" > /mnt/boot/startup.nsh
 else
     # Install boot loader
     print_info "Install BIOS boot loader..."

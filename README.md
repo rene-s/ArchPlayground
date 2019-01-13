@@ -98,3 +98,45 @@ Instead of showing the boot loader right away you may get thrown to a UEFI conso
 1. https://wiki.archlinux.org/index.php/Pacman/Rosetta
 1. https://wiki.archlinux.org/index.php/Clevo_P650RS
 
+# Howtos
+
+## Convert a P640RF system (Tuxedo notebook) for an Intel NUC8i7BEH
+
+Keys at startup:
+
+- `F2` for entering the "Visual BIOS" (from now on referenced as "BIOS").
+- `F10` for selecting the boot device.
+
+1. In the BIOS disable "Devices > USB > USB Legacy".
+1. In the BIOS enable "Boot > Boot Priority > Legacy Boot".
+1. In the BIOS enable "Boot > Boot Configuration > UEFI Boot > Internal UEFI Shell".
+1. In the BIOS disable "Boot > Boot Configuration > UEFI Boot > Network Boot".
+1. (Path is missing) In the BIOS set Thunderbolt security to "Unique ID".
+1. In the BIOS under "Devices > Video" set "auto" as primary video port.
+1. Then boot an Arch image from a USB drive and mount the system:
+   ```bash
+    cryptsetup open --type luks /dev/nvme0n1p2 lvmdisk # enter the passphrase.
+    mount /dev/mapper/SDOVG-rootlv /mnt/
+    mount /dev/mapper/SDOVG-homelv /mnt/home/
+    mount /dev/nvme0n1p1 /mnt/boot/
+    arch_chroot /mnt
+   ```
+1. Disable this network device: `systemctl disable dhcpcd@enp3s0f1.service`.
+1. Remove the P640RF-specific kernel options from `/etc/default/grub`.
+1. Remove the P640RF-specific modules from `/etc/modules-load.d/sdo-modules.conf`.
+1. Remove the following Arch packages: `bumblebee primus`.
+1. Add the following Arch packages: `bolt`.
+1. Run this: 
+   ```
+   exit # from chroot
+   mkdir /mnt/hostrun
+   mount --bind /run /mnt/hostrun
+   arch-chroot /mnt
+   mkdir /run/lvm
+   mount --bind /hostrun/lvm /run/lvm
+   grub-mkconfig -o /boot/grub/grub.cfg
+   ```
+1. Create `/boot/startup.nsh` with this content: `\EFI\arch_grub\grubx64.efi`. 
+1. Make sure that time and date are correct!
+
+Reboot. The system should now boot without interaction required.
