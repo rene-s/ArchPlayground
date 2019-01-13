@@ -11,6 +11,7 @@ bail_on_user
 
 pacman -S --noconfirm \
 cups \
+ttf-dejavu \
 eog \
 exfat-utils \
 firefox \
@@ -62,7 +63,7 @@ if [ $PRODUCT_NAME == "P640RF" ] || [ $PRODUCT_NAME == "4180W15" ]; then
     sudo usermod -a -G bumblebee st
 fi
 
-pacman -R --noconfirm anjuta # not required, gnome confuses opening links with opening anjuga sometimes
+pacman -R --noconfirm anjuta # not required, gnome confuses opening links with opening anjuta sometimes
 pacman -R --noconfirm gnome-music # relies on tracker which in turn has issues with indexing music from symlinks, replaced with good ol' RhythmBox
 
 systemctl enable gdm.service

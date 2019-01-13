@@ -253,8 +253,15 @@ mv /root/rene-s-ArchPlayground-* /mnt/usr/local/share/tmp/ArchPlayground
 
 # Kernel modules
 echo "" > /mnt/etc/modules-load.d/sdo-modules.conf
-echo "nvidia" >> /mnt/etc/modules-load.d/sdo-modules.conf
-echo "#tuxedo-wmi" >> /mnt/etc/modules-load.d/sdo-modules.conf
+
+if [ $HAS_NVIDIA -eq 1 ]; then
+    echo "nvidia" >> /mnt/etc/modules-load.d/sdo-modules.conf
+fi
+
+if [ $PRODUCT_NAME == "P640RF" ]; then
+    echo "#tuxedo-wmi" >> /mnt/etc/modules-load.d/sdo-modules.conf
+fi
+
 echo "virtio-net" >> /mnt/etc/modules-load.d/sdo-modules.conf
 
 # Finish
