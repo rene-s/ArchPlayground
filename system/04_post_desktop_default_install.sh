@@ -84,5 +84,13 @@ then
     setup_bluetooth
 fi
 
+# Disable unsupported GNOME session types. @todo: idempotency
+if [[ -f /usr/share/xsessions/gnome-classic.desktop ]]; then
+    echo "Hidden=true" >> /usr/share/xsessions/gnome-classic.desktop
+fi
+if [[ -f /usr/share/xsessions/gnome-xorg.desktop ]] ; then
+    echo "Hidden=true" >> /usr/share/xsessions/gnome-xorg.desktop
+fi
+
 echo "Done."
 echo "Reboot and login as user, then continue with /usr/local/share/tmp/ArchPlayground/system/05_post_desktop_default_setup.sh"
