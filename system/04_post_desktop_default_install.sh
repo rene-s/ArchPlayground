@@ -12,6 +12,7 @@ bail_on_user
 pacman -S --noconfirm \
 cups \
 ttf-dejavu \
+dav1d \
 eog \
 exfat-utils \
 firefox \
@@ -21,10 +22,12 @@ gnome \
 gnome-extra \
 gnome-tweak-tool \
 gnome-user-share \
+gst-libav \
 gst-plugins-ugly \
 gtk3-print-backends \
 imagemagick \
 libreoffice-still \
+libmicrodns \
 libu2f-host \
 linux-headers \
 jdk8-openjdk \
