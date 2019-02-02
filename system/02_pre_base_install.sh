@@ -148,6 +148,12 @@ if [ $SYS == "UEFI" ]; then
     arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck --debug"
     mkdir -p /mnt/boot/grub/locale
     cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /mnt/boot/grub/locale/en.mo
+
+    mkdir /mnt/hostrun
+    mount --bind /run /mnt/hostrun
+
+    arch_chroot "mkdir -p /run/lvm"
+    arch_chroot "mount --bind /hostrun/lvm /run/lvm"
     arch_chroot "grub-mkconfig -o /boot/grub/grub.cfg"
 
 # @todo Einen weiteren Menüpunkt namens "Schmidt_DevOps Arch Linux No GUI" einfügen mit "systemd.unit=multi-user.target"
@@ -217,39 +223,6 @@ arch_chroot "useradd -m -g users -G wheel st"
 configure_existing_user 'root'
 configure_existing_user 're'
 configure_existing_user 'st'
-
-## Create QT scaling wrapper; e.g. for Seafile change Exec and TryExec in /usr/share/applications/seafile.desktop to "/usr/local/bin/qt_scaled.sh"
-#QT_SCALING_WRAPPER="/usr/local/bin/qt_scaled.sh"
-#
-#if [ -f $QT_SCALING_WRAPPER ]; then
-#    echo "#!/bin/bash" > /mnt${QT_SCALING_WRAPPER}
-#    echo "# https://wiki.archlinux.org/index.php/environment_variables" >> /mnt${QT_SCALING_WRAPPER}
-#    echo "export QT_STYLE_OVERRIDE=adwaita" >> /mnt${QT_SCALING_WRAPPER}
-#    echo "export QT_AUTO_SCREEN_SCALE_FACTOR=0.99" >> /mnt${QT_SCALING_WRAPPER}
-#    echo "exec \"\$1\"" >> /mnt${QT_SCALING_WRAPPER}
-#fi
-#
-#SEAFILE_SCALING_WRAPPER="/usr/local/bin/seafile-applet-scaling.sh"
-#
-#if [ -f $SEAFILE_SCALING_WRAPPER ]; then
-#    echo "#!/bin/bash" > /mnt${SEAFILE_SCALING_WRAPPER}
-#    echo "${QT_SCALING_WRAPPER} /usr/bin/seafile-applet" >> /mnt${SEAFILE_SCALING_WRAPPER}
-#    chmod +x $SEAFILE_SCALING_WRAPPER
-#fi
-
-## Add desktop file; set up auto start with gnome-tweak-tool
-#DESKTOP_FILE=/usr/share/applications/seafile-scaled.desktop
-#
-#if [ -f $DESKTOP_FILE ]; then
-#    echo "[Desktop Entry]" > $DESKTOP_FILE
-#    echo "Name=Seafile Scaled" >> $DESKTOP_FILE
-#    echo "Comment=Seafile desktop sync client" >> $DESKTOP_FILE
-#    echo "TryExec=/usr/local/bin/seafile-applet-scaling.sh" >> $DESKTOP_FILE
-#    echo "Exec=/usr/local/bin/seafile-applet-scaling.sh" >> $DESKTOP_FILE
-#    echo "Icon=seafile" >> $DESKTOP_FILE
-#    echo "Type=Application" >> $DESKTOP_FILE
-#    echo "Categories=Network;FileTransfer;" >> $DESKTOP_FILE
-#fi
 
 # Move the install scripts onto the new disk so the user has not have to download the scripts twice."
 mkdir "/mnt/usr/local/share/tmp"
