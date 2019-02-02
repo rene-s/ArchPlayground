@@ -150,8 +150,8 @@ if [ $SYS == "UEFI" ]; then
 
     mkdir /mnt/hostrun
     mount --bind /run /mnt/hostrun
-    mkdir -p /mnt/run/lvm
 
+    arch_chroot "mkdir -p /run/lvm"
     arch_chroot "mount --bind /hostrun/lvm /run/lvm"
     arch_chroot "grub-mkconfig -o /boot/grub/grub.cfg"
     arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck --debug"
