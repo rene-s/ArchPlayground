@@ -99,7 +99,7 @@ print_info "Found UUID ${SYSTEM_UUID} for disk ${DISK_SYSTEM}!"
 # Setup /mnt/etc/mkinitcpio.conf; add "encrypt" and "lvm" hooks
 sed -i -- "s/^HOOKS=/#HOOKS=/g" /mnt/etc/mkinitcpio.conf
 sed -i -- "s/^MODULES=/#MODULES=/g" /mnt/etc/mkinitcpio.conf
-echo 'HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"' >>/mnt/etc/mkinitcpio.conf
+echo 'HOOKS="base udev autodetect modconf block keyboard keymap encrypt lvm2 filesystems fsck"' >>/mnt/etc/mkinitcpio.conf
 
 MODULES=""
 
