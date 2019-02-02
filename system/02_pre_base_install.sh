@@ -151,10 +151,12 @@ if [ $SYS == "UEFI" ]; then
     mkdir /mnt/hostrun
     mount --bind /run /mnt/hostrun
 
-    arch_chroot "mkdir -p /run/lvm"
-    arch_chroot "mount --bind /hostrun/lvm /run/lvm"
-    arch_chroot "grub-mkconfig -o /boot/grub/grub.cfg"
-    arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck --debug"
+    arch_chroot "\
+        mkdir -p /run/lvm; \
+        mount --bind /hostrun/lvm /run/lvm; \
+        grub-mkconfig -o /boot/grub/grub.cfg; \
+        grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck --debug \
+    "
 
     # Hinweis: Falls grub-install den Bootmenüeintrag nicht erstellen kann und eine Fehlermeldung ausgegeben wurde, folgenden Befehl ausführen um den UEFI-Bootmenüeintrag manuell zu erstellen:
     #efibootmgr -q -c -d /dev/sda -p 1 -w -L "GRUB: Arch-Linux" -l '\EFI\arch_grub\grubx64.efi'
