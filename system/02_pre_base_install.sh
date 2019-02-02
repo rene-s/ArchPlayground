@@ -145,18 +145,16 @@ if [ $SYS == "UEFI" ]; then
     sed -i -- "s/^GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g" /mnt/etc/default/grub
 
     arch_chroot "pacman -S --noconfirm efibootmgr dosfstools gptfdisk"
-    arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck --debug"
     mkdir -p /mnt/boot/grub/locale
     cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /mnt/boot/grub/locale/en.mo
 
     mkdir /mnt/hostrun
     mount --bind /run /mnt/hostrun
+    mkdir -p /mnt/run/lvm
 
-    arch_chroot "mkdir -p /run/lvm"
     arch_chroot "mount --bind /hostrun/lvm /run/lvm"
     arch_chroot "grub-mkconfig -o /boot/grub/grub.cfg"
-
-# @todo Einen weiteren Menüpunkt namens "Schmidt_DevOps Arch Linux No GUI" einfügen mit "systemd.unit=multi-user.target"
+    arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck --debug"
 
     # Hinweis: Falls grub-install den Bootmenüeintrag nicht erstellen kann und eine Fehlermeldung ausgegeben wurde, folgenden Befehl ausführen um den UEFI-Bootmenüeintrag manuell zu erstellen:
     #efibootmgr -q -c -d /dev/sda -p 1 -w -L "GRUB: Arch-Linux" -l '\EFI\arch_grub\grubx64.efi'
