@@ -49,7 +49,6 @@ After that, reboot and remove the Arch ISO image from the VM.
 Log in as root, then:
 
 ```
-systemctl start dhcpcd.service
 su - <your_username>
 cd /usr/local/share/tmp/ArchPlayground
 sh ./system/03_post_base_install.sh

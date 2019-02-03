@@ -5,6 +5,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";cd $DIR
 
 bail_on_root
 
+sudo systemctl start dhcpcd.service
+echo "Waiting for the network connection..."
+sleep 10
+
 TMP_DIR=`mktemp -d`
 pacman -Q yay 2>/dev/null
 
