@@ -221,6 +221,13 @@ arch_chroot "useradd -m -g users -G wheel re"
 arch_chroot "useradd -m -g users -G wheel st"
 
 configure_existing_user 'root'
+
+# @fixme This is untested yet. Will be useful for etckeeper.
+arch_chroot "\
+    git config --global user.email \"root@localhost\"; \
+    git config --global user.name \"root\" \
+"
+
 configure_existing_user 're'
 configure_existing_user 'st'
 
