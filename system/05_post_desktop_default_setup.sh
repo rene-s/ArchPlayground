@@ -72,8 +72,12 @@ sudo chfn -f "${nameofuser}" $USER # Set name of user
 xdg-mime default org.gnome.Nautilus.desktop inode/directory # see https://wiki.archlinux.de/title/GNOME
 
 # Install AUR packages
-yay -Q seafile-client || yay -S seafile-client
-yay -Q gnome-shell-extension-appindicator-git || yay -S gnome-shell-extension-appindicator-git # activate: tweaks > extensions > Kstatusnotifieritem
+yay -Q seafile-client || yay -S --noconfirm seafile-client
+yay -Q gnome-shell-extension-appindicator-git || yay -S --noconfirm gnome-shell-extension-appindicator-git # activate: tweaks > extensions > Kstatusnotifieritem
+yay -Q micro-bin || yay -S --noconfirm micro-bin
+
+# Remove redundant packages
+yay -R --noconfirm nano vi vim
 
 # P640RF=Tuxedo XC1406, 4180W15=Lenovo T420
 if [ $PRODUCT_NAME == "P640RF" ]; then
