@@ -91,6 +91,20 @@ Instead of showing the boot loader right away you may get thrown to a UEFI conso
 1. ~~Special keys for screen brightness and touchpad do not work yet.~~
 1. ~~```xrandr --listproviders``` returns 0 providers. Investigate why and determine whether the Nvidia GPU is being employed or not: https://wiki.archlinux.org/index.php/hybrid_graphics and https://wiki.archlinux.org/index.php/PRIME and https://wiki.archlinux.org/index.php/bumblebee -- ```optirun glxspheres64``` läuft nur das erste Mal schnell.~~
  
+### TLP
+
+```
+# https://wiki.archlinux.org/index.php/TLP
+yay -S tlp-rdw
+sudo systemctl enable NetworkManager-dispatcher.service
+sudo systemctl start NetworkManager-dispatcher.service
+
+sudo systemctl enable tlp.service
+sudo systemctl start tlp.service
+sudo systemctl enable tlp-sleep.service
+sudo systemctl start tlp-sleep.service
+sudo systemctl mask systemd-rfkill.service
+```
 
 ## Useful links
 
