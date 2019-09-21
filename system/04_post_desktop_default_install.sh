@@ -46,6 +46,7 @@ tilix \
 vlc \
 xorg-xbacklight \
 xorg-xrandr \
+wpa_actiond \
 xsel
 
 # notes:
@@ -84,6 +85,7 @@ read -p "Set up bluetooth support? (y/N): " BLUETOOTH
 
 if [[ $BLUETOOTH == "y" ]]
 then
+    yay -S bluez-firmware --noconfirm
     setup_bluetooth
 fi
 

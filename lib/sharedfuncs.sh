@@ -648,7 +648,7 @@
 #}}}
 
 setup_bluetooth() {
-    pacman -S --noconfirm bluez bluez-utils pulseaudio-bluetooth bluez-libs bluez-firmware
+    pacman -S --noconfirm bluez bluez-utils pulseaudio-bluetooth bluez-libs
     systemctl enable bluetooth.service
 
     # In case of problems, list audio devices with ```pactl list cards | less``` and make sure a2dp sink is enabled.
@@ -663,7 +663,7 @@ setup_bluetooth() {
 configure_network() {
     WIRELESS_DEV=`ip link | grep wlp | awk '{print $2}'| sed 's/://' | sed '1!d'`
     if [[ -n $WIRELESS_DEV ]]; then
-        pacstrap ${MOUNTPOINT} iw wireless_tools wpa_actiond wpa_supplicant dialog
+        pacstrap ${MOUNTPOINT} iw wireless_tools wpa_supplicant dialog
     fi
 
     WIRED_DEV=`ip link | grep "ens\|eno\|enp" | awk '{print $2}'| sed 's/://' | sed '1!d'`
