@@ -19,6 +19,8 @@ if [[ $VM == "VirtualBox" ]]; then
 else
     yay -Q virtualbox 2>/dev/null || yay -S --noconfirm virtualbox
 
+    vboxreload
+
     usermod -aG vboxsf re
     usermod -aG vboxsf st
 fi
