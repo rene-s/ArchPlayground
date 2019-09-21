@@ -29,7 +29,8 @@ if [[ $LINUX_LTS_INSTALLED != "0" ]]; then
 fi
 
 pacman -Q virtualbox-guest-modules-arch 2> /dev/null && pacman -R --noconfirm virtualbox-guest-modules-arch
-pacman -R linux
+pacman -Q linux 2> /dev/null && pacman -R linux
+pacman -Q linux-headers 2> /dev/null && pacman -R linux-headers
 
 SYS="BIOS"
 
