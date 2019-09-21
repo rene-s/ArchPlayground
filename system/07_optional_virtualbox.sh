@@ -7,12 +7,20 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";cd $DIR
 
 bail_on_user
 
+yay -Q virtualbox-guest-dkms 2>/dev/null || yay -S --noconfirm virtualbox-guest-dkms
+
 # Setup environment
 VM=`dmidecode -s system-product-name`
 if [[ $VM == "VirtualBox" ]]; then
-    yay -Q virtualbox-guest-dkms 2>/dev/null || pacman -S --noconfirm virtualbox-guest-dkms
+    yay -Q virtualbox-guest-utils 2>/dev/null || yay -S --noconfirm virtualbox-guest-utils
+    yay -Q xf86-video-vmware 2>/dev/null || yay -S --noconfirm xf86-video-vmware
+    systemctl enable vboxservice.service
+    systemctl start vboxservice.service
 else
-    yay -S --noconfirm virtualbox
+    yay -Q virtualbox 2>/dev/null || yay -S --noconfirm virtualbox
+
+    usermod -aG vboxsf re
+    usermod -aG vboxsf st
 fi
 
 echo "Done."
