@@ -7,7 +7,7 @@ bail_on_user
 
 # first minimalistic approach
 
-pacman -S --noconfirm \
+yay -S --noconfirm \
 connman \
 lxappearance \
 lxqt \

@@ -76,17 +76,13 @@ yay -Q seafile-client || yay -S --noconfirm seafile-client
 yay -Q gnome-shell-extension-appindicator-git || yay -S --noconfirm gnome-shell-extension-appindicator-git # activate: tweaks > extensions > Kstatusnotifieritem
 yay -Q micro-bin || yay -S --noconfirm micro-bin
 yay -Q oh-my-zsh-git || yay -S --noconfirm oh-my-zsh-git
+yay -Q solaar || yay -S --noconfirm solaar
 
 # Remove redundant packages
 yay -R --noconfirm nano vi vim
 
-# P640RF=Tuxedo XC1406, 4180W15=Lenovo T420
-if [ $PRODUCT_NAME == "P640RF" ]; then
-    yay -Q tuxedo-wmi-dkms || yay -S tuxedo-wmi-dkms
-    yay -Q rts_bpp-dkms-git || yay -S rts_bpp-dkms-git
-    # https://www.linux-onlineshop.de/forum/index.php?page=Thread&threadID=26
-    sudo sed -i -- "s/^#tuxedo-wmi/tuxedo-wmi/g" /etc/modules-load.d/sdo-modules.conf
-fi
-
 echo "Done."
+
+# @todo Add https://wiki.archlinux.org/index.php/Bluetooth_mouse#Mouse_lag
+#       For improved Bluetooth mouse responsiveness
 

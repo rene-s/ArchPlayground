@@ -129,8 +129,6 @@ echo "MODULES=\"${MODULES}\"" >>/mnt/etc/mkinitcpio.conf
 
 arch_chroot "mkinitcpio -p linux"
 
-# @todo Ab hier muss mal mit Virtualbox debuggt werden (schön mit Snapshots arbeiten dafür!)
-
 if [ $SYS == "UEFI" ]; then
     print_info "UEFI setup..."
 
@@ -201,14 +199,6 @@ pacman -Ssy > /dev/null
 pacman -S --noconfirm dmidecode
 arch_chroot "pacman -S --noconfirm bwm-ng dmidecode git iotop linux-headers mc namcap openssh p7zip wget diffutils base-devel htop reflector"
 arch_chroot "reflector --country France --country Germany --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
-
-# Setup environment
-VM=`dmidecode -s system-product-name`
-if [[ $VM == "VirtualBox" ]]; then
-    arch_chroot "pacman -S --noconfirm virtualbox-guest-modules-arch"
-else
-    arch_chroot "pacman -S --noconfirm virtualbox"
-fi
 
 # Set up users
 print_info "Set up users:"

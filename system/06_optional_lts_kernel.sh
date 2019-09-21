@@ -5,12 +5,6 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";cd $DIR
 . ../lib/sharedfuncs.sh
 
-print_danger "This script has not been tested well."
-print_danger "It will break your system."
-print_danger "You have been warned."
-print_danger "Also, it only wants to be run inside a VirtualBox VM."
-exit 1
-
 bail_on_user
 
 pacman -Q linux 2>/dev/null
@@ -42,8 +36,6 @@ SYS="BIOS"
 if [ -d /sys/firmware/efi ]; then
 	SYS="UEFI"
 fi
-
-pacman -Q virtualbox-guest-dkms 2>/dev/null || pacman -S --noconfirm virtualbox-guest-dkms
 
 if [ $SYS == "UEFI" ]; then
 	grub-mkconfig -o /boot/grub/grub.cfg

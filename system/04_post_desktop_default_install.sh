@@ -9,7 +9,7 @@ bail_on_user
 
 # first minimalistic approach
 
-pacman -S --noconfirm \
+yay -S --noconfirm \
 cups \
 ttf-dejavu \
 dav1d \
@@ -53,7 +53,7 @@ xsel
 
 # P640RF=Tuxedo XC1406, 4180W15=Lenovo T420
 if [ $PRODUCT_NAME == "P640RF" ] || [ $PRODUCT_NAME == "4180W15" ]; then
-    pacman -S --noconfirm \
+    yay -S --noconfirm \
         bbswitch-dkms \
         bumblebee \
         mesa-demos \
@@ -66,8 +66,8 @@ if [ $PRODUCT_NAME == "P640RF" ] || [ $PRODUCT_NAME == "4180W15" ]; then
     sudo usermod -a -G bumblebee st
 fi
 
-pacman -R --noconfirm anjuta # not required, gnome confuses opening links with opening anjuta sometimes
-pacman -R --noconfirm gnome-music # relies on tracker which in turn has issues with indexing music from symlinks, replaced with good ol' RhythmBox
+yay -R --noconfirm anjuta # not required, gnome confuses opening links with opening anjuta sometimes
+yay -R --noconfirm gnome-music # relies on tracker which in turn has issues with indexing music from symlinks, replaced with good ol' RhythmBox
 
 systemctl enable gdm.service
 systemctl enable NetworkManager.service
@@ -94,6 +94,20 @@ fi
 if [[ -f /usr/share/xsessions/gnome-xorg.desktop ]] ; then
     echo "Hidden=true" >> /usr/share/xsessions/gnome-xorg.desktop
 fi
+
+# Test placing a desktop file for easy access
+cat << EOF > /usr/share/applications/postinst.desktop
+# \$Id: postinst.desktop 22 $
+[Desktop Entry]
+Name=PostInst
+GenericName=PostInst
+Comment=PostInst
+Exec=bash /usr/local/share/tmp/ArchPlayground/system/05_post_desktop_default_setup.sh
+Terminal=true
+Type=Application
+Icon=utilities-terminal
+Categories=GNOME;GTK;Utility;%
+EOF
 
 echo "Done."
 echo "Reboot and login as user, then continue with /usr/local/share/tmp/ArchPlayground/system/05_post_desktop_default_setup.sh"
