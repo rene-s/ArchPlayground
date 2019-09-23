@@ -82,7 +82,3 @@ yay -Q solaar || yay -S --noconfirm solaar
 yay -R --noconfirm nano vi vim
 
 echo "Done."
-
-# @todo Add https://wiki.archlinux.org/index.php/Bluetooth_mouse#Mouse_lag
-#       For improved Bluetooth mouse responsiveness
-
