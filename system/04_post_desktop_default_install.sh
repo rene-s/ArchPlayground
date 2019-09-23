@@ -36,6 +36,7 @@ networkmanager \
 networkmanager-openvpn \
 network-manager-applet \
 ntfs-3g \
+openvpn \
 pavucontrol \
 qt4 \
 rhythmbox \
@@ -47,6 +48,8 @@ vlc \
 xorg-xbacklight \
 xorg-xrandr \
 wpa_actiond \
+gotop \
+jedit \
 xsel
 
 # notes:

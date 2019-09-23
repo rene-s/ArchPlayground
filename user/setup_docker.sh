@@ -8,7 +8,10 @@ bail_on_root
 sudo tee /etc/modules-load.d/loop.conf <<< "loop"
 sudo modprobe loop
 
-sudo pacman -S docker
+sudo pacman -S docker docker-compose
+
+sudo usermod -aG docker re
+sudo usermod -aG docker st
+
 sudo systemctl start docker.service
 sudo systemctl enable docker.service
-
