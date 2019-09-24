@@ -20,3 +20,5 @@ Latency=44
 Timeout=216
 EOF
 done
+
+systemctl restart bluetooth
