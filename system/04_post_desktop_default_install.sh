@@ -26,6 +26,7 @@ gst-libav \
 gst-plugins-ugly \
 gtk3-print-backends \
 imagemagick \
+noto-fonts-emoji \
 libreoffice-still \
 libmicrodns \
 libu2f-host \
