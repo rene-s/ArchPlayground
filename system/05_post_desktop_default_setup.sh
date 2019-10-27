@@ -77,8 +77,9 @@ yay -Q gnome-shell-extension-appindicator-git || yay -S --noconfirm gnome-shell-
 yay -Q micro-bin || yay -S --noconfirm micro-bin
 yay -Q oh-my-zsh-git || yay -S --noconfirm oh-my-zsh-git
 yay -Q solaar || yay -S --noconfirm solaar
+yay -Q flameshot || yay -S --noconfirm flameshot
 
 # Remove redundant packages
 yay -R --noconfirm nano vi vim
 
-echo "Done."
+echo "Done. You may want to set up default keybindings with './users/setup_custom_keybindings.sh'"
