@@ -43,6 +43,7 @@ qt4 \
 rhythmbox \
 seahorse \
 sane \
+splix \
 system-config-printer \
 tilix \
 vlc \
@@ -55,6 +56,7 @@ xsel
 
 # notes:
 # xsel enables KeePass to write stuff to the clipboard
+# splix is for Samsung printers
 
 # P640RF=Tuxedo XC1406, 4180W15=Lenovo T420
 if [ $PRODUCT_NAME == "P640RF" ] || [ $PRODUCT_NAME == "4180W15" ]; then
