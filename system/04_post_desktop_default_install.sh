@@ -39,6 +39,7 @@ network-manager-applet \
 ntfs-3g \
 openvpn \
 pavucontrol \
+pipewire \
 qt4 \
 rhythmbox \
 seahorse \
@@ -46,6 +47,7 @@ sane \
 system-config-printer \
 tilix \
 vlc \
+xdg-desktop-portal \
 xorg-xbacklight \
 xorg-xrandr \
 wpa_actiond \
@@ -55,6 +57,7 @@ xsel
 
 # notes:
 # xsel enables KeePass to write stuff to the clipboard
+# Chrome: chrome://flags/#enable-webrtc-pipewire-capturer for desktop sharing
 
 # P640RF=Tuxedo XC1406, 4180W15=Lenovo T420
 if [ $PRODUCT_NAME == "P640RF" ] || [ $PRODUCT_NAME == "4180W15" ]; then
