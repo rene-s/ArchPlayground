@@ -56,7 +56,8 @@ print_info "Update time";
 timedatectl set-ntp true
 
 nano /etc/pacman.d/mirrorlist # manually select a mirror. @todo Select automatically
-pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode hwdetect mkinitcpio linux lvm2
+read -p "Host name: " HOSTNAME # have the interaction aggregated
+pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode hwdetect mkinitcpio linux lvm2 zsh
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist # save fast mirrorlist for later
 
 # Generate fstab
@@ -85,7 +86,6 @@ arch_chroot "locale-gen"
 
 # Basic network setup
 print_info "Basic network setup..."
-read -p "Host name: " HOSTNAME
 echo "${HOSTNAME}" >/mnt/etc/hostname
 echo "127.0.0.1 localhost.localdomain localhost" >/mnt/etc/hosts
 echo "::1 localhost.localdomain localhost" >>/mnt/etc/hosts
@@ -205,7 +205,6 @@ print_info "Set up users:"
 
 echo "%wheel ALL=(ALL) ALL" >> /mnt/etc/sudoers
 
-arch_chroot "pacman -S --noconfirm zsh"
 arch_chroot "useradd -m -g users -G wheel re"
 arch_chroot "useradd -m -g users -G wheel st"
 
