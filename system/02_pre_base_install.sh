@@ -56,7 +56,7 @@ print_info "Update time";
 timedatectl set-ntp true
 
 nano /etc/pacman.d/mirrorlist # manually select a mirror. @todo Select automatically
-pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode
+pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode hwdetect
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist # save fast mirrorlist for later
 
 # Generate fstab
@@ -85,7 +85,7 @@ arch_chroot "locale-gen"
 
 # Basic network setup
 print_info "Basic network setup..."
-HOSTNAME="newschmidtdevopsworkstationchangeme"
+read -p "Host name: " HOSTNAME
 echo "${HOSTNAME}" >/mnt/etc/hostname
 echo "127.0.0.1 localhost.localdomain localhost" >/mnt/etc/hosts
 echo "::1 localhost.localdomain localhost" >>/mnt/etc/hosts
