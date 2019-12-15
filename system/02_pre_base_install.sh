@@ -56,7 +56,7 @@ print_info "Update time";
 timedatectl set-ntp true
 
 nano /etc/pacman.d/mirrorlist # manually select a mirror. @todo Select automatically
-pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode hwdetect
+pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode hwdetect mkinitcpio linux
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist # save fast mirrorlist for later
 
 # Generate fstab
