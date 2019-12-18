@@ -5,6 +5,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";cd $DIR
 
 bail_on_root
 
+sudo systemctl enable --now fstrim.timer
+sudo systemctl enable --now systemd-timesyncd.service
+
 sudo systemctl start dhcpcd.service
 echo "Waiting for the network connection..."
 sleep 10

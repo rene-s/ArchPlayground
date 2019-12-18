@@ -57,7 +57,7 @@ timedatectl set-ntp true
 
 nano /etc/pacman.d/mirrorlist # manually select a mirror. @todo Select automatically
 read -p "Host name: " HOSTNAME # have the interaction aggregated
-pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode hwdetect mkinitcpio linux lvm2 zsh
+pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode hwdetect mkinitcpio linux lvm2 zsh linux-firmware nano
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist # save fast mirrorlist for later
 
 # Generate fstab

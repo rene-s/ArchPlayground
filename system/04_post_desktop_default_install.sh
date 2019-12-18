@@ -52,6 +52,7 @@ xdg-desktop-portal \
 xorg-xbacklight \
 xorg-xrandr \
 wpa_actiond \
+wpa_supplicant \
 gotop \
 jedit \
 xsel
