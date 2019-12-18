@@ -45,7 +45,7 @@ fi
 #curl -sSL https://get.rvm.io | bash -s stable
 #rvm install "ruby-2.5.3"
 #sudo yay -S postgresql
-#sudo mkdir /var/lib/postgres/data /run/postgresql
+#sudo mkdir -p /var/lib/postgres/data /run/postgresql
 #sudo touch /var/lib/postgres/log
 #sudo chown -R postgres:postgres /var/lib/postgres/data /var/lib/postgres/log
 #sudo chown -R root:root /run/postgresql

@@ -57,7 +57,7 @@ timedatectl set-ntp true
 
 nano /etc/pacman.d/mirrorlist # manually select a mirror. @todo Select automatically
 read -p "Host name: " HOSTNAME # have the interaction aggregated
-pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode hwdetect mkinitcpio linux lvm2 zsh linux-firmware nano
+pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode hwdetect mkinitcpio linux lvm2 zsh linux-firmware nano acpid
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist # save fast mirrorlist for later
 
 # Generate fstab
@@ -145,7 +145,7 @@ if [ $SYS == "UEFI" ]; then
     mkdir -p /mnt/boot/grub/locale
     cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /mnt/boot/grub/locale/en.mo
 
-    mkdir /mnt/hostrun
+    mkdir -p /mnt/hostrun
     mount --bind /run /mnt/hostrun
 
     arch_chroot "\
@@ -220,7 +220,7 @@ configure_existing_user 're'
 configure_existing_user 'st'
 
 # Move the install scripts onto the new disk so the user has not have to download the scripts twice."
-mkdir "/mnt/usr/local/share/tmp"
+mkdir -p "/mnt/usr/local/share/tmp"
 mv /root/rene-s-ArchPlayground-* /mnt/usr/local/share/tmp/ArchPlayground
 
 # Kernel modules

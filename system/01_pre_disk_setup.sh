@@ -103,13 +103,13 @@ mkswap /dev/mapper/${VG}-swaplv
 # Mount your filesystems:
 print_info "Mount your filesystems..."
 mount /dev/mapper/${VG}-rootlv /mnt
-mkdir /mnt/home
+mkdir -p /mnt/home
 mount /dev/mapper/${VG}-homelv /mnt/home
 swapon /dev/mapper/${VG}-swaplv
 
 ## Prepare boot partition
 print_info "Creating file systems and mounting..."
-mkdir /mnt/boot
+mkdir -p /mnt/boot
 if [ $SYS == "BIOS" ]; then
         mkfs.ext2 ${DISK_BOOT} 
         mount ${DISK_BOOT}  /mnt/boot

@@ -110,7 +110,7 @@ mkdir -p /mnt/luks_data
 echo "/dev/mapper/luks_data /mnt/luks_data ext4 defaults 0 2" >> /etc/fstab
 
 mount /dev/mapper/luks_data /mnt/luks_data
-mkdir /mnt/luks_data/re /mnt/luks_data/st
+mkdir -p /mnt/luks_data/re /mnt/luks_data/st
 
 chown root:users /mnt/luks_data
 chmod -R 0770 /mnt/luks_data

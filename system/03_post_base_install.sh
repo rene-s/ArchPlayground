@@ -7,6 +7,7 @@ bail_on_root
 
 sudo systemctl enable --now fstrim.timer
 sudo systemctl enable --now systemd-timesyncd.service
+sudo systemctl enable --now acpid
 
 sudo systemctl start dhcpcd.service
 echo "Waiting for the network connection..."
