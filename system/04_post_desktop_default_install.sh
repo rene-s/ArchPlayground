@@ -55,8 +55,8 @@ xorg-xbacklight \
 xorg-xrandr \
 wireless_tools \
 wpa_actiond \
-wpa_supplicant dialog \
-gotop \
+wpa_supplicant \
+gotop-bin \
 jedit \
 xsel
 

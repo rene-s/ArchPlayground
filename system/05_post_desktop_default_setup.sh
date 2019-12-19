@@ -82,4 +82,4 @@ yay -Q flameshot || yay -S --noconfirm flameshot
 # Remove redundant packages
 yay -R --noconfirm nano vi vim
 
-echo "Done. You may want to set up default keybindings with './users/setup_custom_keybindings.sh'"
+echo "Done. You may want to set up default keybindings with './user/setup_custom_keybindings.sh'"
