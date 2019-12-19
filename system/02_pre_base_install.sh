@@ -186,10 +186,6 @@ fi
 # Set up /etc/issue
 echo "Schmidt DevOps \r (\l) -- setup on: "`date` > /mnt/etc/issue
 
-# Setup network
-print_info "Setup network..."
-configure_network
-
 pacman -Ssy > /dev/null
 pacman -S --noconfirm dmidecode
 arch_chroot "pacman -S --noconfirm bwm-ng dmidecode git iotop linux-headers mc namcap openssh p7zip wget diffutils base-devel htop reflector"

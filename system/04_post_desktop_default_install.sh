@@ -13,6 +13,7 @@ yay -S --noconfirm \
 cups \
 ttf-dejavu \
 dav1d \
+dialog \
 eog \
 exfat-utils \
 firefox \
@@ -26,6 +27,7 @@ gst-libav \
 gst-plugins-ugly \
 gtk3-print-backends \
 imagemagick \
+iw \
 noto-fonts-emoji \
 libreoffice-still \
 libmicrodns \
@@ -51,8 +53,9 @@ vlc \
 xdg-desktop-portal \
 xorg-xbacklight \
 xorg-xrandr \
+wireless_tools \
 wpa_actiond \
-wpa_supplicant \
+wpa_supplicant dialog \
 gotop \
 jedit \
 xsel
