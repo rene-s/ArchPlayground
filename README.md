@@ -142,10 +142,10 @@ Keys at startup:
 1. Run this: 
    ```
    exit # from chroot
-   mkdir /mnt/hostrun
+   mkdir -p /mnt/hostrun
    mount --bind /run /mnt/hostrun
    arch-chroot /mnt
-   mkdir /run/lvm
+   mkdir -p /run/lvm
    mount --bind /hostrun/lvm /run/lvm
    grub-mkconfig -o /boot/grub/grub.cfg
    ```

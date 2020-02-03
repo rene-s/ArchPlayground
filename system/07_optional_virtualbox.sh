@@ -23,6 +23,9 @@ else
 
     usermod -aG vboxsf re
     usermod -aG vboxsf st
+
+  usermod -aG vboxusers re
+  usermod -aG vboxusers st
 fi
 
 echo "Done."
