@@ -7,9 +7,10 @@ PRODUCT_NAME=`cat /sys/devices/virtual/dmi/id/product_name`
 
 bail_on_user
 
-# first minimalistic approach
+# first approach
 
 yay -S --noconfirm \
+adobe-source-han-sans-otc-fonts \
 cups \
 ttf-dejavu \
 dav1d \
@@ -126,3 +127,16 @@ EOF
 
 echo "Done."
 echo "Reboot and login as user, then continue with /usr/local/share/tmp/ArchPlayground/system/05_post_desktop_default_setup.sh"
+
+
+#QT_SCALE_FACTOR=1
+#
+#QT_QPA_PLATFORM=wayland
+#
+#QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+#
+#XDG_SESSION_TYPE=wayland
+#
+#MOZ_ENABLE_WAYLAND=1
+#
+#GDK_BACKEND=wayland
