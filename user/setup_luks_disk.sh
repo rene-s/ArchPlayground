@@ -100,9 +100,9 @@ mkfs.ext4 -m0 /dev/mapper/luks_data
 UUID=`cryptsetup luksUUID $DISK_DATA`
 
 if [[ $USE_STATIC_KEY_FILES == "y" ]]; then
-	echo "luks_data UUID=${UUID} ${STATIC_KEY_FILE}" >> /etc/crypttab
+	echo "luks_data UUID=${UUID} ${STATIC_KEY_FILE} luks,timeout=180" >> /etc/crypttab
 else
-	echo "luks_data UUID=${UUID} none luks" >> /etc/crypttab
+	echo "luks_data UUID=${UUID} none luks,timeout=180" >> /etc/crypttab
 fi
 
 mkdir -p /mnt/luks_data
