@@ -29,3 +29,13 @@ rm -rf $TMP_DIR
 
 echo "Done."
 echo "Exit the shell session and continue with ./system/04_post_desktop_default_install.sh as root."
+
+
+# @todo: $ sudo nano /etc/NetworkManager/NetworkManager.conf
+#.
+#.
+#[ifupdown]
+#managed=true
+# Hilft dem NM, VPN-Verbindungen aufzubauen
+
+# yay -S wireguard-lts networkmanager-wireguard-git

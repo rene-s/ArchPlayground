@@ -80,6 +80,6 @@ yay -Q solaar || yay -S --noconfirm solaar
 yay -Q flameshot || yay -S --noconfirm flameshot
 
 # Remove redundant packages
-yay -R --noconfirm nano vi vim
+yay -R --noconfirm vi vim
 
 echo "Done. You may want to set up default keybindings with './user/setup_custom_keybindings.sh'"
