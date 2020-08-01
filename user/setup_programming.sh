@@ -15,7 +15,7 @@ sonar-scanner \
 postgresql \
 xdebug
 
-wget https://phar.phpunit.de/phpunit.phar -O /tmp/phpunit.phar
+curl -L https://phar.phpunit.de/phpunit.phar --output /tmp/phpunit.phar
 sudo mv /tmp/phpunit.phar /usr/bin/phpunit
 sudo chmod +x /usr/bin/phpunit
 

@@ -119,7 +119,7 @@ else
 fi
 
 print_info "Done."
-print_info "Then continue with ./system/02_post_base_install.sh"
+print_info "Continue with ./system/02_post_base_install.sh"
 
-# wget -q -O - "https://raw.githubusercontent.com/rene-s/ArchPlayground/master/bin/arch_disk.sh?1" | bash
+# curl -L "https://raw.githubusercontent.com/rene-s/ArchPlayground/master/bin/arch_disk.sh?1" --output - | bash
 

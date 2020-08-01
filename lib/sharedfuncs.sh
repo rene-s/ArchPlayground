@@ -700,10 +700,10 @@ configure_existing_user() {
     URL_ZSHRC="https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/cfg/_zshrc"
 
     if [ "$1" == "root" ]; then
-        wget -q $URL_ZSHRC -O /mnt/root/.zshrc
+        curl -L $URL_ZSHRC --output /mnt/root/.zshrc
         arch_chroot "chown $1:$1 /$1/.zshrc"
     else
-        wget -q $URL_ZSHRC -O /mnt/home/$1/.zshrc
+        curl -L $URL_ZSHRC --output /mnt/home/$1/.zshrc
         arch_chroot "chown $1:users /home/$1/.zshrc"
         arch_chroot "usermod -aG network $1"
         arch_chroot "usermod -aG wheel $1"

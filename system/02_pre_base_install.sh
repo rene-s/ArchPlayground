@@ -57,7 +57,7 @@ timedatectl set-ntp true
 
 nano /etc/pacman.d/mirrorlist # manually select a mirror. @todo Select automatically
 read -p "Host name: " HOSTNAME # have the interaction aggregated
-pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp wget git dmidecode hwdetect mkinitcpio linux lvm2 zsh linux-firmware nano acpid dhcpcd
+pacstrap /mnt base base-devel parted btrfs-progs f2fs-tools ntp git dmidecode hwdetect mkinitcpio linux lvm2 zsh linux-firmware nano acpid dhcpcd
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist # save fast mirrorlist for later
 
 # Generate fstab
@@ -188,7 +188,7 @@ echo "Schmidt DevOps \r (\l) -- setup on: "`date` > /mnt/etc/issue
 
 pacman -Ssy > /dev/null
 pacman -S --noconfirm dmidecode
-arch_chroot "pacman -S --noconfirm bwm-ng dmidecode git iotop linux-headers mc namcap openssh p7zip wget diffutils base-devel htop reflector"
+arch_chroot "pacman -S --noconfirm bwm-ng dmidecode git iotop linux-headers mc namcap openssh p7zip diffutils base-devel htop reflector"
 arch_chroot "reflector --country France --country Germany --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
 
 # Set up users

@@ -32,7 +32,7 @@ After booting the Arch Linux ISO image, run
 
 ```
 cd /root
-wget "sdo.sh/l/?arch_inst" -O - | tar xz # NOTE: there are no numbers in the URL
+curl -L "sdo.sh/l/?arch_inst" --output - | tar xz # NOTE: there are no numbers in the URL
 ```
 
 Then cd into the newly created directory and run
