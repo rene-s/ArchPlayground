@@ -58,7 +58,7 @@ wireless_tools \
 wpa_actiond \
 wpa_supplicant \
 gotop-bin \
-jedit \
+notepadqq \
 xsel
 
 # notes:
