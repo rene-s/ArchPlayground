@@ -18,10 +18,10 @@ SCREENS=( `xrandr | fgrep '*' | cut -d' ' -f4` "1366x768" )
 URL="https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/img/wallpaper/"
 
 WALLPAPER="/home/${USER}/Bilder/.sdo_wallpaper.png"
-wget ${URL}${SCREENS[0]}_debian-greyish-wallpaper-widescreen.png -O $WALLPAPER
+curl -L ${URL}${SCREENS[0]}_debian-greyish-wallpaper-widescreen.png --output $WALLPAPER
 
 if [ $? != 0 ]; then
-  wget ${URL}${SCREENS[1]}_debian-greyish-wallpaper-widescreen.png -O $WALLPAPER
+  curl -L ${URL}${SCREENS[1]}_debian-greyish-wallpaper-widescreen.png --output $WALLPAPER
 fi
 
 gsettings set org.gnome.desktop.background picture-uri file://$WALLPAPER
@@ -41,7 +41,7 @@ sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 # Set avatar
 AVATAR="${USER}"
-wget https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/img/avatar/${AVATAR}.svg -O /home/${USER}/Bilder/.${AVATAR}.svg
+curl -L https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/img/avatar/${AVATAR}.svg --output /home/${USER}/Bilder/.${AVATAR}.svg
 
 sudo mkdir -p /var/lib/AccountsService/users
 sudo mkdir -p /usr/local/share/pixmaps/faces
