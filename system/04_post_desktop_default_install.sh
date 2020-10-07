@@ -11,6 +11,7 @@ bail_on_user
 
 yay -S --noconfirm \
 adobe-source-han-sans-otc-fonts \
+chrome-gnome-shell \
 cups \
 ttf-dejavu \
 dav1d \
@@ -24,6 +25,7 @@ gnome \
 gnome-extra \
 gnome-tweak-tool \
 gnome-user-share \
+google-chrome \
 gst-libav \
 gst-plugins-ugly \
 gtk3-print-backends \

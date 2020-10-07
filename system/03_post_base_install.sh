@@ -39,3 +39,5 @@ echo "Exit the shell session and continue with ./system/04_post_desktop_default_
 # Hilft dem NM, VPN-Verbindungen aufzubauen
 
 # yay -S wireguard-lts networkmanager-wireguard-git
+
+@todo: Add systemd timers: https://unix.stackexchange.com/a/590001

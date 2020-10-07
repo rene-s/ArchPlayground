@@ -73,7 +73,7 @@ xdg-mime default org.gnome.Nautilus.desktop inode/directory # see https://wiki.a
 
 # Install AUR packages
 yay -Q seafile-client || yay -S --noconfirm seafile-client
-yay -Q gnome-shell-extension-appindicator-git || yay -S --noconfirm gnome-shell-extension-appindicator-git # activate: tweaks > extensions > Kstatusnotifieritem
+#yay -Q gnome-shell-extension-appindicator-git || yay -S --noconfirm gnome-shell-extension-appindicator-git # activate: tweaks > extensions > Kstatusnotifieritem
 yay -Q micro-bin || yay -S --noconfirm micro-bin
 yay -Q oh-my-zsh-git || yay -S --noconfirm oh-my-zsh-git
 yay -Q solaar || yay -S --noconfirm solaar
