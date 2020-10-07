@@ -734,3 +734,40 @@ bail_on_user() {
         exit 1
     fi
 }
+
+answer=""
+
+# Ask user a question and read the input
+function ask() {
+	TITLE=$1
+	BACK_TITLE=$2
+	INPUT_BOX=$3
+	DEFAULT=$4
+	OUTPUT=`mktemp`
+
+	trap "rm $OUTPUT; exit" SIGHUP SIGINT SIGTERM
+
+	dialog --title "${TITLE}" \
+	--backtitle "${BACK_TITLE}" \
+	--inputbox "${INPUT_BOX} " 8 60 "${DEFAULT}" 2>$OUTPUT
+
+	ask_result=$?
+	answer=$(<$OUTPUT)
+
+	return $ask_result
+}
+
+#ask  "System Setup"  "System Setup" "Enter a user name" "sdouser"
+#
+#case $ask_result in
+#  0)
+#  	echo "${answer} "
+#  	;;
+#  1)
+#  	echo "Cancel pressed."
+#  	;;
+#  255)
+#   echo "[ESC] key pressed."
+#esac
+#
+#[[ -f "${OUTPUT}" ]] && rm "${OUTPUT}"
