@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";cd $DIR
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$DIR" || exit
 . ../lib/sharedfuncs.sh
 
 bail_on_root
 
-sudo tee /etc/modules-load.d/loop.conf <<< "loop"
+sudo tee /etc/modules-load.d/loop.conf <<<"loop"
 sudo modprobe loop
 
 sudo pacman -S docker docker-compose

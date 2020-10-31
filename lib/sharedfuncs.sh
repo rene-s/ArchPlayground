@@ -661,12 +661,12 @@ setup_bluetooth() {
 }
 
 configure_network() {
-    WIRELESS_DEV=`ip link | grep wlp | awk '{print $2}'| sed 's/://' | sed '1!d'`
+    WIRELESS_DEV=$(ip link | grep wlp | awk '{print $2}'| sed 's/://' | sed '1!d')
     if [[ -n $WIRELESS_DEV ]]; then
         pacstrap ${MOUNTPOINT} iw wireless_tools wpa_supplicant dialog
     fi
 
-    WIRED_DEV=`ip link | grep "ens\|eno\|enp" | awk '{print $2}'| sed 's/://' | sed '1!d'`
+    WIRED_DEV=$(ip link | grep "ens\|eno\|enp" | awk '{print $2}'| sed 's/://' | sed '1!d')
     if [[ -n $WIRED_DEV ]]; then
         arch_chroot "systemctl enable dhcpcd@${WIRED_DEV}.service"
     fi
@@ -743,16 +743,17 @@ function ask() {
 	BACK_TITLE=$2
 	INPUT_BOX=$3
 	DEFAULT=$4
-	OUTPUT=`mktemp`
+	OUTPUT=$(mktemp)
 
-	trap "rm $OUTPUT; exit" SIGHUP SIGINT SIGTERM
+	trap 'rm $OUTPUT; exit' SIGHUP SIGINT SIGTERM
 
 	dialog --title "${TITLE}" \
 	--backtitle "${BACK_TITLE}" \
-	--inputbox "${INPUT_BOX} " 8 60 "${DEFAULT}" 2>$OUTPUT
+	--inputbox "${INPUT_BOX} " 8 60 "${DEFAULT}" 2>"$OUTPUT"
 
 	ask_result=$?
-	answer=$(<$OUTPUT)
+	# shellcheck disable=SC2034
+	answer=$(<"$OUTPUT")
 
 	return $ask_result
 }

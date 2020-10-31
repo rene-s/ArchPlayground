@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";cd $DIR
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$DIR"
 . ../lib/sharedfuncs.sh
 
 bail_on_user
-
-# vars
-MOUNTPOINT="/mnt"
 
 loadkeys de-latin1
 
@@ -15,25 +13,25 @@ print_info "Available storage devices:"
 
 lsblk -o KNAME,TYPE,SIZE,MODEL | grep disk
 
-read -p "Disk to install on (for example '/dev/nvme0n1' or '/dev/sda'): " DISK
+read -r -p "Disk to install on (for example '/dev/nvme0n1' or '/dev/sda'): " DISK
 
-if [[ $DISK == *"nvme"* ]]
-then
-    DISK_BOOT="${DISK}p1"
-    DISK_SYSTEM="${DISK}p2"
+if [[ $DISK == *"nvme"* ]]; then
+  DISK_BOOT="${DISK}p1"
+  DISK_SYSTEM="${DISK}p2"
 else
-    DISK_BOOT="${DISK}1"
-    DISK_SYSTEM="${DISK}2"
+  DISK_BOOT="${DISK}1"
+  DISK_SYSTEM="${DISK}2"
 fi
 
 # Check if there are partitions set up. If so, bail out and prompt the user to wipe them first.
 print_info "Checking for existing partitions..."
-lsblk ${DISK} | grep part
+lsblk "${DISK}" | grep part
+RET=$?
 
-if [ $? -eq 0 ]; then
-        echo "ERROR: Existing partitions on ${DISK} found."
-        echo "Wipe them first with 'sgdisk -z ${DISK} && reboot' and try again."
-        exit 1
+if [ $RET -eq 0 ]; then
+  echo "ERROR: Existing partitions on ${DISK} found."
+  echo "Wipe them first with 'sgdisk -z ${DISK} && reboot' and try again."
+  exit 1
 fi
 
 # Set only after we have checked for existing partions as that command is supposed to fail.
@@ -43,7 +41,7 @@ set -e
 SYS="BIOS"
 
 if [ -d /sys/firmware/efi ]; then
-        SYS="UEFI"
+  SYS="UEFI"
 fi
 
 print_info "This is a ${SYS} system."
@@ -55,27 +53,27 @@ print_info "This is a ${SYS} system."
 # create 512 MiB boot partition, rest is system
 print_info "Creating partitions..."
 if [ $SYS == "BIOS" ]; then
-        parted --script ${DISK} \
-            mklabel msdos \
-            mkpart primary ext2 1MiB 512MiB \
-            set 1 boot on \
-            mkpart primary ext4 512MiB 100%
+  parted --script "${DISK}" \
+    mklabel msdos \
+    mkpart primary ext2 1MiB 512MiB \
+    set 1 boot on \
+    mkpart primary ext4 512MiB 100%
 else
-        # UEFI boot should have boot flag
-        parted --script ${DISK} \
-            mklabel gpt \
-            mkpart EF00 ext2 1MiB 512MiB \
-            set 1 boot on \
-            mkpart primary ext4 512MiB 100%
+  # UEFI boot should have boot flag
+  parted --script "${DISK}" \
+    mklabel gpt \
+    mkpart EF00 ext2 1MiB 512MiB \
+    set 1 boot on \
+    mkpart primary ext4 512MiB 100%
 fi
 
 # Create the LUKS encrypted container at the "system" partition.
 print_info "Enter a passphrase for the LUKS encrypted container on ${DISK_SYSTEM}:"
-cryptsetup --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 5000 --use-random --verify-passphrase luksFormat ${DISK_SYSTEM}
+cryptsetup --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 5000 --use-random --verify-passphrase luksFormat "${DISK_SYSTEM}"
 
 # Open the container. After that the decrypted container will be available at /dev/mapper/lvmdisk.
 print_info "Open the container. After that the decrypted container will be available at /dev/mapper/lvmdisk."
-cryptsetup open --type luks ${DISK_SYSTEM} lvmdisk
+cryptsetup open --type luks "${DISK_SYSTEM}" lvmdisk
 
 ## Prepare LVs
 
@@ -111,15 +109,14 @@ swapon /dev/mapper/${VG}-swaplv
 print_info "Creating file systems and mounting..."
 mkdir -p /mnt/boot
 if [ $SYS == "BIOS" ]; then
-        mkfs.ext2 ${DISK_BOOT} 
-        mount ${DISK_BOOT}  /mnt/boot
+  mkfs.ext2 "${DISK_BOOT}"
+  mount "${DISK_BOOT}" /mnt/boot
 else
-        mkfs.fat -F 32 -n EFIBOOT ${DISK_BOOT} 
-        mount -L EFIBOOT /mnt/boot
+  mkfs.fat -F 32 -n EFIBOOT "${DISK_BOOT}"
+  mount -L EFIBOOT /mnt/boot
 fi
 
 print_info "Done."
 print_info "Continue with ./system/02_post_base_install.sh"
 
 # curl -L "https://raw.githubusercontent.com/rene-s/ArchPlayground/master/bin/arch_disk.sh?1" --output - | bash
-
