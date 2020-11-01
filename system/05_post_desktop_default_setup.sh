@@ -95,9 +95,9 @@ RET=$?
 if [[ $RET != "0" ]]; then
   answer=""
   question="Install Seafile client? (y/N)"
-  ask "Install software" "Install software" "$question" "n"
-  if [[ $answer == "y" ]]; then # ask because it takes some time to install it and we do not require it every time
-    yay -Q seafile-client || yay -S --noconfirm seafile-client
+  ask "Install software" "Install software" "$question" "n" # because it takes some time to install it and we do not require it every time
+  if [[ $answer == "y" ]]; then
+    yay -S --noconfirm seafile-client
   fi
 fi
 
