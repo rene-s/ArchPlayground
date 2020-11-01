@@ -11,19 +11,16 @@ bail_on_root
 yay -Q virtualbox-guest-dkms 2>/dev/null || yay -S --noconfirm virtualbox-guest-dkms
 
 # Setup environment
-VM=$(dmidecode -s system-product-name)
-if [[ $VM == "VirtualBox" ]]; then
+VM=$(sudo dmidecode -s system-product-name)
+if [[ $VM == "VirtualBox" ]]; then # system is a VirtualBox guest
   yay -Q virtualbox-guest-utils 2>/dev/null || yay -S --noconfirm virtualbox-guest-utils
   yay -Q xf86-video-vmware 2>/dev/null || yay -S --noconfirm xf86-video-vmware
   sudo systemctl enable vboxservice.service
   sudo systemctl start vboxservice.service
-else
+else # system is a VirtualBox host
   yay -Q virtualbox 2>/dev/null || yay -S --noconfirm virtualbox
 
   sudo vboxreload
-
-  sudo usermod -aG vboxsf re
-  sudo usermod -aG vboxsf st
 
   sudo usermod -aG vboxusers re
   sudo usermod -aG vboxusers st

@@ -18,22 +18,30 @@ localectl --no-convert set-x11-keymap de pc105 nodeadkeys
 gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'de')]"
 
 # Set wallpaper
-# shellcheck disable=SC2207
-SCREENS=($(xrandr | grep -F '*' | cut -d' ' -f4) "1366x768")
+SCREENS=("1024x768" "1280x1024" "1440x900" "1440x1050" "1920x1080" "1600x1200" "1920x1200" "2560x1440" "3200x1800" "2560x2048" "1366x768" "4080x768")
 URL="https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/img/wallpaper/"
 
-WALLPAPER="/home/${USER}/Bilder/.sdo_wallpaper.png"
-curl -L "${URL}${SCREENS[0]}_debian-greyish-wallpaper-widescreen.png" --output "$WALLPAPER"
-RET=$?
+WALLPAPER_DIR="/home/${USER}/Bilder/SDO-Wallpaper"
+mkdir -p "$WALLPAPER_DIR"
 
-if [ $RET != 0 ]; then
-  curl -L "${URL}${SCREENS[1]}_debian-greyish-wallpaper-widescreen.png" --output "$WALLPAPER"
+for screen in "${SCREENS[@]}"; do
+  curl -sL "${URL}${screen}_debian-greyish-wallpaper-widescreen.png" --output "${WALLPAPER_DIR}/debian-greyish-wallpaper-widescreen_${screen}.png"
+done
+
+DETECTED_SCREEN=$(DISPLAY=:0 xrandr | grep -F '*' | cut -d' ' -f4)
+SEEK_WALLPAPER="${WALLPAPER_DIR}/debian-greyish-wallpaper-widescreen_${DETECTED_SCREEN}.png"
+
+if [[ -f $SEEK_WALLPAPER ]]; then
+  WALLPAPER=$SEEK_WALLPAPER
+else
+  WALLPAPER="${WALLPAPER_DIR}/debian-greyish-wallpaper-widescreen_${SCREENS[0]}.png"
 fi
 
 # https://wiki.archlinux.org/index.php/GNOME
 gsettings set org.gnome.desktop.background picture-uri "file://$WALLPAPER"
 gsettings set org.gnome.desktop.screensaver picture-uri "file://$WALLPAPER"
 gsettings set org.gnome.desktop.interface clock-show-date true
+gsettings set org.gnome.desktop.interface clock-show-weekday true
 gsettings set org.gnome.desktop.calendar show-weekdate true
 gsettings set org.gnome.desktop.interface enable-hot-corners false
 gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"

@@ -703,12 +703,8 @@ configure_existing_user() {
         curl -L $URL_ZSHRC --output /mnt/root/.zshrc
         arch_chroot "chown $1:$1 /$1/.zshrc"
     else
-        arch_chroot "mkdir /home/$1/.ssh; touch /home/$1/.ssh/authorized_keys"
-        curl -L $URL_ZSHRC --output /mnt/home/$1/.zshrc
-        curl -L "https://github.com/rene-s.keys" --output "/home/$1/.ssh/rene-s.keys"
-        curl -L "https://github.com/steffi-s.keys" --output "/home/$1/.ssh/steffi-s.keys"
-        cat "/home/$1/.ssh/rene-s.keys" "/home/$1/.ssh/steffi-s.keys" >> "/home/$1/.ssh/authorized_keys"
-        arch_chroot "chown $1:users /home/$1/.zshrc /home/$1/.ssh /home/$1/.ssh/authorized_keys"
+        curl -L $URL_ZSHRC --output "/mnt/home/$1/.zshrc"
+        arch_chroot "chown $1:users /home/$1/.zshrc"
         arch_chroot "usermod -aG network $1"
         arch_chroot "usermod -aG wheel $1"
     fi
