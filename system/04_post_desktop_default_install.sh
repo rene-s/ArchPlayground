@@ -6,7 +6,7 @@ cd "$DIR" || exit
 
 PRODUCT_NAME=$(cat /sys/devices/virtual/dmi/id/product_name)
 
-bail_on_user
+bail_on_root
 
 # first approach
 
@@ -27,6 +27,7 @@ yay -S --noconfirm \
   gnome-tweak-tool \
   gnome-user-share \
   google-chrome \
+  gotop-bin \
   gst-libav \
   gst-plugins-ugly \
   gtk3-print-backends \
@@ -37,17 +38,18 @@ yay -S --noconfirm \
   libmicrodns \
   libu2f-host \
   linux-headers \
+  lollypop \
   jdk8-openjdk \
   modemmanager \
   networkmanager \
   networkmanager-openvpn \
+  networkmanager-wireguard \
   network-manager-applet \
+  notepadqq \
   ntfs-3g \
   openvpn \
   pavucontrol \
   pipewire \
-  qt4 \
-  rhythmbox \
   seahorse \
   sane \
   splix \
@@ -57,11 +59,10 @@ yay -S --noconfirm \
   xdg-desktop-portal \
   xorg-xbacklight \
   xorg-xrandr \
+  wireguard-tools \
   wireless_tools \
   wpa_actiond \
   wpa_supplicant \
-  gotop-bin \
-  notepadqq \
   xsel
 
 # notes:
@@ -78,24 +79,24 @@ if [ "$PRODUCT_NAME" == "P640RF" ] || [ "$PRODUCT_NAME" == "4180W15" ]; then
     primus \
     virtualgl
 
-  systemctl enable bumblebeed.service
+  sudo systemctl enable bumblebeed.service
 
   sudo usermod -a -G bumblebee re
   sudo usermod -a -G bumblebee st
 fi
 
 yay -R --noconfirm anjuta      # not required, gnome confuses opening links with opening anjuta sometimes
-yay -R --noconfirm gnome-music # relies on tracker which in turn has issues with indexing music from symlinks, replaced with good ol' RhythmBox
+yay -R --noconfirm gnome-music # relies on tracker which in turn has issues with indexing music from symlinks, replaced with Lollypop
 
-systemctl enable gdm.service
-systemctl enable NetworkManager.service
-systemctl enable org.cups.cupsd.service
+sudo systemctl enable gdm.service
+sudo systemctl enable NetworkManager.service
+sudo systemctl enable org.cups.cupsd.service
 
 # Prepare for IntelliJ IDEA/PhpStorm; see https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
-echo "fs.inotify.max_user_watches = 524288" >/etc/sysctl.d/inotify.conf
+echo "fs.inotify.max_user_watches = 524288" | sudo tee /etc/sysctl.d/inotify.conf
 
 # Fix wrong permissions; fixes GDM sometimes not starting after installation
-chown -R gdm:gdm /var/lib/gdm/
+sudo chown -R gdm:gdm /var/lib/gdm/
 
 # Set up bluetooth support
 read -r -p "Set up bluetooth support? (y/N): " BLUETOOTH
@@ -107,14 +108,14 @@ fi
 
 # Disable unsupported GNOME session types. @todo: idempotency
 if [[ -f /usr/share/xsessions/gnome-classic.desktop ]]; then
-  echo "Hidden=true" >>/usr/share/xsessions/gnome-classic.desktop
+  echo "Hidden=true" | sudo tee --append /usr/share/xsessions/gnome-classic.desktop
 fi
 if [[ -f /usr/share/xsessions/gnome-xorg.desktop ]]; then
-  echo "Hidden=true" >>/usr/share/xsessions/gnome-xorg.desktop
+  echo "Hidden=true" | sudo tee --append /usr/share/xsessions/gnome-xorg.desktop
 fi
 
 # Test placing a desktop file for easy access
-cat <<EOF >/usr/share/applications/postinst.desktop
+sudo bash -c 'cat <<EOF >/usr/share/applications/postinst.desktop
 # \$Id: postinst.desktop 22 $
 [Desktop Entry]
 Name=PostInst
@@ -125,10 +126,10 @@ Terminal=true
 Type=Application
 Icon=utilities-terminal
 Categories=GNOME;GTK;Utility;%
-EOF
+EOF'
 
 echo "Done."
-echo "Reboot and login as user, then continue with /usr/local/share/tmp/ArchPlayground/system/05_post_desktop_default_setup.sh"
+echo "Reboot and login as user, then continue with 'sh /usr/local/share/tmp/ArchPlayground/system/05_post_desktop_default_setup.sh'"
 
 #QT_SCALE_FACTOR=1
 #

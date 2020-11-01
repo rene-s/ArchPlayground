@@ -15,6 +15,8 @@ lsblk -o KNAME,TYPE,SIZE,MODEL | grep disk
 
 read -r -p "Disk to install on (for example '/dev/nvme0n1' or '/dev/sda'): " DISK
 
+echo "$DISK" > /tmp/disk.txt
+
 if [[ $DISK == *"nvme"* ]]; then
   DISK_BOOT="${DISK}p1"
   DISK_SYSTEM="${DISK}p2"
@@ -117,6 +119,6 @@ else
 fi
 
 print_info "Done."
-print_info "Continue with ./system/02_post_base_install.sh"
+print_info "Continue with 'sh ./system/02_post_base_install.sh'"
 
 # curl -L "https://raw.githubusercontent.com/rene-s/ArchPlayground/master/bin/arch_disk.sh?1" --output - | bash

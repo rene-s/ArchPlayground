@@ -19,7 +19,7 @@ if [[ $LINUX_INSTALLED != "0" ]] && [[ $LINUX_LTS_INSTALLED == "0" ]]; then
   exit 1
 fi
 
-pacman -S --noconfirm linux-lts linux-lts-headers
+pacman -S --noconfirm linux-lts linux-lts-headers wireguard-lts
 
 pacman -Q linux-lts 2>/dev/null
 LINUX_LTS_INSTALLED=$?
@@ -29,9 +29,9 @@ if [[ $LINUX_LTS_INSTALLED != "0" ]]; then
   exit 1
 fi
 
-pacman -Q virtualbox-guest-modules-arch 2>/dev/null && pacman -R --noconfirm virtualbox-guest-modules-arch
-pacman -Q linux 2>/dev/null && pacman -R linux
-pacman -Q linux-headers 2>/dev/null && pacman -R linux-headers
+#pacman -Q virtualbox-guest-modules-arch 2>/dev/null && pacman -R --noconfirm virtualbox-guest-modules-arch
+#pacman -Q linux 2>/dev/null && pacman -R linux
+#pacman -Q linux-headers 2>/dev/null && pacman -R linux-headers
 
 SYS="BIOS"
 

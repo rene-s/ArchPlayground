@@ -648,16 +648,16 @@
 #}}}
 
 setup_bluetooth() {
-    pacman -S --noconfirm bluez bluez-utils pulseaudio-bluetooth bluez-libs
-    systemctl enable bluetooth.service
+    sudo pacman -S --noconfirm bluez bluez-utils pulseaudio-bluetooth bluez-libs
+    sudo systemctl enable bluetooth.service
 
     # In case of problems, list audio devices with ```pactl list cards | less``` and make sure a2dp sink is enabled.
     # Select the "High Fidelity" profile using pavucontrol
 
     # Fix: When using GDM, another instance of PulseAudio is started, which "captures" your bluetooth device
     # connection. This can be prevented by masking the pulseaudio socket for the GDM user by doing the following:
-    mkdir -p ~gdm/.config/systemd/user
-    ln -s /dev/null ~gdm/.config/systemd/user/pulseaudio.socket
+    sudo mkdir -p ~gdm/.config/systemd/user
+    sudo ln -s /dev/null ~gdm/.config/systemd/user/pulseaudio.socket
 }
 
 configure_network() {

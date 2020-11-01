@@ -6,7 +6,6 @@ cd "$DIR" || exit
 
 bail_on_root
 
-sudo systemctl enable --now dhcpcd.service
 sudo systemctl enable --now fstrim.timer
 sudo systemctl enable --now systemd-timesyncd.service
 sudo systemctl enable --now acpid
@@ -16,7 +15,7 @@ echo "Waiting for the network connection..."
 sleep 10
 
 TMP_DIR=$(mktemp -d)
-pacman -Q yay 2>/dev/null
+pacman -Q --noconfirm yay 2>/dev/null
 RET=$?
 
 if [ $RET != "0" ]; then
@@ -24,14 +23,27 @@ if [ $RET != "0" ]; then
   cd "$TMP_DIR" || exit
   git clone https://aur.archlinux.org/yay.git
   cd yay || exit
-  makepkg -si
+  makepkg -si --noconfirm
 fi
 
 cd || exit
 rm -rf "$TMP_DIR"
 
+# use all possible cores for subsequent package builds
+# shellcheck disable=SC2016
+sed -i 's,#MAKEFLAGS="-j2",MAKEFLAGS="-j$(nproc)",g' /etc/makepkg.conf
+
+# don't compress the packages built here
+sed -i "s,PKGEXT='.pkg.tar.zst',PKGEXT='.pkg.tar',g" /etc/makepkg.conf
+
+# ease pam_faillock a bit because it drives me crazy with my wonky keyboard
+if [[ -f /etc/security/faillock.conf ]]; then
+  sed -i 's,# *deny *= *3,deny = 6,g' /etc/security/faillock.conf
+  sed -i 's,# *unlock_time *= *600,unlock_time = 60,g' /etc/security/faillock.conf
+fi
+
 echo "Done."
-echo "Exit the shell session and continue with ./system/04_post_desktop_default_install.sh as root."
+echo "Exit the shell session, log in as user and continue with 'sh /usr/local/share/tmp/ArchPlayground/system/04_post_desktop_default_install.sh'."
 
 # @todo: $ sudo nano /etc/NetworkManager/NetworkManager.conf
 #.
@@ -42,4 +54,4 @@ echo "Exit the shell session and continue with ./system/04_post_desktop_default_
 
 # yay -S wireguard-lts networkmanager-wireguard-git
 
-@todo: Add systemd timers: https://unix.stackexchange.com/a/590001
+# @todo: Add systemd timers: https://unix.stackexchange.com/a/590001

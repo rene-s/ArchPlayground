@@ -15,7 +15,11 @@ print_info "Available storage devices:"
 
 lsblk -o KNAME,TYPE,SIZE,MODEL | grep disk
 
-read -r -p "Disk to install on (for example '/dev/nvme0n1' or '/dev/sda'): " DISK
+if [[ ! -f /tmp/disk.txt ]]; then
+  read -r -p "Disk to install on (for example '/dev/nvme0n1' or '/dev/sda'): " DISK
+else
+  DISK=$(cat /tmp/disk.txt)
+fi
 
 if [[ $DISK == *"nvme"* ]]; then
   DISK_SYSTEM="${DISK}p2"
@@ -135,7 +139,10 @@ if [ $SYS == "UEFI" ]; then
 
   arch_chroot "pacman -S --noconfirm efibootmgr dosfstools gptfdisk"
   mkdir -p /mnt/boot/grub/locale
-  cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /mnt/boot/grub/locale/en.mo
+
+  if [[ -f /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo ]]; then
+    cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /mnt/boot/grub/locale/en.mo
+  fi
 
   mkdir -p /mnt/hostrun
   mount --bind /run /mnt/hostrun
@@ -213,19 +220,20 @@ mkdir -p "/mnt/usr/local/share/tmp"
 mv /root/rene-s-ArchPlayground-* /mnt/usr/local/share/tmp/ArchPlayground
 
 # Kernel modules
-echo "" >/mnt/etc/modules-load.d/sdo-modules.conf
+SDO_MODULES=/mnt/etc/modules-load.d/sdo-modules.conf
+echo "" >$SDO_MODULES
 
 if [ $HAS_NVIDIA -eq 1 ]; then
-  echo "nvidia" >>/mnt/etc/modules-load.d/sdo-modules.conf
+  echo "nvidia" >>$SDO_MODULES
 fi
 
 if [ "$PRODUCT_NAME" == "P640RF" ]; then
-  echo "#tuxedo-wmi" >>/mnt/etc/modules-load.d/sdo-modules.conf
+  echo "#tuxedo-wmi" >>$SDO_MODULES
 fi
 
-echo "virtio-net" >>/mnt/etc/modules-load.d/sdo-modules.conf
+echo "virtio-net" >>$SDO_MODULES
 
 # Finish
 print_info "Done."
-print_info "Reboot and remove the installation media."
-print_info "Then continue with /usr/local/share/tmp/ArchPlayground/system/03_post_base_install.sh"
+print_info "Remove the installation media and reboot."
+print_info "Then log in as user and continue with 'sh /usr/local/share/tmp/ArchPlayground/system/03_post_base_install.sh'"

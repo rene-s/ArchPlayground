@@ -6,6 +6,11 @@ cd "$DIR" || exit
 
 bail_on_root
 
+if [[ $DESKTOP_SESSION != "gnome" ]]; then
+  print_danger "GNOME should be running at this point. It does not, which indicates a previous error."
+  exit 1
+fi
+
 mkdir -p ~/Bilder
 
 # Set X11 keymap
@@ -25,10 +30,12 @@ if [ $RET != 0 ]; then
   curl -L "${URL}${SCREENS[1]}_debian-greyish-wallpaper-widescreen.png" --output "$WALLPAPER"
 fi
 
+# https://wiki.archlinux.org/index.php/GNOME
 gsettings set org.gnome.desktop.background picture-uri "file://$WALLPAPER"
 gsettings set org.gnome.desktop.screensaver picture-uri "file://$WALLPAPER"
-
-# see http://fabhax.com/technology/change-wallpapers-in-gnome-3.4/
+gsettings set org.gnome.desktop.interface clock-show-date true
+gsettings set org.gnome.desktop.calendar show-weekdate true
+gsettings set org.gnome.desktop.interface enable-hot-corners false
 
 # Set screensaver photo
 sudo mkdir -p /usr/local/share/pixmaps/wallpaper
@@ -83,4 +90,4 @@ yay -Q flameshot || yay -S --noconfirm flameshot
 # Remove redundant packages
 yay -R --noconfirm vi vim
 
-echo "Done. You may want to set up default keybindings with './user/setup_custom_keybindings.sh'"
+echo "Done. You may want to set up default keybindings with 'sh /usr/local/share/tmp/ArchPlayground/user/setup_custom_keybindings.sh'"
