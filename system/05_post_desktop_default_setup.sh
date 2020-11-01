@@ -36,6 +36,7 @@ gsettings set org.gnome.desktop.screensaver picture-uri "file://$WALLPAPER"
 gsettings set org.gnome.desktop.interface clock-show-date true
 gsettings set org.gnome.desktop.calendar show-weekdate true
 gsettings set org.gnome.desktop.interface enable-hot-corners false
+gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
 
 # Set screensaver photo
 sudo mkdir -p /usr/local/share/pixmaps/wallpaper
@@ -80,14 +81,35 @@ sudo chfn -f "${nameofuser}" "$USER"                        # Set name of user
 xdg-mime default org.gnome.Nautilus.desktop inode/directory # see https://wiki.archlinux.de/title/GNOME
 
 # Install AUR packages
-yay -Q seafile-client || yay -S --noconfirm seafile-client
-#yay -Q gnome-shell-extension-appindicator-git || yay -S --noconfirm gnome-shell-extension-appindicator-git # activate: tweaks > extensions > Kstatusnotifieritem
+yay -Q seafile-client
+RET=$?
+
+if [[ $RET != "0" ]]; then
+  answer=""
+  question="Install Seafile client? (y/N)"
+  ask "Install software" "Install software" "$question" "n"
+  if [[ $answer == "y" ]]; then # ask because it takes some time to install it and we do not require it every time
+    yay -Q seafile-client || yay -S --noconfirm seafile-client
+  fi
+fi
+
+# Install and enable AppIndicator support
+yay -Q gnome-shell-extension-appindicator-git
+RET=$?
+
+if [[ $RET != "0" ]]; then
+  yay -S --noconfirm gnome-shell-extension-appindicator-git # activate: tweaks > extensions > Kstatusnotifieritem
+  gsettings set org.gnome.shell enabled-extensions "['appindicatorsupport@rgcjonas.gmail.com','window-list@gnome-shell-extensions.gcampax.github.com']"
+fi
+
+# Install other useful items
 yay -Q micro-bin || yay -S --noconfirm micro-bin
 yay -Q oh-my-zsh-git || yay -S --noconfirm oh-my-zsh-git
 yay -Q solaar || yay -S --noconfirm solaar
-yay -Q flameshot || yay -S --noconfirm flameshot
+yay -Q flameshot || yay -S --noconfirm flameshot # also profits from AppIndicator support
 
 # Remove redundant packages
-yay -R --noconfirm vi vim
+yay -Q vi 2>/dev/null && yay -R --noconfirm vi
+yay -Q vim 2>/dev/null && yay -R --noconfirm vim
 
 echo "Done. You may want to set up default keybindings with 'sh /usr/local/share/tmp/ArchPlayground/user/setup_custom_keybindings.sh'"
