@@ -6,6 +6,7 @@ yay -Q oh-my-zsh-git || yay -S --noconfirm oh-my-zsh-git
 yay -Q solaar || yay -S --noconfirm solaar
 yay -Q flameshot || yay -S --noconfirm flameshot # also profits from AppIndicator support
 
+mkdir -p ~/.config/autostart
 if [[ ! -f ~/.config/autostart/org.flameshot.Flameshot.desktop ]]; then
   cat <<EOF >~/.config/autostart/org.flameshot.Flameshot.desktop
 # \$Id: postinst.desktop 22 $
