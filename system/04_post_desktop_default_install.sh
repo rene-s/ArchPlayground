@@ -16,6 +16,7 @@ yay -S --noconfirm \
   cups \
   ttf-dejavu \
   dav1d \
+  dconf-editor \
   dialog \
   eog \
   exfat-utils \
@@ -87,6 +88,7 @@ fi
 
 yay -R --noconfirm anjuta      # not required, gnome confuses opening links with opening anjuta sometimes
 yay -R --noconfirm gnome-music # relies on tracker which in turn has issues with indexing music from symlinks, replaced with Lollypop
+yay -R --noconfirm gnome-mahjongg # this is a place of work, no Mahjongg required
 
 sudo systemctl enable gdm.service
 sudo systemctl enable NetworkManager.service
