@@ -9,7 +9,7 @@ if [ $RET != "0" ]; then
   cd "$TMP_DIR" || exit
   git clone https://aur.archlinux.org/yay.git
   cd yay || exit
-  makepkg -si --noconfirm
+  sudo -u re "makepkg -si --noconfirm"
 fi
 
 cd || exit
@@ -20,4 +20,4 @@ rm -rf "$TMP_DIR"
 sed -i 's,#MAKEFLAGS="-j[0-9]+",MAKEFLAGS="-j$(nproc)",g' /etc/makepkg.conf
 
 # don't compress the packages built here
-sed -i "s,PKGEXT='.pkg.tar.(gz|bz2|xz|zst)',PKGEXT='.pkg.tar',g" /etc/makepkg.conf
+sed -i "s,PKGEXT='\.pkg\.tar\.(gz|bz2|xz|zst)',PKGEXT='.pkg.tar',g" /etc/makepkg.conf

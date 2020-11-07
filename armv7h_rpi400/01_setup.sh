@@ -10,9 +10,9 @@ systemctl restart sshd
 
 echo "Schmidt DevOps \r (\l) -- setup on: $(date)" >/mnt/etc/issue
 
-. ./01/001_yay.sh
 . ./01/002_packages.sh
 . ./01/003_users.sh
+. ./01/001_yay.sh
 . ./01/004_system.sh
 
 echo "Done. "
