@@ -1,26 +1,32 @@
 #!/usr/bin/env bash
 
-set -e
-
-useradd -m -g users -G wheel re 2>/dev/null
-useradd -m -g users -G wheel st 2>/dev/null
+#set -e
 
 URL_ZSHRC="https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/cfg/_zshrc"
+curl -L "$URL_ZSHRC" --output "/tmp/.zshrc"
 
 for playground_user in 'root' 're' 'st'; do
-  if [ "$playground_user" == "root" ]; then
-    curl -L $URL_ZSHRC --output /root/.zshrc
+  if [[ "$playground_user" == "root" ]]; then
+    cp /tmp/.zshrc /root/.zshrc
     chown "$playground_user:$playground_user" "/$playground_user/.zshrc"
   else
-    echo "Enter password for user ${playground_user}:"
-    passwd "${playground_user}"
+    id ${playground_user}
+    RET=$?
 
-    curl -L $URL_ZSHRC --output "/home/$playground_user/.zshrc"
+    if [[ $RET != "0" ]]; then
+      useradd -m -g users -G wheel ${playground_user}
+      echo "Enter password for user ${playground_user}:"
+      passwd "${playground_user}"
+    fi
+
+    cp /tmp/.zshrc "/home/$playground_user/.zshrc"
     chown $playground_user:users "/home/$playground_user/.zshrc"
-    usermod -aG network $playground_user
-    usermod -aG wheel $playground_user
+    usermod -aG network "$playground_user"
+    usermod -aG wheel "$playground_user"
   fi
-  chsh -s /usr/bin/zsh $playground_user
-endfor
+  chsh -s /usr/bin/zsh "$playground_user"
+done
 
-[[ -f /etc/sudoers ]] && sed -i "s,#%wheel ALL=\(ALL\) ALL,%wheel ALL=(ALL) ALL,g" /etc/sudoers
+if [[ -f /etc/sudoers ]]; then
+  sed -i "s,# %wheel ALL=(ALL) ALL,%wheel ALL=(ALL) ALL,g" /etc/sudoers
+fi

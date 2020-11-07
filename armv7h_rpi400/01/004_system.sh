@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
+#set -e
 
 sudo systemctl enable --now systemd-timesyncd.service

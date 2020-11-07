@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-set -e
+#set -e
 
 # Update timezone and system time
 echo "Setting time and time zones..."
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
-hwclock --systohc
+#hwclock --systohc
 
 # Setup locales and keymap
 echo "Setup locales and keymap..."
