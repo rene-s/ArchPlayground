@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 TMP_DIR=$(mktemp -d)
 pacman -Q --noconfirm yay 2>/dev/null
 RET=$?
@@ -9,7 +11,7 @@ if [ $RET != "0" ]; then
   cd "$TMP_DIR" || exit
   git clone https://aur.archlinux.org/yay.git
   cd yay || exit
-  sudo -u re "makepkg -si --noconfirm"
+  sudo -u re makepkg -si --noconfirm
 fi
 
 cd || exit

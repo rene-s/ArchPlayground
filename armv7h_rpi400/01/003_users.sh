@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 useradd -m -g users -G wheel re 2>/dev/null
 useradd -m -g users -G wheel st 2>/dev/null
 

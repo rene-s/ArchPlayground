@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # Update timezone and system time
 echo "Setting time and time zones..."
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
