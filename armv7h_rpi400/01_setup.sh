@@ -14,5 +14,6 @@ echo "Schmidt DevOps \r (\l) -- setup on: $(date)" >/mnt/etc/issue
 . ./01/003_users.sh
 . ./01/001_yay.sh
 . ./01/004_system.sh
+. ./01/005_locale.sh
 
 echo "Done. "
