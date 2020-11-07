@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-echo "%wheel ALL=(ALL) ALL" >>/mnt/etc/sudoers
-
 URL_ZSHRC="https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/cfg/_zshrc"
 
 for playground_user in 'root' 're' 'st'; do
@@ -19,3 +17,5 @@ for playground_user in 'root' 're' 'st'; do
   fi
   chsh -s /usr/bin/zsh $playground_user
 endfor
+
+[[ -f /mnt/etc/sudoers ]] && sed -i "s,#%wheel ALL=\(ALL\) ALL,%wheel ALL=(ALL) ALL,g" /mnt/etc/sudoers
