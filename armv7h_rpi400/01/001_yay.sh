@@ -20,4 +20,4 @@ rm -rf "$TMP_DIR"
 sed -i 's,#MAKEFLAGS="-j[0-9]+",MAKEFLAGS="-j$(nproc)",g' /etc/makepkg.conf
 
 # don't compress the packages built here
-sed -i "s,PKGEXT='\.pkg\.tar\.(gz|bz2|xz|zst)',PKGEXT='.pkg.tar',g" /etc/makepkg.conf
+sed -i "s,PKGEXT='\.pkg\.tar\.xz',PKGEXT='.pkg.tar',g" /etc/makepkg.conf

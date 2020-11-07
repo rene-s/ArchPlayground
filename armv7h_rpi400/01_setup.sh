@@ -8,7 +8,7 @@ chmod 0700 ~/.ssh
 sed -i 's,^#PermitRootLogin .*,PermitRootLogin prohibit-password,g' /etc/makepkg.conf
 systemctl restart sshd
 
-echo "Schmidt DevOps \r (\l) -- setup on: $(date)" >/mnt/etc/issue
+echo "Schmidt DevOps \r (\l) -- setup on: $(date)" >/etc/issue
 
 . ./01/002_packages.sh
 . ./01/003_users.sh
