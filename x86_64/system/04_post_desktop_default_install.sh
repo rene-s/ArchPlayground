@@ -116,20 +116,6 @@ if [[ -f /usr/share/xsessions/gnome-xorg.desktop ]]; then
   echo "Hidden=true" | sudo tee --append /usr/share/xsessions/gnome-xorg.desktop
 fi
 
-# Test placing a desktop file for easy access
-sudo bash -c 'cat <<EOF >/usr/share/applications/postinst.desktop
-# \$Id: postinst.desktop 22 $
-[Desktop Entry]
-Name=PostInst
-GenericName=PostInst
-Comment=PostInst
-Exec=bash /usr/local/share/tmp/ArchPlayground/system/05_post_desktop_default_setup.sh
-Terminal=true
-Type=Application
-Icon=utilities-terminal
-Categories=GNOME;GTK;Utility;%
-EOF'
-
 echo "Done."
 echo "Reboot and login as user, then continue with 'sh /usr/local/share/tmp/ArchPlayground/system/05_post_desktop_default_setup.sh'"
 
