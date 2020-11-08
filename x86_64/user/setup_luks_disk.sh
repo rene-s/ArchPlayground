@@ -91,7 +91,16 @@ else
   cryptsetup luksOpen "$DISK_DATA" luks_data
 fi
 
-mkfs.ext4 -m0 /dev/mapper/luks_data
+FS="ext4"
+
+answer=""
+question="Use f2fs instead of ext4? (y/N)"
+ask "Change default FS" "Change default FS" "$question" "n"
+if [[ $answer == "y" ]]; then
+  FS=f2fs
+fi
+
+"mkfs.$FS" -m0 /dev/mapper/luks_data
 
 UUID=$(cryptsetup luksUUID "$DISK_DATA")
 
@@ -103,7 +112,7 @@ fi
 
 mkdir -p /mnt/luks_data
 
-echo "/dev/mapper/luks_data /mnt/luks_data ext4 defaults 0 2" >>/etc/fstab
+echo "/dev/mapper/luks_data /mnt/luks_data $FS defaults 0 2" >>/etc/fstab
 
 mount /dev/mapper/luks_data /mnt/luks_data
 mkdir -p /mnt/luks_data/re /mnt/luks_data/st
