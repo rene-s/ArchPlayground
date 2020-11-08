@@ -87,7 +87,7 @@ arch_chroot "locale-gen"
 
 # Basic network setup
 print_info "Basic network setup..."
-echo "${HOSTNAME}" >/mnt/etc/hostname
+arch_chroot "hostnamectl set-hostname ${HOSTNAME}"
 echo "127.0.0.1 localhost.localdomain localhost" >/mnt/etc/hosts
 echo "::1 localhost.localdomain localhost" >>/mnt/etc/hosts
 echo "127.0.1.1 ${HOSTNAME}.localdomain ${HOSTNAME}" >>/mnt/etc/hosts
