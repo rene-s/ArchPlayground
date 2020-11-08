@@ -98,9 +98,10 @@ question="Use f2fs instead of ext4? (y/N)"
 ask "Change default FS" "Change default FS" "$question" "n"
 if [[ $answer == "y" ]]; then
   FS=f2fs
+  mkfs.f2fs /dev/mapper/luks_data
+else
+  mkfs.ext4 -m0 /dev/mapper/luks_data
 fi
-
-"mkfs.$FS" -m0 /dev/mapper/luks_data
 
 UUID=$(cryptsetup luksUUID "$DISK_DATA")
 

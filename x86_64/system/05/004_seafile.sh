@@ -15,6 +15,7 @@ fi
 yay -Q seafile-client
 RET=$?
 
+mkdir -p ~/.config/autostart
 if [[ $RET == "0" ]] && [[ ! -f ~/.config/autostart/seafile.desktop ]]; then
   cat <<EOF >~/.config/autostart/seafile.desktop
 # \$Id: postinst.desktop 22 $

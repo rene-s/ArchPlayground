@@ -18,7 +18,7 @@ yay -S \
   gdm \
   gimp \
   gnome \
-  gnome-tweak-tool \
+  gnome-tweaks \
   gnome-user-share \
   gotop-bin \
   gst-libav \

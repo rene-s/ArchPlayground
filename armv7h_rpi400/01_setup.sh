@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+echo "Note that the system does not run stable at the moment."
+echo "There are frequent coredumps: libc.so.6 __clock_gettime64"
+exit 1
+
 git config pull.rebase false
 
 mkdir -p ~/.ssh
