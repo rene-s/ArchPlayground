@@ -14,4 +14,8 @@ systemctl restart sshd
 ./01/004_system.sh
 ./01/005_locale.sh
 
+read -r -p "Host name: " HOSTNAME # have the interaction aggregated
+hostnamectl set-hostname ${HOSTNAME}
+
+cp ./config.txt /boot/
 echo "Done. "
