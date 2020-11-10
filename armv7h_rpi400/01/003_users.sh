@@ -4,6 +4,7 @@
 
 URL_ZSHRC="https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/cfg/_zshrc"
 curl -L "$URL_ZSHRC" --output "/tmp/.zshrc"
+echo 'export PATH=$PATH:/opt/vc/bin' >> "/tmp/.zshrc"
 
 for playground_user in 'root' 're' 'st'; do
   if [[ "$playground_user" == "root" ]]; then
