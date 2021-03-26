@@ -32,7 +32,7 @@ After booting the Arch Linux ISO image, run
 
 ```
 cd /root
-curl -L "sdo.sh/l/?arch_inst" --output - | tar xz # NOTE: there are no numbers in the URL
+curl -L "sdo.sh/l/arch_inst" --output - | tar xz # NOTE: there are no numbers in the URL
 ```
 
 Then cd into the newly created directory and run
@@ -52,7 +52,6 @@ Log in as root, then:
 su - <your_username>
 cd /usr/local/share/tmp/ArchPlayground
 sh ./system/03_post_base_install.sh
-exit
 sh ./system/04_post_desktop_default_install.sh
 reboot
 ```
@@ -74,6 +73,8 @@ Once the default system has been set up you may want to run one or more of these
 
 | Name | Purpose
 | ---- | -------
+| ```system/06_optional_lts_kernel.sh``` | Sets up a LTS kernel and makes it the default
+| ```system/07_optional_virtualbox.sh``` | Configures the guest as Virtualbox guest with dynamic screen resize.
 | ```user/setup_latex.sh``` | Sets up a LaTeX environment with "TeX Live", Koma-Script, and Kile 
 | ```user/setup_luks_disk.sh``` | Encrypts and sets up a second permanent hard disk or solid state disk
 | ```user/setup_programming.sh``` | Installs the default SDO software development environment for Java, PHP, and JavaScript/NodeJS

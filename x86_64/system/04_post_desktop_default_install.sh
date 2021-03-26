@@ -10,6 +10,11 @@ bail_on_root
 
 # first approach
 
+# Make touch screen work for Thinkpad L390 model 20NRCTO1WW, see https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1849721
+if [[ "${PRODUCT_NAME}" = "20NRCTO1WW" ]]; then
+  echo "blacklist raydium_i2c_ts" | sudo tee /etc/modprobe.d/blacklist_raydium.conf
+fi
+
 yay -S --noconfirm \
   adobe-source-han-sans-otc-fonts \
   chrome-gnome-shell \

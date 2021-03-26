@@ -19,7 +19,7 @@ if [[ $LINUX_INSTALLED != "0" ]] && [[ $LINUX_LTS_INSTALLED == "0" ]]; then
   exit 1
 fi
 
-pacman -S --noconfirm linux-lts linux-lts-headers wireguard-lts
+pacman -S --noconfirm linux-lts linux-lts-headers
 
 pacman -Q linux-lts 2>/dev/null
 LINUX_LTS_INSTALLED=$?
