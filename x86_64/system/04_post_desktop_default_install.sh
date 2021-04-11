@@ -32,6 +32,7 @@ yay -S --noconfirm \
   gnome-extra \
   gnome-tweak-tool \
   gnome-user-share \
+  gnome-shell-extensions \
   google-chrome \
   gotop-bin \
   gst-libav \
