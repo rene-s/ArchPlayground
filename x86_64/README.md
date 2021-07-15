@@ -55,6 +55,7 @@ su - <your_username>
 cd /usr/local/share/tmp/ArchPlayground # now cd either to `armv7h_rpi400` or `x86_64`
 sh ./system/03_post_base_install.sh
 sh ./system/04_post_desktop_default_install.sh
+exit # in order to fall back to root session
 reboot
 ```
 
