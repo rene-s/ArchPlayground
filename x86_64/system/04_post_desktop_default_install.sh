@@ -123,16 +123,4 @@ if [[ -f /usr/share/xsessions/gnome-xorg.desktop ]]; then
 fi
 
 echo "Done."
-echo "Reboot and login as user, then continue with 'sh /usr/local/share/tmp/ArchPlayground/system/05_post_desktop_default_setup.sh'"
-
-#QT_SCALE_FACTOR=1
-#
-#QT_QPA_PLATFORM=wayland
-#
-#QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-#
-#XDG_SESSION_TYPE=wayland
-#
-#MOZ_ENABLE_WAYLAND=1
-#
-#GDK_BACKEND=wayland
+echo "Reboot and login as user, then continue as shown in the README."

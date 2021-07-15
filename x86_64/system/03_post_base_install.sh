@@ -50,8 +50,8 @@ for playground_user in 're' 'st'; do
   sudo curl -L "https://github.com/steffi-s.keys" --output "/home/${playground_user}/.ssh/steffi-s.keys"
   sudo bash -c "cat \"/home/${playground_user}/.ssh/rene-s.keys\" \"/home/${playground_user}/.ssh/steffi-s.keys\" >>\"/home/${playground_user}/.ssh/authorized_keys\""
   sudo chown -R "${playground_user}:users" "/home/${playground_user}/.ssh"
-  sudo chmod 0700 "/home/${playground_user}/.ssh"
-  sudo chmod 0644 "/home/${playground_user}/.ssh/*keys"
+  sudo chmod 0700 /home/${playground_user}/.ssh
+  sudo chmod 0644 /home/${playground_user}/.ssh/*keys
 done
 
 echo "Done."

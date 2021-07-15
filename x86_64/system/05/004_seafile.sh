@@ -12,6 +12,7 @@ if [[ $RET != "0" ]]; then
   fi
 fi
 
+clear
 yay -Q seafile-client
 RET=$?
 

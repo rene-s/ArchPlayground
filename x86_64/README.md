@@ -35,14 +35,16 @@ cd /root
 curl -L "sdo.sh/l/arch_inst" --output - | tar xz # NOTE: there are no numbers in the URL
 ```
 
-Then cd into the newly created directory and run
+Then cd into the newly created directory, cd either to `armv7h_rpi400` or `x86_64` depending on your architecture and run
 
 ```
 sh ./system/01_pre_disk_setup.sh # NOTE: at this point, the keymap will be german
 sh ./system/02_pre_base_install.sh
 ```
 
-After that, reboot and remove the Arch ISO image from the VM.
+After that, shut down the system, and remove the installation media and restart.
+
+If you are quick enough a reboot will also do. :)
 
 ### Second stage
 
@@ -50,7 +52,7 @@ Log in as root, then:
 
 ```
 su - <your_username>
-cd /usr/local/share/tmp/ArchPlayground
+cd /usr/local/share/tmp/ArchPlayground # now cd either to `armv7h_rpi400` or `x86_64`
 sh ./system/03_post_base_install.sh
 sh ./system/04_post_desktop_default_install.sh
 reboot
@@ -61,8 +63,9 @@ reboot
 Log in as user and open a terminal. Then finish the installation:
 
 ```
-cd /usr/local/share/tmp/ArchPlayground
+cd /usr/local/share/tmp/ArchPlayground # now cd either to `armv7h_rpi400` or `x86_64`
 sh ./system/05_post_desktop_default_setup.sh
+sh ./user/setup_custom_keybindings.sh # this is recommended
 ```
 
 Log out, repeat for all other users that require setup.

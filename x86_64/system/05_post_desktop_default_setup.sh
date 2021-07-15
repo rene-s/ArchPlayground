@@ -32,4 +32,4 @@ yay -Q vim 2>/dev/null && yay -R --noconfirm vim
 . ./05/001_tilix_style.sh
 . ./05/007_avatar.sh
 
-echo "Done. You may want to set up default keybindings with 'sh /usr/local/share/tmp/ArchPlayground/user/setup_custom_keybindings.sh'"
+echo "Done. Continue as shown in the README."

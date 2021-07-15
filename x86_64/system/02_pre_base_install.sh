@@ -235,5 +235,5 @@ echo "virtio-net" >>$SDO_MODULES
 
 # Finish
 print_info "Done."
-print_info "Remove the installation media and reboot."
+print_info "Shut down the system with 'poweroff', remove the installation media and restart."
 print_info "Then log in as user and continue with 'sh /usr/local/share/tmp/ArchPlayground/system/03_post_base_install.sh'"
