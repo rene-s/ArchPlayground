@@ -77,11 +77,11 @@ Once the default system has been set up you may want to run one or more of these
 
 | Name | Purpose
 | ---- | -------
-| ```system/06_optional_lts_kernel.sh``` | Sets up a LTS kernel and makes it the default
-| ```system/07_optional_virtualbox.sh``` | Configures the guest as Virtualbox guest with dynamic screen resize.
-| ```user/setup_latex.sh``` | Sets up a LaTeX environment with "TeX Live", Koma-Script, and Kile 
-| ```user/setup_luks_disk.sh``` | Encrypts and sets up a second permanent hard disk or solid state disk
-| ```user/setup_programming.sh``` | Installs the default SDO software development environment for Java, PHP, and JavaScript/NodeJS
+| ```sh ./system/06_optional_lts_kernel.sh``` | Sets up a LTS kernel and makes it the default
+| ```sh ./system/07_optional_virtualbox.sh``` | Configures a VirtualBox guest or host.
+| ```sh ./user/setup_latex.sh``` | Sets up a LaTeX environment with "TeX Live", Koma-Script, and Kile 
+| ```sh ./user/setup_luks_disk.sh``` | Encrypts and sets up a second permanent hard disk or solid state disk
+| ```sh ./user/setup_programming.sh``` | Installs the default SDO software development environment for Java, PHP, and JavaScript/NodeJS
 
 ## Virtualbox and UEFI booting
 
