@@ -4,6 +4,7 @@
 
 pacman -Syu --noconfirm
 pacman -S rpi-eeprom-git \
+fakeroot \
 f2fs-tools \
 firmware-raspberrypi \
 ccache \
