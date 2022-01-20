@@ -5,6 +5,9 @@ cd "$DIR" || exit
 
 bail_on_user
 
+pacman -Syu
+pacman -S parted dialog
+
 loadkeys de-latin1
 
 # determine disk to install on
@@ -47,7 +50,8 @@ read -r -p "Use static key file for ${DISK}? (y/N): " ANSWER
 
 if [[ $ANSWER == "y" ]]; then
   USE_STATIC_KEY_FILES="y"
-  STATIC_KEY_FILE="/etc/luks_static_key_"$(uuidgen)
+  mkdir -p /etc/cryptsetup-keys.d
+  STATIC_KEY_FILE="/etc/cryptsetup-keys.d/$(uuidgen).key"
   touch "$STATIC_KEY_FILE"
   chmod 0600 "$STATIC_KEY_FILE"
   dd bs=256 count=1 if=/dev/urandom of="$STATIC_KEY_FILE"
@@ -116,10 +120,23 @@ mkdir -p /mnt/luks_data
 echo "/dev/mapper/luks_data /mnt/luks_data $FS defaults 0 2" >>/etc/fstab
 
 mount /dev/mapper/luks_data /mnt/luks_data
-mkdir -p /mnt/luks_data/re /mnt/luks_data/st
 
 chown root:users /mnt/luks_data
 chmod -R 0770 /mnt/luks_data
 chmod -R u+s /mnt/luks_data
-chown re:users /mnt/luks_data/re
-chown st:users /mnt/luks_data/st
+
+getent passwd re
+RET=$?
+
+if [[ $RET == "0" ]]; then
+  mkdir -p /mnt/luks_data/re
+  chown re:users /mnt/luks_data/re
+fi
+
+getent passwd st
+RET=$?
+
+if [[ $RET == "0" ]]; then
+  mkdir -p /mnt/luks_data/st
+  chown st:users /mnt/luks_data/st
+fi
