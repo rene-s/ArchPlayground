@@ -1,10 +1,6 @@
 {
   "audio": "pipewire",
   "bootloader": "grub-install",
-  "comments": {
-    "source": "https://github.com/archlinux/archinstall/blob/master/examples/config-sample.json",
-    "command": "archinstall --config default_sdo.cfg"
-  },
   "filesystem": "btrfs",
   "dry-run": false,
   "harddrives": [
