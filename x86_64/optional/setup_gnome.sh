@@ -8,20 +8,16 @@ cd "$DIR" || exit
 
 bail_on_user
 
-PACKAGES=(
-  gimp
-  gnome
-  gnome-tweaks
-  gnome-shell-extensions
-  notepadqq
-  vlc
-  tilix
-)
+pacman -Sy --noconfirm gimp \
+                       gnome \
+                       gnome-tweaks \
+                       gnome-shell-extensions \
+                       notepadqq \
+                       vlc \
+                       tilix
 
 #   networkmanager-wireguard-git
 #   wireguard-lts
-
-pacman -Sy --noconfirm $PACKAGES
 
 systemctl enable gdm.service --now
 chown -R gdm:gdm /var/lib/gdm/
@@ -38,7 +34,7 @@ fi
 pacman -Q solaar || pacman -S --noconfirm solaar
 pacman -Q flameshot || pacman -S --noconfirm flameshot # also profits from AppIndicator support
 
-pacman -R --noconfirm anjuta      # not required, gnome confuses opening links with opening anjuta sometimes
-pacman -R --noconfirm gnome-music # relies on tracker which in turn has issues with indexing music from symlinks, replaced with Lollypop
+pacman -Q anjuta && pacman -R --noconfirm anjuta      # not required, gnome confuses opening links with opening anjuta sometimes
+pacman -Q gnome-music && pacman -R --noconfirm gnome-music # relies on tracker which in turn has issues with indexing music from symlinks, replaced with Lollypop
 
 # pacman-key --refresh

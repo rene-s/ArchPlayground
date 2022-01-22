@@ -67,5 +67,3 @@ if [[ $answer != "n" ]] && [[ $answer != "" ]]; then
   sudo chmod 0700 /home/${USERNAME}/.ssh
   sudo chmod 0644 /home/${USERNAME}/.ssh/*keys
 fi
-
-
