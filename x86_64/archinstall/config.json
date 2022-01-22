@@ -7,7 +7,7 @@
     "/dev/sda"
   ],
   "gfx_driver": "All open-source (default)",
-  "hostname": "nande0",
+  "hostname": "sdo",
   "kernels": [
     "linux",
     "linux-lts"
@@ -32,7 +32,8 @@
     "namcap",
     "nano",
     "openssh",
-    "p7zip"
+    "p7zip",
+    "tldr"
   ],
   "services": [
     "sshd"
