@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This script sets up root account.
+# This script customizes the root account.
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$DIR" || exit
