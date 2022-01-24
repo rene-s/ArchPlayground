@@ -5,7 +5,7 @@ if [[ -z $USER ]]; then
 fi
 
 # Set wallpaper
-SCREENS=("1024x768" "1280x1024" "1440x900" "1440x1050" "1600x939" "1600x1024" "1920x1080" "1600x1200" "1920x1200" "2560x1440" "3200x1800" "2560x2048" "1366x768" "4080x768")
+SCREENS=("1440x900" "1440x1050" "1920x1080" "1600x1200"  "1680x1050" "1920x1200" "2560x1440" "3200x1800" "2560x2048" "1366x768" "4080x768")
 URL="https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/img/wallpaper/"
 
 WALLPAPER_DIR="/home/${USER}/Bilder/SDO-Wallpaper"
