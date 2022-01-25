@@ -10,36 +10,42 @@ Use at your own risk, this is work in progress.
 
 1. [Download the Arch Linux ISO image](https://www.archlinux.org/download/).
 2. Create a VM in VirtualBox or whatever virtualization system you are using.
-3. Boot from the ISO image.
+3. Boot from the Arch Linux ISO boot image.
 
-After booting the Arch Linux ISO image, run
+After booting the Arch Linux ISO boot image, run
 
 ```bash
-$ cd /root
+# if you have a german keyboard:
+$ loadkeys de-latin1 
+
+# download and unpack ArchPlayground scripts:
+$ cd /usr/local/share
 $ curl -L "sdo.sh/l/arch_inst" --output - | tar xz
 ```
 
 ## Step 1: Set user credentials
 
-`cd` into the newly created ArchPlayground directory, then:
-
 ```bash
-$ cd x86_64
-$ cp archinstall/creds.dist.json archinstall/creds.json
-$ nano archinstall/creds.json # set passwords to your liking, save with CTRL+O, exit with CTRL+X
+$ cd /usr/local/share/rene-s-ArchPlayground*/x86_64/archinstall
+$ cp creds.dist.json creds.json
+# customize <root password>, <user password>, <username>, save with CTRL+O, exit with CTRL+X:
+$ nano creds.json 
 ```
 
 ## Step 2: Run archinstall
 
 ```bash
+# run this single line command and follow the instructions:
 $ archinstall \
 --config=$(pwd)/config.json \
 --creds=$(pwd)/creds.json \
 --disk_layouts=$(pwd)/disk_layouts.json
-$ reboot # only if successful of course
+
+# if successful:
+$ poweroff # and then remove the Arch Linux ISO boot image from the machine/VM
 ```
 
-After a reboot, you should be able to log into a very basic Arch Linux system.
+After a booting the machine you should be able to log into a very basic Arch Linux system.
 
 For further setup and customization, look at the optional steps mentioned below.
 
