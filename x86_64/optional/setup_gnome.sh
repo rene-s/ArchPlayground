@@ -8,35 +8,39 @@ cd "$DIR" || exit
 
 bail_on_user
 
-pacman -Sy --noconfirm gdm \
-                       gimp \
-                       gnome \
-                       gnome-tweaks \
-                       gnome-shell-extensions \
-                       nautilus \
-                       notepadqq \
-                       vlc \
-                       tilix
+function install_gnome() {
+  pacman -Sy --noconfirm gdm gnome
+  return $?
+}
+
+install_gnome
+RET=$?
+
+if [[ "${RET}" != "0" ]]; then
+  # So many dependencies! Maybe installation failed due to outdated/missing keys? Refresh & retry.
+  pacman-key --refresh # execute on demand only b/c it's rather slow.
+  install_gnome
+  RET=$?
+  if [[ "${RET}" != "0" ]]; then
+    echo "Welp, something is broken here."
+    exit 1
+  fi
+fi
 
 #   networkmanager-wireguard-git
 #   wireguard-lts
 
-systemctl enable gdm.service --now
 chown -R gdm:gdm /var/lib/gdm/
 
-# Install and enable AppIndicator support
-pacman -Q gnome-shell-extension-appindicator
-RET=$?
+# Install the rest
+pacman -Sy --noconfirm vlc \
+                       gimp \
+                       nautilus \
+                       notepadqq \
+                       gnome-tweaks \
+                       gnome-shell-extensions \
+                       xrandr
 
-if [[ $RET != "0" ]]; then
-  pacman -S --noconfirm gnome-shell-extension-appindicator # activate: tweaks > extensions > Kstatusnotifieritem
-  #gsettings set org.gnome.shell enabled-extensions "['appindicatorsupport@rgcjonas.gmail.com','window-list@gnome-shell-extensions.gcampax.github.com']"
-fi
+systemctl enable gdm.service
 
-pacman -Q solaar || pacman -S --noconfirm solaar
-pacman -Q flameshot || pacman -S --noconfirm flameshot # also profits from AppIndicator support
-
-pacman -Q anjuta 2>/dev/null && pacman -R --noconfirm anjuta || true           # not required, gnome confuses opening links with opening anjuta sometimes
-pacman -Q gnome-music 2>/dev/null && pacman -R --noconfirm gnome-music || true # relies on tracker which in turn has issues with indexing music from symlinks, replaced with Lollypop
-
-# pacman-key --refresh
+echo "Reboot or run 'systemctl start gdm' and log in as user."

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+pacman -Q tilix 2>/dev/null || sudo pacman -Sy --noconfirm tilix
+
 # Style Tilix
 profile_id=$(gsettings get com.gexperts.Tilix.ProfilesList default | tr -d "'")
 gsettings set com.gexperts.Tilix.Profile:/com/gexperts/Tilix/profiles/"${profile_id}"/ background-transparency-percent 8

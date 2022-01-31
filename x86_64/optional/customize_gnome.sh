@@ -21,8 +21,8 @@ mkdir -p ~/Bilder
 # Misc stuff
 xdg-mime default org.gnome.Nautilus.desktop inode/directory # see https://wiki.archlinux.de/title/GNOME
 
-. ./customize_gnome/004_seafile.sh
 . ./customize_gnome/002_appindicator.sh
+. ./customize_gnome/004_seafile.sh
 . ./customize_gnome/003_misc_tools.sh
 
 # Remove redundant packages

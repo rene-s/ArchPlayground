@@ -33,3 +33,17 @@ fi
 pcregrep -M "^fs.inotify.max_user_watches\s*=\s*[0-9]+" "${MODIFY_FILE}" > /dev/null
 [[ $? -gt 0 ]] && echo "fs.inotify.max_user_watches = 524289" >> "${MODIFY_FILE}"
 
+# Set wtnet mirror
+MIRROR_FILE=/etc/pacman.d/mirrorlist
+
+if [[ -f "${MIRROR_FILE}" ]]; then
+  mv "${MIRROR_FILE}" "${MIRROR_FILE}.archplayground"
+  echo "Server = https://mirror.wtnet.de/arch/\$repo/os/\$arch" > "${MIRROR_FILE}"
+  chown root:root "${MIRROR_FILE}"
+  chmod 0644 "${MIRROR_FILE}"
+fi
+
+# Make make use all available CPU cores
+MODIFY_FILE=/etc/makepkg.conf
+pcregrep -M "^MAKEFLAGS=\"-j\\$\(nproc\)\"" "${MODIFY_FILE}" > /dev/null
+[[ $? -gt 0 ]] && echo "MAKEFLAGS=\"-j\$(nproc)\"" >> "${MODIFY_FILE}"
