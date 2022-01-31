@@ -39,7 +39,7 @@ pacman -Sy --noconfirm vlc \
                        notepadqq \
                        gnome-tweaks \
                        gnome-shell-extensions \
-                       xrandr
+                       xorg-xrandr
 
 systemctl enable gdm.service
 

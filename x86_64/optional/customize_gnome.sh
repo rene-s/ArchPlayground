@@ -31,3 +31,5 @@ pacman -Q vim 2>/dev/null && pacman -R --noconfirm vim || true
 
 . ./customize_gnome/001_tilix_style.sh
 . ./customize_gnome/007_avatar.sh
+
+echo "Done. Log out and log in again in order to actually see the changes made."
