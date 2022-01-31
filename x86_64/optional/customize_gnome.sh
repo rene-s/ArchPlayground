@@ -26,8 +26,8 @@ xdg-mime default org.gnome.Nautilus.desktop inode/directory # see https://wiki.a
 . ./customize_gnome/003_misc_tools.sh
 
 # Remove redundant packages
-yay -Q vi 2>/dev/null && yay -R --noconfirm vi
-yay -Q vim 2>/dev/null && yay -R --noconfirm vim
+pacman -Q vi 2>/dev/null && pacman -R --noconfirm vi || true
+pacman -Q vim 2>/dev/null && pacman -R --noconfirm vim || true
 
 . ./customize_gnome/001_tilix_style.sh
 . ./customize_gnome/007_avatar.sh

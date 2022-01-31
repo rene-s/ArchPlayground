@@ -22,6 +22,7 @@
   "packages": [
     "base-devel",
     "bwm-ng",
+    "dialog",
     "diffutils",
     "dmidecode",
     "git",
