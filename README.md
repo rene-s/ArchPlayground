@@ -19,14 +19,14 @@ After booting the Arch Linux ISO boot image, run
 $ loadkeys de-latin1 
 
 # download and unpack ArchPlayground scripts:
-$ cd /usr/local/share
+$ cd /root
 $ curl -L "sdo.sh/l/arch_inst" --output - | tar xz
 ```
 
 ## Step 1: Set user credentials
 
 ```bash
-$ cd /usr/local/share/rene-s-ArchPlayground*/x86_64/archinstall
+$ cd /root/rene-s-ArchPlayground*/x86_64/archinstall
 $ cp creds.dist.json creds.json
 # customize <root password>, <user password>, <username>, save with CTRL+O, exit with CTRL+X:
 $ nano creds.json 
@@ -54,22 +54,24 @@ For further setup and customization, look at the optional steps mentioned below.
 Note that many scripts are not idempotent! All files are located
 within `./optional`. Call them for example like this:
 
-```bash 
+```bash
+# login as root
+$ cd /usr/local/share/ArchPlayground/x86_64
 $ sh ./optional/<script_name> 
 ```
 
 Note that all script commands are 1 line only.
 
-| Script                     | Idempotent | Description                                         |
-|----------------------------|------------|-----------------------------------------------------|
-| `setup_luks_disk.sh`       | No         | Encrypts a secondary disk and configures auto-mount |
-| `setup_user.sh <username>` | No         | Configures a user account.                          |
-| `setup_virtualbox.sh`      | Yes        | Configures a VirtualBox host or guest               |
-| `setup_aur.sh`             | Yes        | Installs yay                                        |
-| `setup_gnome.sh`           | Yes        | Installs GNOME                                      |
-| `customize_root_user.sh`   | No         | Customizes root account                             |
-| `customize_system.sh`      | Yes        | Generic system customization                        |
- | `customize_gnome.sh`       | No         | GNOME customization. Run from within GNOME.         |
+| Order | Script                     | Idempotent | Description                                         |
+|-------|----------------------------|------------|-----------------------------------------------------|
+| 01    | `setup_user.sh <username>` | No         | Configures a user account.                          |
+| 02    | `setup_luks_disk.sh`       | No         | Encrypts a secondary disk and configures auto-mount |
+| 03    | `customize_root_user.sh`   | No         | Customizes root account                             |
+| 04    | `customize_system.sh`      | Yes        | Generic system customization                        |
+| 05    | `setup_aur.sh`             | Yes        | Installs yay                                        |
+| 06    | `setup_gnome.sh`           | Yes        | Installs GNOME                                      |
+| 07    | `customize_gnome.sh`       | No         | GNOME customization. Run from within GNOME.         |
+| 08    | `setup_virtualbox.sh`      | Yes        | Configures a VirtualBox host or guest               |
 
 # Links
 

@@ -1,4 +1,7 @@
 {
+  "custom-commands": [
+    "cp -vR /root/rene-s-ArchPlayground*/ /usr/local/share/ArchPlayground"
+  ],
   "audio": "pipewire",
   "bootloader": "grub-install",
   "filesystem": "btrfs",
