@@ -16,10 +16,11 @@
       {
         "btrfs": {
           "subvolumes": {
+            "@": "/",
             "@.snapshots": "/.snapshots",
             "@home": "/home",
             "@log": "/var/log",
-            "@pkgs": "/var/cache/pacman/pkg"
+            "@pkg": "/var/cache/pacman/pkg"
           }
         },
         "encrypted": true,
@@ -27,7 +28,7 @@
           "format": "btrfs"
         },
         "format": true,
-        "mountpoint": "/",
+        "mountpoint": null,
         "size": "100%",
         "start": "518MB",
         "type": "primary"
