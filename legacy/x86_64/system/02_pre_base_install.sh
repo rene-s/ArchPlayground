@@ -199,7 +199,7 @@ arch_chroot "reflector --country France --country Germany --age 12 --protocol ht
 # Set up users
 print_info "Set up users:"
 
-echo "%wheel ALL=(ALL) ALL" >>/mnt/etc/sudoers
+echo "%wheel ALL=(ALL:ALL) ALL" >>/mnt/etc/sudoers
 
 arch_chroot "useradd -m -g users -G wheel re"
 arch_chroot "useradd -m -g users -G wheel st"

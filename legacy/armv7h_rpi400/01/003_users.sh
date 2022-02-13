@@ -29,5 +29,5 @@ for playground_user in 'root' 're' 'st'; do
 done
 
 if [[ -f /etc/sudoers ]]; then
-  sed -i "s,# %wheel ALL=(ALL) ALL,%wheel ALL=(ALL) ALL,g" /etc/sudoers
+  sed -i "s,# %wheel ALL=(ALL:ALL) ALL,%wheel ALL=(ALL:ALL) ALL,g" /etc/sudoers
 fi
