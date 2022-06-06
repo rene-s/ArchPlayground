@@ -45,7 +45,7 @@ $ archinstall \
 $ poweroff # and then remove the Arch Linux ISO boot image from the machine/VM
 ```
 
-After a booting the machine you should be able to log into a very basic Arch Linux system.
+After a reboot the machine you should be able to log into a very basic Arch Linux system.
 
 For further setup and customization, look at the optional steps mentioned below.
 

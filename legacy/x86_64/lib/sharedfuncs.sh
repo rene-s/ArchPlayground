@@ -753,7 +753,7 @@ function ask() {
 
 	ask_result=$?
 	# shellcheck disable=SC2034
-	answer=$(<"$OUTPUT")
+    answer=$(<"$OUTPUT")
 
 	return $ask_result
 }

@@ -4,6 +4,9 @@
 yay -Q oh-my-zsh-git || yay -S --noconfirm oh-my-zsh-git
 yay -Q solaar || yay -S --noconfirm solaar
 yay -Q flameshot || yay -S --noconfirm flameshot # also profits from AppIndicator support
+yay -Q libfido2 || yay -S --noconfirm libfido2
+yay -Q yubikey-manager || yay -S --noconfirm yubikey-manager
+yay -Q yubikey-personalization || yay -S --noconfirm yubikey-personalization
 
 mkdir -p ~/.config/autostart
 if [[ ! -f ~/.config/autostart/org.flameshot.Flameshot.desktop ]]; then
