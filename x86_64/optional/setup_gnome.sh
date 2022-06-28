@@ -43,4 +43,10 @@ pacman -Sy --noconfirm vlc \
 
 systemctl enable gdm.service
 
+# Make Firefox/Librewolf work better on Wayland
+touch /etc/environment
+if ! grep -qF "MOZ_ENABLE_WAYLAND=1" /etc/environment; then
+  echo "MOZ_ENABLE_WAYLAND=1" >> /etc/environment
+fi
+
 echo "Reboot or run 'systemctl start gdm' and log in as user."
