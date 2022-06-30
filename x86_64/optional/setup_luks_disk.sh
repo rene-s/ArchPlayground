@@ -118,6 +118,7 @@ fi
 mkdir -p /mnt/luks_data
 
 echo "/dev/mapper/luks_data /mnt/luks_data $FS defaults 0 2" >>/etc/fstab
+systemctl daemon-reload
 
 mount /dev/mapper/luks_data /mnt/luks_data
 

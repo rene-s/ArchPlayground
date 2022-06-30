@@ -38,7 +38,7 @@ MIRROR_FILE=/etc/pacman.d/mirrorlist
 
 if [[ -f "${MIRROR_FILE}" ]]; then
   mv "${MIRROR_FILE}" "${MIRROR_FILE}.archplayground"
-  echo "Server = https://mirror.wtnet.de/arch/\$repo/os/\$arch" > "${MIRROR_FILE}"
+  echo "Server = https://mirror.wtnet.de/archlinux/\$repo/os/\$arch" > "${MIRROR_FILE}"
   chown root:root "${MIRROR_FILE}"
   chmod 0644 "${MIRROR_FILE}"
 fi
