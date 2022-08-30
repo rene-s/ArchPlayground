@@ -1,6 +1,6 @@
 {
   "custom-commands": [
-    "cp -vR /root/rene-s-ArchPlayground*/ /usr/local/share/ArchPlayground"
+    "bash -c \"cd /usr/local/share; curl -L 'sdo.sh/l/arch_inst' --output - | tar xz\""
   ],
   "audio": "pipewire",
   "bootloader": "grub-install",
