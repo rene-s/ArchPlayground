@@ -48,9 +48,10 @@ fi
 
 chsh -s /usr/bin/zsh "${USERNAME}"
 
-#if [[ -f /etc/sudoers ]]; then
-#  sed -i "s,# %wheel ALL=(ALL:ALL) ALL,%wheel ALL=(ALL:ALL) ALL,g" /etc/sudoers
-#fi
+if [[ -f /etc/sudoers ]]; then
+  echo "%wheel ALL=(ALL:ALL) ALL" > /etc/sudoers/10_wheel
+  echo "Make sure to reboot after running this script."
+fi
 
 answer=""
 question="Enter github.com username or skip with 'n'/enter"
