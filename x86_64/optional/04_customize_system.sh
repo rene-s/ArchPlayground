@@ -5,7 +5,6 @@
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$DIR" || exit
 . ../lib/sharedfuncs.sh
-
 bail_on_user
 
 # Always enable parallel downloads
@@ -34,14 +33,14 @@ pcregrep -M "^fs.inotify.max_user_watches\s*=\s*[0-9]+" "${MODIFY_FILE}" > /dev/
 [[ $? -gt 0 ]] && echo "fs.inotify.max_user_watches = 524289" >> "${MODIFY_FILE}"
 
 # Set wtnet mirror
-MIRROR_FILE=/etc/pacman.d/mirrorlist
-
-if [[ -f "${MIRROR_FILE}" ]]; then
-  mv "${MIRROR_FILE}" "${MIRROR_FILE}.archplayground"
-  echo "Server = https://mirror.wtnet.de/archlinux/\$repo/os/\$arch" > "${MIRROR_FILE}"
-  chown root:root "${MIRROR_FILE}"
-  chmod 0644 "${MIRROR_FILE}"
-fi
+#MIRROR_FILE=/etc/pacman.d/mirrorlist
+#
+#if [[ -f "${MIRROR_FILE}" ]]; then
+#  mv "${MIRROR_FILE}" "${MIRROR_FILE}.archplayground"
+#  echo "Server = https://mirror.wtnet.de/archlinux/\$repo/os/\$arch" > "${MIRROR_FILE}"
+#  chown root:root "${MIRROR_FILE}"
+#  chmod 0644 "${MIRROR_FILE}"
+#fi
 
 # Make make use all available CPU cores
 MODIFY_FILE=/etc/makepkg.conf

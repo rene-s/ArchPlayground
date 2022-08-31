@@ -1,9 +1,10 @@
 {
   "custom-commands": [
-    "bash -c \"cd /usr/local/share; curl -L 'sdo.sh/l/arch_inst' --output - | tar xz\""
+    "pwd"
   ],
   "audio": "pipewire",
   "bootloader": "grub-install",
+  "desktop-environment": "gnome",
   "filesystem": "btrfs",
   "dry-run": false,
   "harddrives": [
@@ -16,10 +17,22 @@
     "linux-lts"
   ],
   "keyboard-layout": "de",
-  "mirror-region": "Worldwide",
+  "mirror-region": {
+    "Germany": {
+      "https://mirror.wtnet.de/archlinux/$repo/os/$arch": true
+    },
+    "Worldwide": {
+      "http://mirror.rackspace.com/archlinux/$repo/os/$arch": true
+    }
+  },
+  "mount_point": null,
   "nic": {
-    "NetworkManager": true,
-    "nic": "Use NetworkManager (necessary to configure internet graphically in GNOME and KDE)"
+    "dhcp": true,
+    "dns": null,
+    "gateway": null,
+    "iface": null,
+    "ip": null,
+    "type": "nm"
   },
   "ntp": true,
   "packages": [
@@ -29,6 +42,7 @@
     "diffutils",
     "dmidecode",
     "git",
+    "go",
     "htop",
     "iotop",
     "linux-headers",
@@ -37,18 +51,21 @@
     "nano",
     "openssh",
     "p7zip",
-    "tldr"
+    "tilix",
+    "tldr",
+    "zsh"
   ],
+  "plugin":null,
   "services": [
     "sshd"
   ],
   "profile": {
-    "path": "/usr/lib/python3.10/site-packages/archinstall/profiles/minimal.py"
+    "path": "/usr/lib/python3.10/site-packages/archinstall/profiles/desktop.py"
   },
   "script": "guided",
   "silent": false,
   "swap": true,
   "sys-encoding": "utf-8",
-  "sys-language": "en_US",
+  "sys-language": "de_DE.UTF-8",
   "timezone": "Europe/Berlin"
 }

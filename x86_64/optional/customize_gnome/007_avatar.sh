@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-if [[ -z $USER ]]; then
-  USER=$(whoami)
-fi
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$DIR" || exit
+. ../lib/sharedfuncs.sh
+bail_on_root
 
 sudo mkdir -p /var/lib/AccountsService/users
 sudo mkdir -p /usr/local/share/pixmaps/faces

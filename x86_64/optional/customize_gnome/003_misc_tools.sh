@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$DIR" || exit
+. ../lib/sharedfuncs.sh
+bail_on_root
+
 # Install other useful items
 yay -Q oh-my-zsh-git || yay -S --noconfirm oh-my-zsh-git
 yay -Q solaar || yay -S --noconfirm solaar

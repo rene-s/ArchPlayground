@@ -5,7 +5,6 @@
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$DIR" || exit
 . ../lib/sharedfuncs.sh
-
 bail_on_user
 
 # Step 1: Install yay

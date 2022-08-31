@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-if [[ -z $USER ]]; then
-  USER=$(whoami)
-fi
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$DIR" || exit
+. ../lib/sharedfuncs.sh
+bail_on_root
 
 # Set wallpaper
 SCREENS=("1440x900" "1440x1050" "1920x1080" "1600x1200"  "1680x1050" "1920x1200" "2560x1440" "3200x1800" "2560x2048" "1366x768" "4080x768")

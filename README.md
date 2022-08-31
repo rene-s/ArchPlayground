@@ -36,10 +36,7 @@ $ nano creds.json
 
 ```bash
 # run this single line command and follow the instructions:
-$ archinstall \
---config=$(pwd)/config.json \
---creds=$(pwd)/creds.json \
---disk_layouts=$(pwd)/disk_layouts.json
+$ ./sdo_archinstall.sh
 
 # if successful:
 $ poweroff # and then remove the Arch Linux ISO boot image from the machine/VM
@@ -71,7 +68,6 @@ Note that all script commands are 1 line only.
 | 05    | `setup_aur.sh`             | Yes        | Installs yay                                        |
 | 06    | `setup_gnome.sh`           | Yes        | Installs GNOME                                      |
 | 07    | `customize_gnome.sh`       | No         | GNOME customization. Run from within GNOME.         |
-| 08    | `setup_virtualbox.sh`      | Yes        | Configures a VirtualBox host or guest               |
 
 # Links
 

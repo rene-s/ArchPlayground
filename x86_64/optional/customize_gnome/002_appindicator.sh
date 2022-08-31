@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$DIR" || exit
+. ../lib/sharedfuncs.sh
+bail_on_root
+
 # Install and enable AppIndicator support
 yay -R gnome-shell-extension-appindicator-git 2>/dev/null
 yay -Q gnome-shell-extension-appindicator 2>/dev/null
