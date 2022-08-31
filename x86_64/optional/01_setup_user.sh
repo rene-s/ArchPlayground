@@ -49,7 +49,7 @@ fi
 chsh -s /usr/bin/zsh "${USERNAME}"
 
 if [[ -f /etc/sudoers ]]; then
-  echo "%wheel ALL=(ALL:ALL) ALL" > /etc/sudoers/10_wheel
+  echo "%wheel ALL=(ALL:ALL) ALL" > /etc/sudoers.d/10_wheel
   echo "Make sure to reboot after running this script."
 fi
 
