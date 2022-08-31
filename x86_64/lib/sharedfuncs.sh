@@ -19,13 +19,13 @@ function ask() {
 	return $ask_result
 }
 bail_on_root() {
-    if [ "${USER}" == "root" ]; then
+    if [ "$(whoami)" == "root" ]; then
         echo "This script is supposed to be run as a user, not as root."
         exit 1
     fi
 }
 bail_on_user() {
-    if [ "${USER}" != "root" ]; then
+    if [ "$(whoami)" != "root" ]; then
         echo "This script is supposed to be run as a root, not as user."
         exit 1
     fi
