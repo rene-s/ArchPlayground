@@ -4,7 +4,7 @@
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$DIR" || exit
-. ../lib/sharedfuncs.sh
+. "${DIR}/../lib/sharedfuncs.sh"
 bail_on_user
 
 # Always enable parallel downloads

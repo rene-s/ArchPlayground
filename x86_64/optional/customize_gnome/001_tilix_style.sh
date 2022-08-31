@@ -2,7 +2,7 @@
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$DIR" || exit
-. ../lib/sharedfuncs.sh
+. "${DIR}/../../lib/sharedfuncs.sh"
 bail_on_root
 
 pacman -Q tilix 2>/dev/null || sudo pacman -Sy --noconfirm tilix
