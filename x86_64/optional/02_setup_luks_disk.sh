@@ -95,15 +95,16 @@ else
 fi
 
 FS="ext4"
+MOUNT_POINT="/dev/mapper/luks_data"
 
-answer=""
+use_f2fs=""
 question="Use f2fs instead of ext4? (y/N)"
 ask "Change default FS" "Change default FS" "$question" "n"
-if [[ $answer == "y" ]]; then
+if [[ $use_f2fs == "y" ]]; then
   FS=f2fs
-  mkfs.f2fs /dev/mapper/luks_data
+  mkfs.f2fs "${MOUNT_POINT}"
 else
-  mkfs.ext4 -m0 /dev/mapper/luks_data
+  mkfs.ext4 -m0 "${MOUNT_POINT}"
 fi
 
 UUID=$(cryptsetup luksUUID "$DISK_DATA")
@@ -116,10 +117,14 @@ fi
 
 mkdir -p /mnt/luks_data
 
-echo "/dev/mapper/luks_data /mnt/luks_data $FS defaults 0 2" >>/etc/fstab
+echo "${MOUNT_POINT} /mnt/luks_data $FS defaults,relatime 0 2" >>/etc/fstab
 systemctl daemon-reload
 
-mount /dev/mapper/luks_data /mnt/luks_data
+mount "${MOUNT_POINT}" /mnt/luks_data
+
+if [[ $use_f2fs != "y" ]]; then
+  tune2fs -O fast_commit "${MOUNT_POINT}"
+fi
 
 chown root:users /mnt/luks_data
 chmod -R 0770 /mnt/luks_data
