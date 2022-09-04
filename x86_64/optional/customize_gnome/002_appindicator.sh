@@ -7,12 +7,7 @@ bail_on_root
 
 # Install and enable AppIndicator support
 yay -R gnome-shell-extension-appindicator-git 2>/dev/null
-yay -Q gnome-shell-extension-appindicator 2>/dev/null
-RET=$?
-
-if [[ "${RET}" != "0" ]]; then
-  yay -S --noconfirm gnome-shell-extension-appindicator # activate: tweaks > extensions > Kstatusnotifieritem
-fi
+yay_inst_pkg gnome-shell-extension-appindicator
 
 gsettings set org.gnome.shell enabled-extensions "['appindicatorsupport@rgcjonas.gmail.com','window-list@gnome-shell-extensions.gcampax.github.com']"
 

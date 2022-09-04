@@ -30,3 +30,12 @@ bail_on_user() {
         exit 1
     fi
 }
+yay_inst_pkg() {
+  PKG="$1"
+  yay -Q "${PKG}" || yay -S --noconfirm "${PKG}"
+}
+
+pacman_inst_pkg() {
+  PKG="$1"
+  sudo pacman -Q "${PKG}" || pacman -S --noconfirm "${PKG}"
+}

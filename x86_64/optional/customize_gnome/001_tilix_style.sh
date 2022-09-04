@@ -5,7 +5,7 @@ cd "$DIR" || exit
 . "${DIR}/../../lib/sharedfuncs.sh"
 bail_on_root
 
-pacman -Q tilix 2>/dev/null || sudo pacman -Sy --noconfirm tilix
+pacman_inst_pkg tilix
 
 # Style Tilix
 profile_id=$(gsettings get com.gexperts.Tilix.ProfilesList default | tr -d "'")

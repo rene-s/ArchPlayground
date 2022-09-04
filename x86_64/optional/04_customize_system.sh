@@ -46,3 +46,13 @@ pcregrep -M "^fs.inotify.max_user_watches\s*=\s*[0-9]+" "${MODIFY_FILE}" > /dev/
 MODIFY_FILE=/etc/makepkg.conf
 pcregrep -M "^MAKEFLAGS=\"-j\\$\(nproc\)\"" "${MODIFY_FILE}" > /dev/null
 [[ $? -gt 0 ]] && echo "MAKEFLAGS=\"-j\$(nproc)\"" >> "${MODIFY_FILE}"
+
+# Frame.work-specific stuff
+# https://guides.frame.work/Guide/Ubuntu+22.04+LTS+Installation+on+the+Framework+Laptop/109
+echo "options snd-hda-intel model=dell-headset-multi" > /etc/modprobe.d/alsa-base.conf
+
+grep -e "^GRUB_CMDLINE_LINUX_DEFAULT=\".*nvme.noacpi=1" /etc/default/grub 1>/dev/null
+if [[ $? -gt 0 ]]; then
+  sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="/GRUB_CMDLINE_LINUX_DEFAULT="nvme.noacpi=1 /g' /etc/default/grub
+  grub-mkconfig -o /boot/grub/grub.cfg
+fi

@@ -17,7 +17,7 @@ USER_FILE="/var/lib/AccountsService/users/${AVATAR}"
 curl -L "https://raw.githubusercontent.com/Schmidt-DevOps/Schmidt-DevOps-Static-Assets/master/img/avatar/${AVATAR}.svg" --output "${SVG_FILE}"
 
 if [[ -f "${SVG_FILE}" ]] && [[ -d /home/${USER}/Bilder/ ]]; then
-  cd /home/${USER}/Bilder/ || exit
+  cd /home/"${USER}"/Bilder/ || exit
   convert ".${AVATAR}.svg" ".${AVATAR}.png"
 
   # Scale avatar to 96px width, then crop 96x96px with 5px offset from the top. Save to non-home dir because GDM does not seem to like those.

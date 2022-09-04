@@ -19,8 +19,8 @@ setfacl -d --set u::rwx,g::rwx,o::- "${BUILD_DIR}"
 
 TMP_DIR=$(sudo -u nobody mktemp -d --tmpdir="${BUILD_DIR}")
 
-pacman -Q git 2>/dev/null || pacman -Sy --noconfirm git
-pacman -Q go 2>/dev/null || pacman -Sy --noconfirm go
+pacman_inst_pkg git
+pacman_inst_pkg go
 
 pacman -Q --noconfirm yay 2>/dev/null
 RET=$?

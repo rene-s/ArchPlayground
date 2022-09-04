@@ -6,12 +6,20 @@ cd "$DIR" || exit
 bail_on_root
 
 # Install other useful items
-yay -Q oh-my-zsh-git || yay -S --noconfirm oh-my-zsh-git
-yay -Q solaar || yay -S --noconfirm solaar
-yay -Q flameshot || yay -S --noconfirm flameshot # also profits from AppIndicator support
-yay -Q libfido2 || yay -S --noconfirm libfido2
-yay -Q yubikey-manager || yay -S --noconfirm yubikey-manager
-yay -Q yubikey-personalization || yay -S --noconfirm yubikey-personalization
+yay_inst_pkg oh-my-zsh-git
+yay_inst_pkg solaar
+yay_inst_pkg flameshot
+yay_inst_pkg libfido2
+yay_inst_pkg yubikey-manager
+yay_inst_pkg yubikey-personalization
+yay_inst_pkg bluez
+yay_inst_pkg bluez-util
+yay_inst_pkg librewolf-bin
+yay_inst_pkg keepassxc
+yay_inst_pkg bluez-util
+
+sudo systemctl enable --now bluetooth.service
+yay -S --noconfirm ttf-roboto noto-fonts noto-fonts-cjk adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts ttf-dejavu
 
 mkdir -p ~/.config/autostart
 if [[ ! -f ~/.config/autostart/org.flameshot.Flameshot.desktop ]]; then
