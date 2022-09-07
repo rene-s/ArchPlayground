@@ -10,4 +10,7 @@ gsettings set org.gnome.desktop.interface clock-show-weekday true
 gsettings set org.gnome.desktop.calendar show-weekdate true
 gsettings set org.gnome.desktop.interface enable-hot-corners false
 gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
+
+# Fractional scaling https://wiki.archlinux.org/title/HiDPI#Wayland
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+dconf update

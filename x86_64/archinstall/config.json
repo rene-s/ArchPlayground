@@ -1,16 +1,17 @@
 {
+  "audio": "pipewire",
+  "bootloader": "grub-install",
+  "config_version": "2.5.0",
   "custom-commands": [
     "pwd"
   ],
-  "audio": "pipewire",
-  "bootloader": "grub-install",
+  "debug": false,
   "desktop-environment": "gnome",
   "filesystem": "btrfs",
-  "dry-run": false,
-  "harddrives": [
-    "/dev/sda"
-  ],
   "gfx_driver": "All open-source (default)",
+  "harddrives": [
+    "/dev/nvme0n1"
+  ],
   "hostname": "sdo",
   "kernels": [
     "linux",
@@ -55,17 +56,18 @@
     "tldr",
     "zsh"
   ],
-  "plugin":null,
-  "services": [
-    "sshd"
-  ],
+  "plugin": null,
   "profile": {
     "path": "/usr/lib/python3.10/site-packages/archinstall/profiles/desktop.py"
   },
   "script": "guided",
+  "services": [
+    "sshd"
+  ],
   "silent": false,
   "swap": true,
   "sys-encoding": "utf-8",
   "sys-language": "de_DE.UTF-8",
-  "timezone": "Europe/Berlin"
+  "timezone": "Europe/Berlin",
+  "version": "2.5.0"
 }

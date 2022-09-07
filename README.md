@@ -61,13 +61,15 @@ Note that all script commands are 1 line only.
 
 | Order | Script                     | Idempotent | Description                                         |
 |-------|----------------------------|------------|-----------------------------------------------------|
-| 01    | `setup_user.sh <username>` | No         | Configures a user account.                          |
+| 01    | `setup_user.sh <username>` | No         | Configures a user account. REBOOT afterwardss       |
 | 02    | `setup_luks_disk.sh`       | No         | Encrypts a secondary disk and configures auto-mount |
 | 03    | `customize_root_user.sh`   | No         | Customizes root account                             |
 | 04    | `customize_system.sh`      | Yes        | Generic system customization                        |
 | 05    | `setup_aur.sh`             | Yes        | Installs yay                                        |
 | 06    | `setup_gnome.sh`           | Yes        | Installs GNOME                                      |
 | 07    | `customize_gnome.sh`       | No         | GNOME customization. Run from within GNOME.         |
+| 08    | `setup_qemu_host.sh`       | Yes        | Setup a Qemu host                                   |
+| 08b   | `setup_qemu_guests.sh`     | Yes        | Sestup a Qemu guest                                 |
 
 # Links
 

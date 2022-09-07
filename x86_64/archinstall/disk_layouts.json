@@ -1,5 +1,5 @@
 {
-  "/dev/sda": {
+  "/dev/nvme0n1": {
     "partitions": [
       {
         "boot": true,
@@ -7,11 +7,11 @@
         "filesystem": {
           "format": "fat32"
         },
-        "format": true,
         "mountpoint": "/boot",
-        "size": "513MB",
-        "start": "5MB",
-        "type": "primary"
+        "size": "512MiB",
+        "start": "1MiB",
+        "type": "primary",
+        "wipe": true
       },
       {
         "btrfs": {
@@ -25,13 +25,16 @@
         },
         "encrypted": true,
         "filesystem": {
-          "format": "btrfs"
+          "format": "btrfs",
+          "mount_options": [
+            "compress=zstd"
+          ]
         },
-        "format": true,
         "mountpoint": null,
         "size": "100%",
-        "start": "518MB",
-        "type": "primary"
+        "start": "513MiB",
+        "type": "primary",
+        "wipe": true
       }
     ],
     "wipe": true

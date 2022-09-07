@@ -1,9 +1,10 @@
 {
-	"!root-password": "<root password>",
-	"!users": {
-		"<username>": {"!password": "<user password>"}
-	},
-	"!superusers": {
-		"admin": {"!password": "<root password>"}
-	}
+	"!encryption-password": "<encryption password>",
+	"!users": [
+		{
+			"!password": "<user password>",
+			"sudo": true,
+			"username": "<username>"
+		}
+	]
 }
