@@ -4,7 +4,7 @@
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$DIR" || exit
-"${DIR}/../lib/sharedfuncs.sh"
+. "${DIR}/../lib/sharedfuncs.sh"
 bail_on_root
 
 yay_inst_pkg intellij-idea-ultimate-edition
@@ -18,6 +18,7 @@ yay_inst_pkg goland
 yay_inst_pkg goland-jre
 
 yay_inst_pkg docker
+yay_inst_pkg jq
 
 sudo systemctl enable --now docker.service
 

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # Install other useful items
-yay -Q micro-bin || yay -S --noconfirm micro-bin
 yay -Q oh-my-zsh-git || yay -S --noconfirm oh-my-zsh-git
 yay -Q solaar || yay -S --noconfirm solaar
 yay -Q flameshot || yay -S --noconfirm flameshot # also profits from AppIndicator support

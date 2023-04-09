@@ -21,6 +21,12 @@ TMP_DIR=$(sudo -u nobody mktemp -d --tmpdir="${BUILD_DIR}")
 
 pacman_inst_pkg git
 pacman_inst_pkg go
+pacman_inst_pkg binutils
+pacman_inst_pkg make
+pacman_inst_pkg gcc
+pacman_inst_pkg pkg-config
+pacman_inst_pkg fakeroot
+pacman_inst_pkg base-devel
 
 pacman -Q --noconfirm yay 2>/dev/null
 RET=$?

@@ -13,6 +13,7 @@ function usage {
 }
 
 pacman -Q zsh 2>/dev/null || pacman -Sy --noconfirm zsh
+pacman -Q wl-clipboard 2>/dev/null || pacman -Sy --noconfirm wl-clipboard
 
 USERNAME="$1"
 
