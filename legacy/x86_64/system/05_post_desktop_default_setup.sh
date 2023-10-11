@@ -6,7 +6,7 @@ cd "$DIR" || exit
 
 bail_on_root
 
-if [[ $DESKTOP_SESSION != "gnome" ]]; then
+if [[ $DESKTOP_SESSION != "gnome" ]] && [[ $DESKTOP_SESSION != "gnome-xorg" ]]; then
   print_danger "GNOME should be running at this point. It does not, which indicates a previous error."
   exit 1
 fi

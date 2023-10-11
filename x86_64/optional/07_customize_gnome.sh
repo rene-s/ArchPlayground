@@ -5,7 +5,7 @@ cd "$DIR" || exit
 . "${DIR}/../lib/sharedfuncs.sh"
 bail_on_root
 
-if [[ $DESKTOP_SESSION != "gnome" ]]; then
+if [[ $DESKTOP_SESSION != "gnome" ]] && [[ $DESKTOP_SESSION != "gnome-xorg" ]]; then
   echo "This script needs to be run in a GNOME session. Log into GNOME and retry."
   exit 1
 fi
@@ -21,7 +21,6 @@ mkdir -p ~/Bilder
 xdg-mime default org.gnome.Nautilus.desktop inode/directory # see https://wiki.archlinux.de/title/GNOME
 
 "${DIR}/customize_gnome/002_appindicator.sh"
-"${DIR}/customize_gnome/004_seafile.sh"
 "${DIR}/customize_gnome/003_misc_tools.sh"
 
 # Remove redundant packages
