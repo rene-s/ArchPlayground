@@ -71,6 +71,13 @@ Note that all script commands are 1 line only.
 | 08    | `setup_qemu_host.sh`       | Yes        | Setup a Qemu host                                   |
 | 08b   | `setup_qemu_guests.sh`     | Yes        | Sestup a Qemu guest                                 |
 
+# Manual setup
+
+Some steps require manual interaction:
+
+1. Check and enable TRIM support for SSDs: https://wiki.archlinux.org/title/Solid_state_drive#TRIM
+2. more later
+
 # Links
 
 1. Source: https://github.com/archlinux/archinstall/blob/master/examples/config-sample.json
