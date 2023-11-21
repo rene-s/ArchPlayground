@@ -1,5 +1,5 @@
 {
-  "config_version": "2.5.2",
+  "config_version": "2.6.3",
   "additional-repositories": [],
   "archinstall-language": "English",
   "audio_config": {
@@ -10,94 +10,6 @@
     "pwd"
   ],
   "debug": false,
-  "disk_config": {
-    "config_type": "default_layout",
-    "device_modifications": [
-      {
-        "device": "/dev/nvme0n1",
-        "partitions": [
-          {
-            "btrfs": [],
-            "dev_path": null,
-            "flags": [
-              "Boot"
-            ],
-            "fs_type": "fat32",
-            "mount_options": [],
-            "mountpoint": "/boot",
-            "size": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "MiB",
-              "value": 509
-            },
-            "start": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "MiB",
-              "value": 3
-            },
-            "status": "create",
-            "type": "primary"
-          },
-          {
-            "btrfs": [
-              {
-                "compress": false,
-                "mountpoint": "/",
-                "name": "@",
-                "nodatacow": false
-              },
-              {
-                "compress": false,
-                "mountpoint": "/home",
-                "name": "@home",
-                "nodatacow": false
-              },
-              {
-                "compress": false,
-                "mountpoint": "/var/log",
-                "name": "@log",
-                "nodatacow": false
-              },
-              {
-                "compress": false,
-                "mountpoint": "/var/cache/pacman/pkg",
-                "name": "@pkg",
-                "nodatacow": false
-              },
-              {
-                "compress": false,
-                "mountpoint": "/.snapshots",
-                "name": "@.snapshots",
-                "nodatacow": false
-              }
-            ],
-            "dev_path": null,
-            "flags": [],
-            "fs_type": "btrfs",
-            "mount_options": ["compress=zstd"],
-            "mountpoint": null,
-            "start": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "MiB",
-              "value": 513
-            },
-            "status": "create",
-            "type": "primary"
-          }
-        ],
-        "wipe": true
-      }
-    ]
-  },
   "hostname": "sdo",
   "kernels": [
     "linux",

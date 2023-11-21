@@ -27,15 +27,26 @@ $ curl -L "sdo.sh/l/arch_inst" --output - | tar xz
 
 ```bash
 $ cd /root/rene-s-ArchPlayground*/x86_64/archinstall
-$ cp creds.dist.json creds.json
+
+$ cp user_credentials.dist.json user_credentials.json
 # customize <root password>, <user password>, <username>, save with CTRL+O, exit with CTRL+X:
-$ nano creds.json 
+$ nano user_credentials.json 
+
+# find disk device name and manually set it in config.json
+$ lsblk # note the disk name
+$ cp config.dist.json config.json
+$ nano config.json
 ```
 
 ## Step 2: Run archinstall
 
+Run these commands and follow the instructions. 
+
+- For disk layout, select a best-effort Btrfs layout
+- Select encryption
+
 ```bash
-# run these commands and follow the instructions:
+# 
 $ chmod +x ./sdo_archinstall.sh
 $ ./sdo_archinstall.sh
 
@@ -55,22 +66,23 @@ within `./optional`. Call them for example like this:
 ```bash
 # login as root
 $ cd /usr/local/share/ArchPlayground/x86_64
+$ sudo chmod +x ./optional/*.sh
 $ sh ./optional/<script_name> 
 ```
 
 Note that all script commands are 1 line only.
 
-| Order | Script                     | Idempotent | Description                                         |
-|-------|----------------------------|------------|-----------------------------------------------------|
-| 01    | `setup_user.sh <username>` | No         | Configures a user account. REBOOT afterwardss       |
-| 02    | `setup_luks_disk.sh`       | No         | Encrypts a secondary disk and configures auto-mount |
-| 03    | `customize_root_user.sh`   | No         | Customizes root account                             |
-| 04    | `customize_system.sh`      | Yes        | Generic system customization                        |
-| 05    | `setup_aur.sh`             | Yes        | Installs yay                                        |
-| 06    | `setup_gnome.sh`           | Yes        | Installs GNOME                                      |
-| 07    | `customize_gnome.sh`       | No         | GNOME customization. Run from within GNOME.         |
-| 08    | `setup_qemu_host.sh`       | Yes        | Setup a Qemu host                                   |
-| 08b   | `setup_qemu_guests.sh`     | Yes        | Sestup a Qemu guest                                 |
+| Order | Script                        | Idempotent | Description                                         |
+|-------|-------------------------------|------------|-----------------------------------------------------|
+| 01    | `01_setup_user.sh <username>` | No         | Configures a user account. REBOOT afterwards        |
+| 02    | `02_setup_luks_disk.sh`       | No         | Encrypts a secondary disk and configures auto-mount |
+| 03    | `03_customize_root_user.sh`   | No         | Customizes root account                             |
+| 04    | `04_customize_system.sh`      | Yes        | Generic system customization                        |
+| 05    | `05_setup_aur.sh`             | Yes        | Installs yay                                        |
+| 06    | `06_setup_gnome.sh`           | Yes        | ~~Installs GNOME~~ install additional programs      |
+| 07    | `07_customize_gnome.sh`       | No         | GNOME customization. Run from within GNOME.         |
+| 08    | `setup_qemu_host.sh`          | Yes        | Setup a Qemu host                                   |
+| 08b   | `setup_qemu_guests.sh`        | Yes        | Setup a Qemu guest                                  |
 
 # Manual setup
 
