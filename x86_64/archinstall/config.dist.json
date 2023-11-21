@@ -1,0 +1,151 @@
+{
+  "config_version": "2.5.2",
+  "additional-repositories": [],
+  "archinstall-language": "English",
+  "audio_config": {
+    "audio": "pipewire"
+  },
+  "bootloader": "Grub",
+  "custom-commands": [
+    "pwd"
+  ],
+  "debug": false,
+  "disk_config": {
+    "config_type": "default_layout",
+    "device_modifications": [
+      {
+        "device": "/dev/nvme0n1",
+        "partitions": [
+          {
+            "btrfs": [],
+            "flags": [
+              "Boot"
+            ],
+            "fs_type": "fat32",
+            "size": {
+              "sector_size": null,
+              "unit": "MiB",
+              "value": 512
+            },
+            "mount_options": [],
+            "mountpoint": "/boot",
+            "start": {
+              "sector_size": null,
+              "unit": "MiB",
+              "value": 1
+            },
+            "status": "create",
+            "type": "primary"
+          },
+          {
+            "btrfs": {
+              "subvolumes": {
+                "@": "/",
+                "@.snapshots": "/.snapshots",
+                "@home": "/home",
+                "@log": "/var/log",
+                "@pkg": "/var/cache/pacman/pkg"
+              }
+            },
+            "flags": [],
+            "fs_type": "btrfs",
+            "size": "100%",
+            "mount_options": [],
+            "mountpoint": null,
+            "obj_id": "3e7018a0-363b-4d05-ab83-8e82d13db208",
+            "start": {
+              "sector_size": null,
+              "unit": "MiB",
+              "value": 513
+            },
+            "status": "create",
+            "type": "primary",
+            "encrypted": true,
+            "filesystem": {
+              "format": "btrfs",
+              "mount_options": [
+                "compress=zstd"
+              ]
+            }
+          }
+        ],
+        "wipe": true
+      }
+    ]
+  },
+  "hostname": "sdo",
+  "kernels": [
+    "linux",
+    "linux-lts"
+  ],
+  "keyboard-layout": "de",
+  "locale_config": {
+    "kb_layout": "de",
+    "sys_enc": "UTF-8",
+    "sys_lang": "de_DE.UTF-8"
+  },
+  "mirror-region": {
+    "Germany": {
+      "https://mirror.wtnet.de/archlinux/$repo/os/$arch": true
+    },
+    "Worldwide": {
+      "http://mirror.rackspace.com/archlinux/$repo/os/$arch": true
+    }
+  },
+  "mount_point": null,
+  "network_config": {
+    "type": "nm"
+  },
+  "nic": {
+    "dhcp": true,
+    "dns": null,
+    "gateway": null,
+    "iface": null,
+    "ip": null,
+    "type": "nm"
+  },
+  "no_pkg_lookups": false,
+  "ntp": true,
+  "offline": false,
+  "parallel downloads": 2,
+  "packages": [
+    "base-devel",
+    "bwm-ng",
+    "dialog",
+    "diffutils",
+    "dmidecode",
+    "git",
+    "go",
+    "htop",
+    "iotop",
+    "linux-headers",
+    "mc",
+    "namcap",
+    "nano",
+    "openssh",
+    "p7zip",
+    "tilix",
+    "tldr",
+    "zsh"
+  ],
+  "plugin": null,
+  "profile_config": {
+    "gfx_driver": "All open-source (default)",
+    "greeter": "gdm",
+    "profile": {
+      "details": [
+        "Gnome"
+      ],
+      "main": "Desktop"
+    }
+  },
+  "script": "guided",
+  "services": [
+    "sshd"
+  ],
+  "silent": false,
+  "swap": true,
+  "sys-encoding": "utf-8",
+  "sys-language": "en_US",
+  "timezone": "Europe/Berlin"
+}

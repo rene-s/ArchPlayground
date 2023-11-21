@@ -2,10 +2,10 @@
 
 # Saves some typing starting archinstall script
 
-if [[ ! -f $(pwd)/creds.json ]]; then
-  cp $(pwd)/creds.dist.json $(pwd)/creds.json
-  echo "File 'creds.json' does not exist. Edit with 'nano ./creds.json' and try again."
+if [[ ! -f $(pwd)/user_credentials.json ]]; then
+  cp "$(pwd)/user_credentials.dist.json" "$(pwd)/user_credentials.json"
+  echo "File 'user_credentials.json' does not exist. Edit with 'nano ./user_credentials.json' and try again."
   exit 0
 fi
 
-archinstall --config=$(pwd)/config.json --creds=$(pwd)/creds.json --disk_layouts=$(pwd)/disk_layouts.json
+archinstall --config=$(pwd)/config.json --creds=$(pwd)/user_credentials.json --disk_layouts=$(pwd)/disk_layouts.json
