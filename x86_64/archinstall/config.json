@@ -1,6 +1,9 @@
 {
   "audio": "pipewire",
-  "bootloader": "grub-install",
+  "audio_config": {
+    "audio": "pipewire"
+  },
+  "bootloader": "Grub",
   "config_version": "2.5.0",
   "custom-commands": [
     "pwd"
@@ -18,6 +21,11 @@
     "linux-lts"
   ],
   "keyboard-layout": "de",
+  "locale_config": {
+    "kb_layout": "de",
+    "sys_enc": "UTF-8",
+    "sys_lang": "de_DE.UTF-8"
+  },
   "mirror-region": {
     "Germany": {
       "https://mirror.wtnet.de/archlinux/$repo/os/$arch": true
@@ -27,6 +35,9 @@
     }
   },
   "mount_point": null,
+  "network_config": {
+    "type": "nm"
+  },
   "nic": {
     "dhcp": true,
     "dns": null,
@@ -35,7 +46,10 @@
     "ip": null,
     "type": "nm"
   },
+  "no_pkg_lookups": false,
   "ntp": true,
+  "offline": false,
+  "parallel downloads": 2,
   "packages": [
     "base-devel",
     "bwm-ng",
@@ -66,8 +80,6 @@
   ],
   "silent": false,
   "swap": true,
-  "sys-encoding": "utf-8",
-  "sys-language": "de_DE",
   "timezone": "Europe/Berlin",
   "version": "2.5.0"
 }

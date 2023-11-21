@@ -35,7 +35,8 @@ $ nano creds.json
 ## Step 2: Run archinstall
 
 ```bash
-# run this single line command and follow the instructions:
+# run these commands and follow the instructions:
+$ chmod +x ./sdo_archinstall.sh
 $ ./sdo_archinstall.sh
 
 # if successful:
