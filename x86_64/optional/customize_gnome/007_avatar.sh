@@ -5,8 +5,8 @@ cd "$DIR" || exit
 . "${DIR}/../../lib/sharedfuncs.sh"
 bail_on_root
 
-sudo mkdir -p /var/lib/AccountsService/users
-sudo mkdir -p /usr/local/share/pixmaps/faces
+sudo mkdir -p /var/lib/AccountsService/users || true
+sudo mkdir -p /usr/local/share/pixmaps/faces || true
 
 # Set avatar
 AVATAR="${USER}"
@@ -28,4 +28,6 @@ if [[ -f "${SVG_FILE}" ]] && [[ -d /home/${USER}/Bilder/ ]]; then
   echo "XSession=" | sudo tee --append "${USER_FILE}"
   echo "Icon=${PNG_FILE}" | sudo tee --append "${USER_FILE}"
   echo "SystemAccount=false" | sudo tee --append "${USER_FILE}"
+else
+  echo "File ${SVG_FILE} or dir /home/${USER}/Bilder/ not found"
 fi
