@@ -66,7 +66,7 @@ within `./optional`. Call them for example like this:
 ```bash
 # login as root
 $ cd /usr/local/share/ArchPlayground/x86_64
-$ sudo chmod +x ./optional/*.sh
+$ sudo chmod +x ./optional/*.sh ./optional/customize_gnome/*.sh
 $ sh ./optional/<script_name> 
 ```
 

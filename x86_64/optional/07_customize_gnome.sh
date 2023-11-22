@@ -24,13 +24,15 @@ xdg-mime default org.gnome.Nautilus.desktop inode/directory # see https://wiki.a
 "${DIR}/customize_gnome/003_misc_tools.sh"
 
 # Remove redundant packages
-sudo pacman -Q vi 2>/dev/null && pacman -R --noconfirm vi || true
-sudo pacman -Q vim 2>/dev/null && pacman -R --noconfirm vim || true
+# shellcheck disable=SC2015
+pacman -Q vi 2>/dev/null && sudo pacman -R --noconfirm vi || true
+# shellcheck disable=SC2015
+pacman -Q vim 2>/dev/null && sudo pacman -R --noconfirm vim || true
 
 "${DIR}/customize_gnome/001_tilix_style.sh"
 "${DIR}/customize_gnome/007_avatar.sh"
 
-# Prepare LibreWolf/KeepassXC interoperatibility
+# Prepare LibreWolf/KeepassXC interoperability
 mkdir ~/.mozilla ~/.librewolf
 ln -s ~/.mozilla/native-messaging-hosts ~/.librewolf/native-messaging-hosts
 
