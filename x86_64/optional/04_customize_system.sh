@@ -56,3 +56,12 @@ if [[ $? -gt 0 ]]; then
   sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="/GRUB_CMDLINE_LINUX_DEFAULT="nvme.noacpi=1 /g' /etc/default/grub
   grub-mkconfig -o /boot/grub/grub.cfg
 fi
+
+# Change default OOM behaviour.
+# FFS WHY??? With the defaults the system gets unresponsive in low-memory conditions, for example when running
+# >2 local LLM queries at the same time. I am still experimenting with it though.
+# See https://wiki.archlinux.org/title/Improving_performance for reference.
+# Note: Instead of the system getting unresponsive, processes might crash instead, possibly leading to data loss.
+# But at least we can continue using the freaking system.
+echo 75 > /proc/sys/vm/overcommit_ratio
+echo 2 > /proc/sys/vm/overcommit_memory
