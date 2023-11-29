@@ -63,5 +63,5 @@ fi
 # See https://wiki.archlinux.org/title/Improving_performance for reference.
 # Note: Instead of the system getting unresponsive, processes might crash instead, possibly leading to data loss.
 # But at least we can continue using the freaking system.
-echo 75 > /proc/sys/vm/overcommit_ratio
-echo 2 > /proc/sys/vm/overcommit_memory
+add_line_to_file "echo 75 > /proc/sys/vm/overcommit_ratio" /etc/sysctl.d/99-archplayground.conf
+add_line_to_file "echo 2 > /proc/sys/vm/overcommit_memory" /etc/sysctl.d/99-archplayground.conf

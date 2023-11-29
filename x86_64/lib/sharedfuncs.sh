@@ -39,3 +39,18 @@ pacman_inst_pkg() {
   PKG="$1"
   sudo pacman -Q "${PKG}" || pacman -S --noconfirm "${PKG}"
 }
+
+add_line_to_file() {
+    local line_to_add="$1"
+    local file_path="$2"
+
+    # Check if the file exists. If not, create it.
+    if [ ! -f "$file_path" ]; then
+        touch "$file_path"
+    fi
+
+    # Check if the line is already in the file. If not, append it.
+    if ! grep -qxF "$line_to_add" "$file_path"; then
+        echo "$line_to_add" >> "$file_path"
+    fi
+}
