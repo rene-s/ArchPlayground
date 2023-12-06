@@ -46,6 +46,7 @@
   "offline": false,
   "parallel downloads": 2,
   "packages": [
+    "at",
     "base-devel",
     "bwm-ng",
     "dialog",
