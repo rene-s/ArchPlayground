@@ -33,6 +33,7 @@ bail_on_user
 # Install the rest
 pacman -Sy --noconfirm vlc \
                        gimp \
+                       gnome-themes-extra \
                        gnome-shell-extensions \
                        xorg-xrandr
 
