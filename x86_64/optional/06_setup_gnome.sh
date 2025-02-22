@@ -31,7 +31,8 @@ bail_on_user
 #chown -R gdm:gdm /var/lib/gdm/
 #
 # Install the rest
-pacman -Sy --noconfirm vlc \
+pacman -Sy --noconfirm adw-gtk3 adw-gtk-theme \
+                       vlc \
                        gimp \
                        gnome-themes-extra \
                        gnome-shell-extensions \
