@@ -11,7 +11,7 @@ sudo tee /etc/xdg/reflector/reflector.conf <<EOF
 --save /etc/pacman.d/mirrorlist
 --country Germany
 --protocol https
---latest 5
+--latest 50
 EOF
 
 sudo systemctl enable --now reflector.service

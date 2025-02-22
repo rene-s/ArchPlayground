@@ -30,14 +30,14 @@ Bear in mind though there is no proper way of customisation as the default Schmi
 
 After booting the Arch Linux ISO image, run
 
-```
+```bash
 cd /root
 curl -L "sdo.sh/l/arch_inst" --output - | tar xz # NOTE: there are no numbers in the URL
 ```
 
 Then cd into the newly created directory, cd either to `armv7h_rpi400` or `x86_64` depending on your architecture and run
 
-```
+```bash
 sh ./system/01_pre_disk_setup.sh # NOTE: at this point, the keymap will be german
 sh ./system/02_pre_base_install.sh
 ```
@@ -50,7 +50,7 @@ If you are quick enough a reboot will also do. :)
 
 Log in as root, then:
 
-```
+```bash
 su - <your_username>
 cd /usr/local/share/tmp/ArchPlayground # now cd either to `armv7h_rpi400` or `x86_64`
 sh ./system/03_post_base_install.sh
@@ -63,7 +63,7 @@ reboot
 
 Log in as user and open a terminal. Then finish the installation:
 
-```
+```bash
 cd /usr/local/share/tmp/ArchPlayground # now cd either to `armv7h_rpi400` or `x86_64`
 sh ./system/05_post_desktop_default_setup.sh
 sh ./user/setup_custom_keybindings.sh # this is recommended
@@ -98,7 +98,9 @@ Instead of showing the boot loader right away you may get thrown to a UEFI conso
  
 ### TLP
 
-```
+Only for Intel Framework 13:
+
+```bash
 # https://wiki.archlinux.org/index.php/TLP
 yay -S tlp-rdw
 sudo systemctl enable NetworkManager-dispatcher.service
@@ -109,6 +111,13 @@ sudo systemctl start tlp.service
 sudo systemctl enable tlp-sleep.service
 sudo systemctl start tlp-sleep.service
 sudo systemctl mask systemd-rfkill.service
+```
+
+For AMD Framework 13:
+
+```bash
+yay -S power-profiles-daemon
+sudo systemctl enable --now power-profiles-daemon
 ```
 
 ## Useful links
@@ -145,7 +154,7 @@ Keys at startup:
 1. Remove the following Arch packages: `bumblebee primus`.
 1. Add the following Arch packages: `bolt`.
 1. Run this: 
-   ```
+   ```bash
    exit # from chroot
    mkdir -p /mnt/hostrun
    mount --bind /run /mnt/hostrun
