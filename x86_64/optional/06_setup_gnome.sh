@@ -34,6 +34,7 @@ bail_on_user
 pacman -Sy --noconfirm adw-gtk-theme \
                        vlc \
                        gimp \
+                       gnome-control-center \
                        gnome-themes-extra \
                        gnome-shell-extensions \
                        xorg-xrandr
