@@ -13,10 +13,9 @@ yay_inst_pkg libfido2
 yay_inst_pkg yubikey-manager
 yay_inst_pkg yubikey-personalization
 yay_inst_pkg bluez
-yay_inst_pkg bluez-util
+yay_inst_pkg bluez-utils
 yay_inst_pkg librewolf-bin
 yay_inst_pkg keepassxc
-yay_inst_pkg bluez-util
 
 sudo systemctl enable --now bluetooth.service
 yay -S --noconfirm ttf-roboto noto-fonts noto-fonts-cjk adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts ttf-dejavu
