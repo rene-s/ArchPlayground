@@ -37,6 +37,7 @@ pacman -Sy --noconfirm adw-gtk-theme \
                        gnome-control-center \
                        gnome-themes-extra \
                        gnome-shell-extensions \
+                       gnome-disk-utility \
                        xorg-xrandr
 
 # https://www.reddit.com/r/archlinux/comments/1aq97m8/gnomekeyring_14601_in_extratesting_disables/
