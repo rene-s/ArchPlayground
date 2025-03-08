@@ -47,16 +47,6 @@ MODIFY_FILE=/etc/makepkg.conf
 pcregrep -M "^MAKEFLAGS=\"-j\\$\(nproc\)\"" "${MODIFY_FILE}" > /dev/null
 [[ $? -gt 0 ]] && echo "MAKEFLAGS=\"-j\$(nproc)\"" >> "${MODIFY_FILE}"
 
-# Frame.work-specific stuff
-# https://guides.frame.work/Guide/Ubuntu+22.04+LTS+Installation+on+the+Framework+Laptop/109
-echo "options snd-hda-intel model=dell-headset-multi" > /etc/modprobe.d/alsa-base.conf
-
-grep -e "^GRUB_CMDLINE_LINUX_DEFAULT=\".*nvme.noacpi=1" /etc/default/grub 1>/dev/null
-if [[ $? -gt 0 ]]; then
-  sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="/GRUB_CMDLINE_LINUX_DEFAULT="nvme.noacpi=1 /g' /etc/default/grub
-  grub-mkconfig -o /boot/grub/grub.cfg
-fi
-
 # Change default OOM behaviour.
 # FFS WHY??? With the defaults the system gets unresponsive in low-memory conditions, for example when running
 # >2 local LLM queries at the same time. I am still experimenting with it though.

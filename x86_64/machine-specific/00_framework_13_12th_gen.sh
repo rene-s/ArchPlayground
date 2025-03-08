@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$DIR" || exit
@@ -23,98 +23,19 @@ echo "options iwlwifi disable_11ax=Y" > /etc/modprobe.d/iwlwifi.conf
 # Check with `cat /sys/kernel/debug/dri/0/i915_edp_psr_status`
 echo "options i915 enable_psr=0" > /etc/modprobe.d/i915.conf
 
+systemctl disable --now power-profiles-daemon 
+pacman -R power-profiles-daemon
+pacman -S tlp
+systemctl enable --now tlp
+
+# Frame.work-specific stuff
+# https://guides.frame.work/Guide/Ubuntu+22.04+LTS+Installation+on+the+Framework+Laptop/109
+echo "options snd-hda-intel model=dell-headset-multi" > /etc/modprobe.d/alsa-base.conf
+
+grep -e "^GRUB_CMDLINE_LINUX_DEFAULT=\".*nvme.noacpi=1" /etc/default/grub 1>/dev/null
+if [[ $? -gt 0 ]]; then
+  sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="/GRUB_CMDLINE_LINUX_DEFAULT="nvme.noacpi=1 /g' /etc/default/grub
+  grub-mkconfig -o /boot/grub/grub.cfg
+fi
+
 echo "Framework laptop customization complete. You should reboot now."
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
