@@ -27,13 +27,15 @@ pacman -R tlp
 pacman -S power-profiles-daemon
 systemctl enable --now power-profiles-daemon
 
-curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/hibernation/kernel-6-11-workarounds/rfkill-suspender.sh -o rfkill-suspender.sh && clear && bash rfkill-suspender.sh
-
 # This fixes NVME SSD "waking up" from standby in read-only mode.
 grep -e "^GRUB_CMDLINE_LINUX_DEFAULT=\".*pcie_aspm=off" /etc/default/grub 1>/dev/null
 if [[ $? -gt 0 ]]; then
   sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT="/GRUB_CMDLINE_LINUX_DEFAULT="pcie_aspm=off /g' /etc/default/grub
   grub-mkconfig -o /boot/grub/grub.cfg
 fi
+
+yay_inst_pkg btop rocm-smi-lib # the lib enables btop to show AMD GPU stats
+
+curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/hibernation/kernel-6-11-workarounds/rfkill-suspender.sh -o rfkill-suspender.sh && clear && bash rfkill-suspender.sh
 
 echo "Framework laptop customization complete. You should reboot now."
