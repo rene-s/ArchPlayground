@@ -38,6 +38,8 @@ pacman -Sy --noconfirm adw-gtk-theme \
                        gnome-themes-extra \
                        gnome-shell-extensions \
                        gnome-disk-utility \
+                       gnome-tweaks \
+                       gnome-characters \
                        xorg-xrandr
 
 # https://www.reddit.com/r/archlinux/comments/1aq97m8/gnomekeyring_14601_in_extratesting_disables/
@@ -52,4 +54,3 @@ touch /etc/environment
 if ! grep -qF "MOZ_ENABLE_WAYLAND=1" /etc/environment; then
   echo "MOZ_ENABLE_WAYLAND=1" >> /etc/environment
 fi
-
