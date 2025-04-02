@@ -6,6 +6,7 @@ cd "$DIR" || exit
 bail_on_root
 
 # Install other useful items
+yay_inst_pkg bind
 yay_inst_pkg oh-my-zsh-git
 yay_inst_pkg solaar
 yay_inst_pkg nextcloud-client

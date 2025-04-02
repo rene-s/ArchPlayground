@@ -36,4 +36,11 @@ pacman -Q vim 2>/dev/null && sudo pacman -R --noconfirm vim || true
 mkdir ~/.mozilla ~/.librewolf
 ln -s ~/.mozilla/native-messaging-hosts ~/.librewolf/native-messaging-hosts
 
+# Set up SSH agent
+# https://www.reddit.com/r/archlinux/comments/1aq97m8/gnomekeyring_14601_in_extratesting_disables/
+systemctl --user enable gcr-ssh-agent.socket
+mkdir -p ~/.config/environment.d/
+echo "SSH_AUTH_SOCK=\${XDG_RUNTIME_DIR}/gcr/ssh" > ~/.config/environment.d/ssh_auth_socket.conf
+systemctl --user start gnome-keyring-daemon.service gnome-keyring-daemon.socket
+
 echo "Done. Log out and log in again in order to actually see the changes made."
