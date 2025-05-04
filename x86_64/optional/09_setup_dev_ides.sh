@@ -7,6 +7,7 @@ cd "$DIR" || exit
 . "${DIR}/../lib/sharedfuncs.sh"
 bail_on_root
 
+yay_inst_pkg android-udev
 #yay_inst_pkg intellij-idea-ultimate-edition
 #yay_inst_pkg intellij-idea-ultimate-edition-jre
 yay_inst_pkg webstorm
