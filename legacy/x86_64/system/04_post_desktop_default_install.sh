@@ -61,6 +61,7 @@ yay -S --noconfirm \
   sane \
   splix \
   system-config-printer \
+  terminator \
   tilix \
   vlc \
   xdg-desktop-portal \
